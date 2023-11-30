@@ -1,3 +1,5 @@
+import React, { useContext } from 'react';
+import UserContext from '../UserContext';
 import logo from './panel-logo2x.webp';
 import styles from './AuthorizePage.module.scss';
 import {
@@ -5,6 +7,8 @@ import {
 } from 'react-router-dom';
 
 function AuthorizePage() {
+    const user = useContext(UserContext);
+    console.log('Данные пользователя:', user.id, user.role, user.contacts);
     return (
     <section className={styles.login}>
         <div className={styles.container}>

@@ -1,6 +1,10 @@
 // import logo from './panel-logo2x.webp';
 // import styles from './App.module.scss';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from 'react-router-dom';
 import AuthorizePage from './authorizePage/AuthorizePage';
 import ProjectPage from './projectsPages/ProjectPage';
 import UserContext from './UserContext';
@@ -13,10 +17,11 @@ function App() {
   };
   return (
     <UserContext.Provider value={user}>
-      <BrowserRouter className='App'>
+      <BrowserRouter className="App">
+        <AuthorizePage />
         <Routes>
-          <Route path='/' element={<AuthorizePage />} />
-          <Route path='projects' element={<ProjectPage />} />
+          <Route path="/" element={<AuthorizePage />} />
+          <Route path="projects" element={<ProjectPage />} />
           {/* <Route path="contacts" element={<ContactsPage />} /> */}
         </Routes>
       </BrowserRouter>
