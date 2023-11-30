@@ -8,7 +8,7 @@ function AuthorizePage() {
     return (
     <section className={styles.login}>
         <div className={styles.container}>
-            <Link to='/'>
+            <Link to='/projects'>
                 <img src={logo} className={styles.img} />
             </Link>
             <div className={styles.formSide}>
