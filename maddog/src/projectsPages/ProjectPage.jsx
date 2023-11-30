@@ -5,12 +5,15 @@
 //   Routes,
 //   Route,
 // } from 'react-router-dom';
+import NavBar from "../components/navbar/NavBar";
 
 
 function ProjectPage() {
-  return (
-    <></>
-  );
+    return (
+        <>
+            <NavBar />
+        </>
+    );
 }
 
 export default ProjectPage;

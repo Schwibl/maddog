@@ -4,7 +4,7 @@ import {
     Link
 } from 'react-router-dom';
 
-function AuthorizePage() {
+function AuthorizePage(props) {
     return (
     <section className={styles.login}>
         <div className={styles.container}>
