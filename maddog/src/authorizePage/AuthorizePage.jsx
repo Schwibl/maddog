@@ -6,13 +6,9 @@ import {
     Link
 } from 'react-router-dom';
 
-<<<<<<< HEAD
-function AuthorizePage(props) {
-=======
 function AuthorizePage() {
     const user = useContext(UserContext);
     console.log('Данные пользователя:', user.id, user.role, user.contacts);
->>>>>>> a0fe0544ffb96e7f6ab6357bdf706d76876a2503
     return (
     <section className={styles.login}>
         <div className={styles.container}>
