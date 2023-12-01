@@ -7,7 +7,7 @@ $grey-tab-bar: #4f4f4f;
 $grey-medium: #aeaeae;
 $grey-medium-light: #e6e6e6;
 $grey-light: #f7f7f7;
-$white-main: #ffffff;
+$white-main: #fcfcfd;
 $green-main: #54a508;
 $sale: #6abd42; //только в блоке рекламы
 $red-main: #e4441d;
@@ -37,3 +37,5 @@ $font-size-32: 2.222vw;
 $box-shadow-blur-20: 0px 0px 1.389vw 0px rgba(0, 0, 0, 0.05);
 $box-shadow-blur-15: 0px 0.278vw 1.042vw 0px rgba(0, 0, 0, 0.05);
 $box-shadow-blur-hover: 0px 0px 1.389vw 0px rgba(0, 0, 0, 0.13);
+
+$transition-common: all .6s;

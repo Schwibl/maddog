@@ -22,3 +22,11 @@
     height: 100vh;
     min-height: fit-content;
 }
+
+.items {
+    &>svg {
+        width: 40px;
+        height: 40px;
+        padding-left: 1.5rem;
+    }
+}
