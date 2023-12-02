@@ -14,6 +14,7 @@ function App() {
     id: 123,
     role: 'admin',
     contacts: 'example@example.com',
+    name: 'Skelork',
   };
   return (
     <UserContext.Provider value={user}>

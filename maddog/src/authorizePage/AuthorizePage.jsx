@@ -8,12 +8,12 @@ import {
 
 function AuthorizePage() {
     const user = useContext(UserContext);
-    console.log('Данные пользователя:', user);
+    console.log('Данные пользователя:', user.id, user.role, user.contacts);
 
     return (
     <section className={styles.login}>
         <div className={styles.container}>
-            <Link to='/projects'>
+            <Link to='/' className={styles.dogWrap}>
                 <img src={logo} alt='MadDog Rental Logo' className={styles.img} />
             </Link>
             <div className={styles.formSide}>

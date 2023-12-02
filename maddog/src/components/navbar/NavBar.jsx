@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 export default function NavBar (props) {
     // Забираем из контекста данные текущего юзера
     const user = useContext(UserContext);
-    const { role } = user;
+    const { name } = user;
 
     return (
         <div className={styles.navigation}>
@@ -52,7 +52,7 @@ export default function NavBar (props) {
                         <div className={styles.imgWrap}>
                             <AdmExitSVG />
                         </div>
-                        <p className={styles.admName}>{role}</p>
+                        <p className={styles.admName}>{name}</p>
                     </Link>
                 </div>
             </div>
