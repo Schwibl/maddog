@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import UserContext from '../UserContext';
+import UserContext from '../context/UserContext';
 import logo from './logoBlackOnTransparent.png';
 import styles from './AuthorizePage.module.scss';
 import {
@@ -8,7 +8,7 @@ import {
 
 function AuthorizePage() {
     const user = useContext(UserContext);
-    console.log('Данные пользователя:', user.id, user.role, user.contacts);
+    console.log('Данные пользователя:', user);
 
     return (
     <section className={styles.login}>

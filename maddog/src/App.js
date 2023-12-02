@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import AuthorizePage from './authorizePage/AuthorizePage';
 import ProjectPage from './projectsPages/ProjectPage';
-import UserContext from './UserContext';
+import UserContext from './context/UserContext';
 
 function App() {
   const user = {
