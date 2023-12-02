@@ -1,14 +1,17 @@
 import styles from './NavItem.module.scss';
+import {
+    Link
+} from 'react-router-dom';
 
 export default function NavItem (props) {
 
-    const { text, children } = props;
+    const { text, href,  children } = props;
     return (
-        <div className={styles.wrap}>
+        <Link className={styles.wrap} href={href}>
             <div className={styles.imgWrap}>
                 {children}
             </div>
             <p className={styles.text}>{text}</p>
-        </div>
+        </Link>
     )
 }

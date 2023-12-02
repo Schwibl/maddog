@@ -16,7 +16,7 @@ export default function NavBar (props) {
             <div className={styles.container}>
                 <LogoBlackOnTransparent />
                 <div className={styles.items}>
-                    <NavItem text={'Проекты'}>
+                    <NavItem text={'Проекты'} href={'/projects'}>
                         <ProjectsSVG />
                     </NavItem>
                     <NavItem text={'Календарь'}>

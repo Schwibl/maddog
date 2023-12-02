@@ -8,6 +8,7 @@
     flex-wrap: nowrap;
     gap: 10%;
     box-shadow: 0 7px 7px -7px #11111173;
+    cursor: pointer;
 
     &>p {
         transition: $transition-common;
@@ -39,4 +40,5 @@
 .text {
     color: $white-main;
     font-size: $font-size-18;
+    text-decoration: none;
 }
