@@ -15,7 +15,7 @@ import SearchSVG from './searchSVG';
 
 function ProjectPage() {
     return (
-        <>
+        <div className={styles.container}>
             <NavBar />
             <section className={styles.projectPage}>
                 <div className={styles.buttonContainer}>
@@ -36,12 +36,12 @@ function ProjectPage() {
                     <div className={styles.calendar}>
                         <input type='date' name='date' />
                         <button className={styles.searchBtn} type='button'>
-                            <SearchSVG/>
+                            <SearchSVG />
                         </button>
                     </div>
                 </div>
                 <div className={styles.gridContainer}>
-                    <div className={styles.gridRow}>
+                    <div className={styles.gridRowHeader}>
                         <div className={styles.gridHeader}>#</div>
                         <div className={styles.gridHeader}>Проект</div>
                         <div className={styles.gridHeader}>Статус</div>
@@ -56,8 +56,12 @@ function ProjectPage() {
                         <div className={styles.gridHeader}>Открыть смету</div>
                     </div>
                     <div className={styles.gridRow}>
-                        <div className={styles.gridCell}><input type='checkbox'/></div>
-                        <div className={styles.gridCell}><a href='#'>Ссылка на проект</a></div>
+                        <div className={styles.gridCell}>
+                            <input type='checkbox' />
+                        </div>
+                        <div className={styles.gridCell}>
+                            <a href='#'>Ссылка на проект</a>
+                        </div>
                         <div className={styles.gridCell}>Создан</div>
                         <div className={styles.gridCell}>Иванов Сергей</div>
                         <div className={styles.gridCell}>+79887555454</div>
@@ -67,11 +71,13 @@ function ProjectPage() {
                         <div className={styles.gridCell}>Petrov Ivan</div>
                         <div className={styles.gridCell}>Примечание</div>
                         <div className={styles.gridCell}>Разовый</div>
-                        <div className={styles.gridCell}><a href='#'>Ссылка на смету</a></div>
+                        <div className={styles.gridCell}>
+                            <a href='#'>Ссылка на смету</a>
+                        </div>
                     </div>
                 </div>
             </section>
-        </>
+        </div>
     );
 }
 
