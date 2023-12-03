@@ -1,4 +1,6 @@
 
+@import '/src/variables.scss';
+
 .link {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -12,11 +14,12 @@
 .img {
     max-width: 100%;
     width: 100%;
+    transition: $transition-common;
     &:hover {
         transform: scale(1.05);
     }
 }
 
 .imgWrap {
-    width: 50%;
+    width: 60%;
 }

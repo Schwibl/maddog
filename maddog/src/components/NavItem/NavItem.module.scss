@@ -1,0 +1,46 @@
+@import '/src/variables.scss';
+
+.wrap {
+    width: 100%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: 1fr;
+    align-items: center;
+    gap: 15%;
+    box-shadow: 0 7px 7px -7px #11111173;
+    cursor: pointer;
+
+    &>p {
+        transition: $transition-common;
+    }
+
+    &:hover {
+        .imgWrap,
+        p {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.imgWrap {
+    transition: $transition-common;
+    width: 3.5rem;
+    >svg {
+        padding-left: 1.5rem;
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+.img {
+    width: 100%;
+    max-width: 100%;
+}
+
+.text {
+    color: $white-main;
+    font-size: $font-size-18;
+    text-decoration: none;
+}

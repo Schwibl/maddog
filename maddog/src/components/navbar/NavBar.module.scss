@@ -1,3 +1,5 @@
+@import '/src/variables.scss';
+
 .navigation {
     position: relative;
     height: 100%;
@@ -21,4 +23,41 @@
     min-width: 16%;
     height: 100vh;
     min-height: fit-content;
+}
+
+.items {
+    &>svg {
+        width: 40px;
+        height: 40px;
+        padding-left: 1.5rem;
+    }
+}
+
+.imgWrap {
+    transition: $transition-common;
+    width: 2rem;
+    >svg {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+.admExit {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+    padding-top: 30%;
+    transition: $transition-common;
+
+    &:hover {
+        transform: scale(0.9);
+    }
+}
+
+.admName {
+    color: $white-main;
+    font-size: $font-size-18;
+    text-decoration: none;
 }

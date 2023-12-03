@@ -7,13 +7,14 @@ import {
 } from 'react-router-dom';
 import AuthorizePage from './authorizePage/AuthorizePage';
 import ProjectPage from './projectsPages/ProjectPage';
-import UserContext from './UserContext';
+import UserContext from './context/UserContext';
 
 function App() {
   const user = {
     id: 123,
     role: 'admin',
     contacts: 'example@example.com',
+    name: 'Skelork',
   };
   return (
     <UserContext.Provider value={user}>

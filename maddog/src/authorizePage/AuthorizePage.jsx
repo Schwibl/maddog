@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import UserContext from '../UserContext';
-import logo from './panel-logo2x.webp';
+import UserContext from '../context/UserContext';
+import logo from './logoBlackOnTransparent.png';
 import styles from './AuthorizePage.module.scss';
 import {
     Link
@@ -9,11 +9,12 @@ import {
 function AuthorizePage() {
     const user = useContext(UserContext);
     console.log('Данные пользователя:', user.id, user.role, user.contacts);
+
     return (
     <section className={styles.login}>
         <div className={styles.container}>
-            <Link to='/projects'>
-                <img src={logo} className={styles.img} />
+            <Link to='/' className={styles.dogWrap}>
+                <img src={logo} alt='MadDog Rental Logo' className={styles.img} />
             </Link>
             <div className={styles.formSide}>
                 <form className={styles.form}>
