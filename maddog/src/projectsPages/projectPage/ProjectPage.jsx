@@ -9,7 +9,8 @@ import {
     Link
 } from 'react-router-dom';
 import styles from './ProjectPage.module.scss';
-import NavBar from '../components/navbar/NavBar';
+import NavBar from '../../components/navbar/NavBar';
+import SearchSVG from './searchSVG';
 
 
 function ProjectPage() {
@@ -34,9 +35,9 @@ function ProjectPage() {
                     <button className={styles.filter}>Тест</button>
                     <div className={styles.calendar}>
                         <input type='date' name='date' />
-                        <div className={styles.searchBtn}>
-                            <img src='search-icon' alt='search' />
-                        </div>
+                        <button className={styles.searchBtn} type='button'>
+                            <SearchSVG/>
+                        </button>
                     </div>
                 </div>
                 <div className={styles.gridContainer}>
@@ -68,7 +69,6 @@ function ProjectPage() {
                         <div className={styles.gridCell}>Разовый</div>
                         <div className={styles.gridCell}><a href='#'>Ссылка на смету</a></div>
                     </div>
-                    //TODO добавить стили и переписать на map
                 </div>
             </section>
         </>
