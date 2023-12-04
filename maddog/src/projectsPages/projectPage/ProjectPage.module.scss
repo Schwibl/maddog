@@ -102,8 +102,7 @@
     text-align: center;
     font-size: $font-size-15;
     color: $black;
-    border: 1px solid $grey-medium;
-    padding: 0 0.3rem;
+    margin: 0 0.3rem;
 }
 
 .gridRowHeader {
@@ -117,8 +116,14 @@
 
 .gridHeader,
 .gridCell {
+    display: grid;
+    align-items: center;
+    justify-content: center;
     white-space: wrap;
     padding: 0.5rem 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid $grey-medium;
 }
 
 .gridCell input[type="checkbox"] {
