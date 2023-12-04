@@ -5,22 +5,30 @@ import styles from './ProjectPage.module.scss';
 import NavBar from '../../components/navbar/NavBar';
 import SearchSVG from './searchSVG';
 
-const headers = [
-    '#',
-    'Проект',
-    'Статус',
-    'Контакт',
-    'Телефон',
-    'Начало аренды',
-    'Окончание аренды',
-    'Дата и время создания',
-    'Сотрудник',
-    'Примечание',
-    'Тип',
-    'Открыть смету',
-  ];
-
 function ProjectPage() {
+    const headers = [
+        '#',
+        'Проект',
+        'Статус',
+        'Контакт',
+        'Телефон',
+        'Начало аренды',
+        'Окончание аренды',
+        'Дата и время создания',
+        'Сотрудник',
+        'Примечание',
+        'Тип',
+        'Открыть смету',
+    ];
+
+    const filters = [
+        'Все',
+        'Разовые',
+        'Длинный',
+        'Субаренда',
+        'Тест',
+    ];
+
     return (
         <div className={styles.container}>
             <NavBar />
@@ -35,11 +43,9 @@ function ProjectPage() {
                     <input type='text' placeholder='Поиск' />
                 </div>
                 <div className={styles.filterContainer}>
-                    <button className={styles.filter}>Все</button>
-                    <button className={styles.filter}>Разовые</button>
-                    <button className={styles.filter}>Длинный</button>
-                    <button className={styles.filter}>Субаренда</button>
-                    <button className={styles.filter}>Тест</button>
+                    {filters.map((filter, index) => (
+                        <button className={styles.filter} key={index}>{filter}</button>
+                    ))}
                     <div className={styles.calendar}>
                         <input type='date' name='date' />
                         <button className={styles.searchBtn} type='button'>
