@@ -4,6 +4,7 @@ import {
 import styles from './ProjectPage.module.scss';
 import NavBar from '../../components/navbar/NavBar';
 import SearchSVG from './searchSVG';
+import ProjectItem from './ProjectItem';
 
 function ProjectPage() {
     const headers = [
@@ -59,26 +60,7 @@ function ProjectPage() {
                             <div className={styles.gridHeader} key={index}>{header}</div>
                         ))}
                     </div>
-                    <div className={styles.gridRow}>
-                        <div className={styles.gridCell}>
-                            <input type='checkbox' />
-                        </div>
-                        <div className={styles.gridCell}>
-                            <a href='#'>Ссылка на проект</a>
-                        </div>
-                        <div className={styles.gridCell}>Создан</div>
-                        <div className={styles.gridCell}>Иванов Сергей</div>
-                        <div className={styles.gridCell}>+79887555454</div>
-                        <div className={styles.gridCell}>02-10-2023 16:00</div>
-                        <div className={styles.gridCell}>19-10-2023 04:00</div>
-                        <div className={styles.gridCell}>31-10-2023 23:29</div>
-                        <div className={styles.gridCell}>Petrov Ivan</div>
-                        <div className={styles.gridCell}>Примечание</div>
-                        <div className={styles.gridCell}>Разовый</div>
-                        <div className={styles.gridCell}>
-                            <a href='#'>Ссылка на смету</a>
-                        </div>
-                    </div>
+                    <ProjectItem projectName={'Ссылка на проект'}/>
                 </div>
             </section>
         </div>
