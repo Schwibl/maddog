@@ -1,10 +1,3 @@
-// import logo from './panel-logo2x.webp';
-// import styles from './App.module.scss';
-// import {
-//   BrowserRouter,
-//   Routes,
-//   Route,
-// } from 'react-router-dom';
 import {
     Link
 } from 'react-router-dom';
@@ -12,6 +5,20 @@ import styles from './ProjectPage.module.scss';
 import NavBar from '../../components/navbar/NavBar';
 import SearchSVG from './searchSVG';
 
+const headers = [
+    '#',
+    'Проект',
+    'Статус',
+    'Контакт',
+    'Телефон',
+    'Начало аренды',
+    'Окончание аренды',
+    'Дата и время создания',
+    'Сотрудник',
+    'Примечание',
+    'Тип',
+    'Открыть смету',
+  ];
 
 function ProjectPage() {
     return (
@@ -42,18 +49,9 @@ function ProjectPage() {
                 </div>
                 <div className={styles.gridContainer}>
                     <div className={styles.gridRowHeader}>
-                        <div className={styles.gridHeader}>#</div>
-                        <div className={styles.gridHeader}>Проект</div>
-                        <div className={styles.gridHeader}>Статус</div>
-                        <div className={styles.gridHeader}>Контакт</div>
-                        <div className={styles.gridHeader}>Телефон</div>
-                        <div className={styles.gridHeader}>Начало аренды</div>
-                        <div className={styles.gridHeader}>Окончание аренды</div>
-                        <div className={styles.gridHeader}>Дата и время создания</div>
-                        <div className={styles.gridHeader}>Сотрудник</div>
-                        <div className={styles.gridHeader}>Примечание</div>
-                        <div className={styles.gridHeader}>Тип</div>
-                        <div className={styles.gridHeader}>Открыть смету</div>
+                        {headers.map((header, index) => (
+                            <div className={styles.gridHeader} key={index}>{header}</div>
+                        ))}
                     </div>
                     <div className={styles.gridRow}>
                         <div className={styles.gridCell}>
