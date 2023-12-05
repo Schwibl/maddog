@@ -4,7 +4,39 @@ import {
 import styles from './ProjectPage.module.scss';
 import NavBar from '../../components/navbar/NavBar';
 import SearchSVG from './searchSVG';
-import ProjectItem from './ProjectItem';
+import ProjectRow from "./ProjectRow";
+
+// для проверки ProjectRow
+const testProjects = [
+  {
+    projectHref: '/project1',
+    projectName: 'Проект 1',
+    status: 'Создан',
+    contact: 'Иванов Сергей',
+    phone: '+79887555454',
+    startDate: '02-10-2023 16:00',
+    endDate: '19-10-2023 04:00',
+    createdDate: '31-10-2023 23:29',
+    creator: 'Petrov Ivan',
+    note: 'Примечание 1',
+    type: 'Разовый',
+    estimateHref: '/estimate1'
+  },
+  {
+    projectHref: '/project2',
+    projectName: 'Проект 2',
+    status: 'Создан',
+    contact: 'Сергеев Иван',
+    phone: '+79887552211',
+    startDate: '12-10-2023 10:00',
+    endDate: '18-10-2023 18:00',
+    createdDate: '11-10-2023 11:00',
+    creator: 'Petrov Ivan',
+    note: 'Примечание 2',
+    type: 'Субаренда',
+    estimateHref: '/estimate2'
+  },
+];
 
 function ProjectPage() {
     const headers = [
@@ -60,7 +92,9 @@ function ProjectPage() {
                             <div className={styles.gridHeader} key={index}>{header}</div>
                         ))}
                     </div>
-                    <ProjectItem projectName={'Ссылка на проект'}/>
+                    {testProjects.map((project, index) => (
+                        <ProjectRow key={index} {...project} />
+                    ))}
                 </div>
             </section>
         </div>

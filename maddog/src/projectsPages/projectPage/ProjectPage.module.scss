@@ -96,7 +96,7 @@
 .gridRowHeader,
 .gridRow {
     display: grid;
-    grid-template-columns: 1fr 4fr 3fr repeat(7, 5fr) 3fr 5fr;
+    grid-template-columns: 1fr 4fr 3fr repeat(7, 5fr) 4fr 5fr;
     justify-items: center;
     align-items: center;
     text-align: center;
