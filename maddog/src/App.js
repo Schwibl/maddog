@@ -19,11 +19,9 @@ function App() {
   return (
     <UserContext.Provider value={user}>
       <BrowserRouter className="App">
-        <ProjectPage />
         <Routes>
           <Route path="/" element={<AuthorizePage />} />
           <Route path="projects" element={<ProjectPage />} />
-          {/* <Route path="contacts" element={<ContactsPage />} /> */}
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
