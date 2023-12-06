@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
     Link
 } from 'react-router-dom';
@@ -39,6 +40,8 @@ const testProjects = [
 ];
 
 function ProjectPage() {
+    const [searchValue, setSearchValue] = useState('');
+
     const headers = [
         '#',
         'Проект',
@@ -73,7 +76,7 @@ function ProjectPage() {
                     <button className={styles.delete} name='delete' type='button' value='Удалить'>Удалить</button>
                 </div>
                 <div className={styles.search}>
-                    <input type='text' placeholder='Поиск' />
+                    <input type='text' placeholder='Поиск' value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
                 </div>
                 <div className={styles.filterContainer}>
                     {filters.map((filter, index) => (
@@ -92,7 +95,11 @@ function ProjectPage() {
                             <div className={styles.gridHeader} key={index}>{header}</div>
                         ))}
                     </div>
-                    {testProjects.map((project, index) => (
+                    {testProjects
+                    .filter((project) =>
+                        project.projectName.toLowerCase().includes(searchValue.toLowerCase())
+                    )
+                    .map((project, index) => (
                         <ProjectRow key={index} {...project} />
                     ))}
                 </div>
