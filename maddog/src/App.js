@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import AuthorizePage from './authorizePage/AuthorizePage';
 import ProjectPage from './projectsPages/projectPage/ProjectPage'
+import AdminPage from './adminPage/AdminPage';
 import UserContext from './context/UserContext';
 
 function App() {
@@ -18,10 +19,11 @@ function App() {
   };
   return (
     <UserContext.Provider value={user}>
-      <BrowserRouter className="App">
+      <BrowserRouter className='App'>
         <Routes>
-          <Route path="/" element={<AuthorizePage />} />
-          <Route path="projects" element={<ProjectPage />} />
+          <Route path='/' element={<AuthorizePage />} />
+          <Route path='projects' element={<ProjectPage />} />
+          <Route path='admin' element={<AdminPage />} />
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
