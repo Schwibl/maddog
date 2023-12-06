@@ -18,12 +18,12 @@ function App() {
   };
   return (
     <UserContext.Provider value={user}>
-      <BrowserRouter className="App">
-        <ProjectPage />
+      <BrowserRouter className='App'>
+        <AuthorizePage />
         <Routes>
-          <Route path="/" element={<AuthorizePage />} />
-          <Route path="projects" element={<ProjectPage />} />
-          {/* <Route path="contacts" element={<ContactsPage />} /> */}
+          <Route path='/' element={<AuthorizePage />} />
+          <Route path='projects' element={<ProjectPage />} />
+          {/* <Route path='contacts' element={<ContactsPage />} /> */}
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

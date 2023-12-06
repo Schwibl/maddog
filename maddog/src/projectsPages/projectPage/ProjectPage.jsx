@@ -43,7 +43,6 @@ function ProjectPage() {
     const [searchValue, setSearchValue] = useState('');
 
     const headers = [
-        '#',
         'Проект',
         'Статус',
         'Контакт',
