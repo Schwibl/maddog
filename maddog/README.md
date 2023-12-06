@@ -51,3 +51,8 @@ const user = useContext(UserContext)
 ```sh
 console.log('Данные пользователя:', user.id, user.role, user.contacts)
 ```
+Задаём занные пользователся в компоненте App в App.js
+
+## ProjectPage
+
+ProjectPage является страницей, которая отображает список проектов и предоставляет функциональность по их управлению. Содержит в себе filters - массив доступных фильтров проектов.
