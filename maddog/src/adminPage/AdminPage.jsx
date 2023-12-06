@@ -7,7 +7,16 @@ export default function AdminPage (props) {
             <NavBar />
             <section className={styles.adminPage}>
                 <h1 className={styles.title}>Администраторы</h1>
-                <div className={currentAdmins}></div>
+                <div className={styles.currentAdmins}>
+                    <div className={styles.anminsHeader}>
+                        <div>Логин</div>
+                        <div>ФИО</div>
+                        <div>Роль</div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <button>Новый админ</button>
+                </div>
             </section>
         </div>
     )
