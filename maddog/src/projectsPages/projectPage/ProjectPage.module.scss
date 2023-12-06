@@ -1,0 +1,143 @@
+@import '/src/variables.scss';
+
+.container {
+    display: flex;
+}
+
+.projectPage {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: start;
+    padding-top: 4%;
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 10%;
+    padding-left: 3%;
+    margin-bottom: 2%;
+}
+
+.create,
+.delete {
+    font-size: $font-size-16;
+    font-weight: bold;
+    background-color: $btn-color;
+    color: $text-and-icons;
+    border: none;
+    border-radius: $border-radius-16;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.search {
+    padding-left: 3%;
+    margin-bottom: 2%;
+}
+
+.search input[type='text'] {
+    width: 100%;
+    border: 1px solid $grey-medium-light;
+    border-radius: $border-radius-8;
+    padding: 5%;
+}
+
+.filterContainer {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 3%;
+    padding-left: 3%;
+    margin-bottom: 2%;
+}
+
+.filter {
+    font-size: $font-size-16;
+    background-color: $yellow-star;
+    color: $text-and-icons;
+    border: none;
+    border-radius: $border-radius-16;
+    padding: 2% 4%;
+    cursor: pointer;
+}
+
+.calendar {
+    display: flex;
+    align-items: stretch;
+}
+
+.calendar input[type='date'] {
+    border: 1px solid $grey-medium-light;
+    border-top-left-radius: $border-radius-8;
+    border-bottom-left-radius: $border-radius-8;
+    padding: 4%;
+}
+
+.searchBtn {
+    display: flex;
+    align-items: center;
+    background-color: $yellow-star;
+    border-top-right-radius: $border-radius-8;
+    border-bottom-right-radius: $border-radius-8;
+    padding: 0 4%;
+    cursor: pointer;
+    & > svg {
+        width: 5vh;
+        height: 1.5vw;
+    }
+}
+
+.gridContainer {
+    width: 100%;
+    padding: 0 3%;
+}
+
+.gridRowHeader,
+.gridRow {
+    display: grid;
+    grid-template-columns: 1fr 4fr 3fr repeat(7, 5fr) 4fr 5fr;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    font-size: $font-size-15;
+    color: $black;
+}
+
+.gridRowHeader {
+    background-color: $grey-medium-light;
+    font-weight: bold;
+}
+
+.gridRow {
+    background-color: $white-main;
+}
+
+.gridHeader,
+.gridCell {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    white-space: wrap;
+    padding: 5% 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid $grey-medium;
+}
+
+.gridCell input[type='checkbox'] {
+    width: 110%;
+    height: 110%;
+    border: 1px solid $grey-medium;
+    border-radius: $border-radius-8;
+    cursor: pointer;
+}
+
+.gridCell a {
+    text-decoration: none;
+    color: $blue;
+}
+
+.gridCell a:hover {
+    text-decoration: underline;
+}

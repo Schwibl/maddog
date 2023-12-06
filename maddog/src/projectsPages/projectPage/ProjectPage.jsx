@@ -1,0 +1,104 @@
+import {
+    Link
+} from 'react-router-dom';
+import styles from './ProjectPage.module.scss';
+import NavBar from '../../components/navbar/NavBar';
+import SearchSVG from './searchSVG';
+import ProjectRow from "./ProjectRow";
+
+// для проверки ProjectRow
+const testProjects = [
+  {
+    projectHref: '/project1',
+    projectName: 'Проект 1',
+    status: 'Создан',
+    contact: 'Иванов Сергей',
+    phone: '+79887555454',
+    startDate: '02-10-2023 16:00',
+    endDate: '19-10-2023 04:00',
+    createdDate: '31-10-2023 23:29',
+    creator: 'Petrov Ivan',
+    note: 'Примечание 1',
+    type: 'Разовый',
+    estimateHref: '/estimate1'
+  },
+  {
+    projectHref: '/project2',
+    projectName: 'Проект 2',
+    status: 'Создан',
+    contact: 'Сергеев Иван',
+    phone: '+79887552211',
+    startDate: '12-10-2023 10:00',
+    endDate: '18-10-2023 18:00',
+    createdDate: '11-10-2023 11:00',
+    creator: 'Petrov Ivan',
+    note: 'Примечание 2',
+    type: 'Субаренда',
+    estimateHref: '/estimate2'
+  },
+];
+
+function ProjectPage() {
+    const headers = [
+        '#',
+        'Проект',
+        'Статус',
+        'Контакт',
+        'Телефон',
+        'Начало аренды',
+        'Окончание аренды',
+        'Дата и время создания',
+        'Сотрудник',
+        'Примечание',
+        'Тип',
+        'Открыть смету',
+    ];
+
+    const filters = [
+        'Все',
+        'Разовые',
+        'Длинный',
+        'Субаренда',
+        'Тест',
+    ];
+
+    return (
+        <div className={styles.container}>
+            <NavBar />
+            <section className={styles.projectPage}>
+                <div className={styles.buttonContainer}>
+                    <Link to='/newProject'>
+                        <button className={styles.create} name='create' type='button' value='Создать'>Создать</button>
+                    </Link>
+                    <button className={styles.delete} name='delete' type='button' value='Удалить'>Удалить</button>
+                </div>
+                <div className={styles.search}>
+                    <input type='text' placeholder='Поиск' />
+                </div>
+                <div className={styles.filterContainer}>
+                    {filters.map((filter, index) => (
+                        <button className={styles.filter} key={index}>{filter}</button>
+                    ))}
+                    <div className={styles.calendar}>
+                        <input type='date' name='date' />
+                        <button className={styles.searchBtn} type='button'>
+                            <SearchSVG />
+                        </button>
+                    </div>
+                </div>
+                <div className={styles.gridContainer}>
+                    <div className={styles.gridRowHeader}>
+                        {headers.map((header, index) => (
+                            <div className={styles.gridHeader} key={index}>{header}</div>
+                        ))}
+                    </div>
+                    {testProjects.map((project, index) => (
+                        <ProjectRow key={index} {...project} />
+                    ))}
+                </div>
+            </section>
+        </div>
+    );
+}
+
+export default ProjectPage;
