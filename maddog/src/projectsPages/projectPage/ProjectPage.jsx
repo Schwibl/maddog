@@ -5,7 +5,7 @@ import {
 import styles from './ProjectPage.module.scss';
 import NavBar from '../../components/navbar/NavBar';
 import SearchSVG from './searchSVG';
-import ProjectRow from "./ProjectRow";
+import ProjectTable from './ProjectTable';
 
 // для проверки ProjectRow
 const testProjects = [
@@ -42,20 +42,6 @@ const testProjects = [
 function ProjectPage() {
     const [searchValue, setSearchValue] = useState('');
 
-    const headers = [
-        'Проект',
-        'Статус',
-        'Контакт',
-        'Телефон',
-        'Начало аренды',
-        'Окончание аренды',
-        'Дата и время создания',
-        'Сотрудник',
-        'Примечание',
-        'Тип',
-        'Открыть смету',
-    ];
-
     const filters = [
         'Все',
         'Разовые',
@@ -88,20 +74,7 @@ function ProjectPage() {
                         </button>
                     </div>
                 </div>
-                <div className={styles.gridContainer}>
-                    <div className={styles.gridRowHeader}>
-                        {headers.map((header, index) => (
-                            <div className={styles.gridHeader} key={index}>{header}</div>
-                        ))}
-                    </div>
-                    {testProjects
-                    .filter((project) =>
-                        project.projectName.toLowerCase().includes(searchValue.toLowerCase())
-                    )
-                    .map((project, index) => (
-                        <ProjectRow key={index} {...project} />
-                    ))}
-                </div>
+                <ProjectTable projects={testProjects} searchValue={searchValue} />
             </section>
         </div>
     );
