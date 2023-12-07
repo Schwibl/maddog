@@ -1,0 +1,96 @@
+@import '/src/variables.scss';
+
+.main {
+  display: flex;
+}
+
+.contactsPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 2.5% 0;
+
+  background-image: url('./../../images/bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.filterBlock {
+  width: 90%;
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filterForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25%;
+  height: 100%;
+}
+
+.table {
+  width: 90%;
+  height: 75%;
+  overflow-y: auto;
+}
+
+.gridRowHeader,
+.gridRow {
+  display: grid;
+  grid-template-columns: 1fr 3fr 8fr;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  font-size: $font-size-15;
+  color: $black;
+}
+
+.gridRowHeader {
+  background-color: $grey-medium-light;
+  font-weight: bold;
+}
+
+.gridRow {
+  background-color: $white-main;
+}
+
+.gridHeader,
+.gridCell {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 1% 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid $grey-medium;
+  max-height: 10rem;
+}
+
+.gridCell input[type='checkbox'] {
+  width: 15px;
+  height: 15px;
+  border: 1px solid $grey-medium;
+  border-radius: $border-radius-8;
+  cursor: pointer;
+}
+
+.gridCell img {
+  height: 95%;
+  width: 30%;
+  object-fit: cover;
+}
+
+
+.link {
+  color: $blue;
+}

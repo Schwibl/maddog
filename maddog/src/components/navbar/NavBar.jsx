@@ -14,7 +14,7 @@ import AdmExitSVG from './admExitSVG';
 import UserContext from '../../context/UserContext';
 import { Link } from 'react-router-dom';
 
-export default function NavBar (props) {
+export default function NavBar(props) {
     // Забираем из контекста данные текущего юзера
     const user = useContext(UserContext);
     const { name } = user;
@@ -27,22 +27,22 @@ export default function NavBar (props) {
                     <NavItem text={'Проекты'} href={'/projects'}>
                         <ProjectsSVG />
                     </NavItem>
-                    <NavItem text={'Календарь'}>
+                    <NavItem text={'Календарь'} >
                         <CalendarSVG />
                     </NavItem>
-                    <NavItem text={'Оборудование'}>
+                    <NavItem text={'Оборудование'} >
                         <ToolsSVG />
                     </NavItem>
-                    <NavItem text={'Контакты'}>
+                    <NavItem text={'Контакты'} href={'/contacts'}>
                         <ContactsSVG />
                     </NavItem>
-                    <NavItem text={'Ремонт'}>
+                    <NavItem text={'Ремонт'} >
                         <RepairSVG />
                     </NavItem>
-                    <NavItem text={'Списание'}>
+                    <NavItem text={'Списание'} >
                         <WriteOffSVG />
                     </NavItem>
-                    <NavItem text={'Продажа'}>
+                    <NavItem text={'Продажа'} >
                         <SalesSVG />
                     </NavItem>
                     <NavItem text={'Панель администратора'} href={'/admin'}>
