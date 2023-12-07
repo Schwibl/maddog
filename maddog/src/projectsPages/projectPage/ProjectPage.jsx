@@ -6,7 +6,7 @@ import styles from './ProjectPage.module.scss';
 import NavBar from '../../components/navbar/NavBar';
 import SearchSVG from './searchSVG';
 import ProjectTable from './ProjectTable';
-import Button from '../../components/button/Button';
+import Button from '../../components/Button/Button';
 
 // для проверки ProjectRow
 const testProjects = [

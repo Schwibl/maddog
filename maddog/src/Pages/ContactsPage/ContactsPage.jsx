@@ -47,10 +47,13 @@ const ContactsPage = () => {
                         <Input type='text' placeholder='ФИО' name='name' onChange={handleFilterChange} />
                         <Select items={types} placeholder='Выберите тип контакта' onChange={handleTypeChange}
                         />
-                        <Button type='submit' label='Найти' />
+                        <Button className={styles.button} type='submit' >Найти</Button>
                     </form>
                     <Link to='/create' className={styles.createBtn}>
-                        <Button type='button' label='Создать' /></Link>
+                        <Button className={styles.button} type='button' >
+                            Создать
+                        </Button>
+                    </Link>
                 </div>
 
                 <div className={styles.table}>
