@@ -22,9 +22,6 @@ function ProjectRow(props) {
     return (
         <div className={styles.gridRow}>
             <p className={styles.gridCell}>
-                <input type='checkbox' />
-            </p>
-            <p className={styles.gridCell}>
                 <Link href={projectHref}>{projectName}</Link>
             </p>
             <p className={styles.gridCell}>{status}</p>

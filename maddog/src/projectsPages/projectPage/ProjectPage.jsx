@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import {
     Link
 } from 'react-router-dom';
 import styles from './ProjectPage.module.scss';
 import NavBar from '../../components/navbar/NavBar';
 import SearchSVG from './searchSVG';
-import ProjectRow from "./ProjectRow";
+import ProjectTable from './ProjectTable';
+import Button from '../../components/button/Button';
 
 // для проверки ProjectRow
 const testProjects = [
@@ -39,20 +41,7 @@ const testProjects = [
 ];
 
 function ProjectPage() {
-    const headers = [
-        '#',
-        'Проект',
-        'Статус',
-        'Контакт',
-        'Телефон',
-        'Начало аренды',
-        'Окончание аренды',
-        'Дата и время создания',
-        'Сотрудник',
-        'Примечание',
-        'Тип',
-        'Открыть смету',
-    ];
+    const [searchValue, setSearchValue] = useState('');
 
     const filters = [
         'Все',
@@ -68,34 +57,25 @@ function ProjectPage() {
             <section className={styles.projectPage}>
                 <div className={styles.buttonContainer}>
                     <Link to='/newProject'>
-                        <button className={styles.create} name='create' type='button' value='Создать'>Создать</button>
+                        <Button className={styles.create} type='button' name='create' value='Создать' children='Создать'/>
                     </Link>
-                    <button className={styles.delete} name='delete' type='button' value='Удалить'>Удалить</button>
+                    <Button className={styles.delete} type='button' name='delete' value='Удалить' children='Удалить'/>
                 </div>
                 <div className={styles.search}>
-                    <input type='text' placeholder='Поиск' />
+                    <input type='text' placeholder='Поиск' value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
                 </div>
                 <div className={styles.filterContainer}>
                     {filters.map((filter, index) => (
-                        <button className={styles.filter} key={index}>{filter}</button>
+                        <Button className={styles.filter} key={index} type='button' name={filter} value={filter} children={filter}/>
                     ))}
                     <div className={styles.calendar}>
                         <input type='date' name='date' />
-                        <button className={styles.searchBtn} type='button'>
+                        <Button className={styles.searchBtn} type='button' name='search' value='search'>
                             <SearchSVG />
-                        </button>
+                        </Button>
                     </div>
                 </div>
-                <div className={styles.gridContainer}>
-                    <div className={styles.gridRowHeader}>
-                        {headers.map((header, index) => (
-                            <div className={styles.gridHeader} key={index}>{header}</div>
-                        ))}
-                    </div>
-                    {testProjects.map((project, index) => (
-                        <ProjectRow key={index} {...project} />
-                    ))}
-                </div>
+                <ProjectTable projects={testProjects} searchValue={searchValue} />
             </section>
         </div>
     );
