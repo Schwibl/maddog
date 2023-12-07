@@ -6,28 +6,28 @@ import {
   Route
 } from 'react-router-dom';
 import AuthorizePage from './authorizePage/AuthorizePage';
-import ProjectPage from './projectsPages/ProjectPage';
+import ProjectPage from './projectsPages/projectPage/ProjectPage'
+import AdminPage from './adminPage/AdminPage';
 import UserContext from './context/UserContext';
 
 function App() {
-  const user = {
-    id: 123,
-    role: 'admin',
-    contacts: 'example@example.com',
-    name: 'Skelork',
-  };
-  return (
-    <UserContext.Provider value={user}>
-      <BrowserRouter className="App">
-        <AuthorizePage />
-        <Routes>
-          <Route path="/" element={<AuthorizePage />} />
-          <Route path="projects" element={<ProjectPage />} />
-          {/* <Route path="contacts" element={<ContactsPage />} /> */}
-        </Routes>
-      </BrowserRouter>
-    </UserContext.Provider>
-  );
+    const user = {
+        id: 123,
+        role: 'admin',
+        contacts: 'example@example.com',
+        name: 'Skelork',
+    };
+    return (
+        <UserContext.Provider value={user}>
+            <BrowserRouter className='App'>
+                <Routes>
+                    <Route path='/' element={<AuthorizePage />} />
+                    <Route path='projects' element={<ProjectPage />} />
+                    <Route path='admin' element={<AdminPage />} />
+                </Routes>
+            </BrowserRouter>
+        </UserContext.Provider>
+    );
 }
 
 export default App;

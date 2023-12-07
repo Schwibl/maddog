@@ -1,0 +1,36 @@
+@import '/src/variables.scss';
+
+.wrap {
+    display: grid;
+    grid-template-columns: repeat(3, 5fr) repeat(2, 1fr);
+    align-items: center;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: $white-transparent;
+    border-radius: $border-radius-20;
+    backdrop-filter: blur(20px);
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+}
+
+.text {
+    text-align: center;
+    color: $black;
+    font-size: $font-size-18;
+}
+
+.btn {
+    background-color: transparent;
+    transition: $transition-common;
+    &>svg {
+        width: 3vw;
+    }
+    &:hover {
+        &>svg {
+            fill: $text-and-icons;
+        }
+    }
+}

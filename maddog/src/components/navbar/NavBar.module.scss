@@ -27,17 +27,17 @@
 
 .items {
     &>svg {
-        width: 40px;
-        height: 40px;
+        width: 3vw;
+        // height: 40px;
         padding-left: 1.5rem;
     }
 }
 
 .imgWrap {
     transition: $transition-common;
-    width: 2rem;
+    width: 3rem;
     >svg {
-        width: 100%;
+        width: 3vw;
         max-width: 100%;
     }
 }

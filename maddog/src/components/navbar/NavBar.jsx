@@ -45,7 +45,7 @@ export default function NavBar (props) {
                     <NavItem text={'Продажа'}>
                         <SalesSVG />
                     </NavItem>
-                    <NavItem text={'Панель администратора'}>
+                    <NavItem text={'Панель администратора'} href={'/admin'}>
                         <AdminSVG />
                     </NavItem>
                     <Link to='/' className={styles.admExit}>
