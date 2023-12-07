@@ -1,0 +1,53 @@
+@import '/src/variables.scss';
+
+.container {
+    width: 100%;
+    display: flex;
+}
+
+.adminPage {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    margin-top: 5%;
+    background-image: url('./logoBlackOnTransparent.png');
+    background-size: cover;
+}
+
+.title {
+    font-size: $font-size-32;
+    color: $white-main;
+    text-align: center;
+    background-color: transparent;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-radius: $border-radius-20;
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, 0.411);
+}
+
+.anminsHeader {
+    display: grid;
+    grid-template-columns: repeat(3, 5fr) repeat(2, 1fr);
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border: 1px solid $black;
+    border-radius: $border-radius-20;
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, 0.253);
+    &>p {
+        font-size: $font-size-18;
+        color: $white-main;
+        text-align: center;
+    }
+}
