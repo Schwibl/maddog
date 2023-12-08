@@ -2,7 +2,6 @@ import styles from './AdminRow.module.scss';
 import DeleteIcon from '../icons/DeleteIcon';
 import EditIcon from '../icons/EditIcon';
 import AdminEditor from './AdminEditor';
-
 import { useState } from 'react';
 
 export default function AdminRow (props) {
@@ -20,7 +19,7 @@ export default function AdminRow (props) {
                 <button className={styles.btn} onClick={() => setIsEdit(!isEdit)}><EditIcon /></button>
                 <button className={styles.btn}><DeleteIcon /></button>
             </div>
-            {!isEdit || <AdminEditor id={id} login={login} name={name} role={role}/>}
+            {!isEdit || <AdminEditor id={id} login={login} name={name} role={role} setIsEdit={setIsEdit}/>}
         </>
     )
 }

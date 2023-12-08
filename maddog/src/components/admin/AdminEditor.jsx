@@ -3,7 +3,7 @@ import styles from './AdminEditor.module.scss';
 
 export default function AdminEditor (props) {
 
-    const {id, login, name, role, contact} = props;
+    const {id, login, name, role, contact, setIsEdit} = props;
     // На старте делаем админа, который пришёл из пропсов, стартовым состоянием. 
     // Из него уже заполняем поля и меняем значения полей админа
     const [newName, setNewName] = useState(name || '');
@@ -28,6 +28,11 @@ export default function AdminEditor (props) {
         setNewRole( e.target.value );
     }
 
+    function handleSaveAnmin (e) {
+        e.preventDefault();
+        setIsEdit(false);
+    }
+
     return (
         <form>
             <fieldset className={styles.wrap}>
@@ -35,7 +40,7 @@ export default function AdminEditor (props) {
                 <input className={styles.input} placeholder='Логин' name='login' type='text' value={newLogin || ''} onChange={handleLogin} />
                 <input className={styles.input} placeholder='Новый телефон' name='contact' type='tel' value={newContact || ''} onChange={handleContact} />
                 <input className={styles.input} placeholder='Новый пароль' name='password' type='password' value={newPassword || ''} onChange={handlePassword} />
-                <label>
+                <label className={styles.selectWrap}>
                     <p>Выбрать новую роль</p>
                     <select className={styles.select} value={newRole} onChange={handleRole}>
                         <option value='' disabled>Текущая роль: {newRole}</option>
@@ -44,6 +49,7 @@ export default function AdminEditor (props) {
                         <option value='WORKER'>WORKER</option>
                     </select>
                 </label>
+                <button className={styles.saveAdminBtn} type='submit' onClick={handleSaveAnmin}>Сохранить</button>
             </fieldset>
         </form>
     )
