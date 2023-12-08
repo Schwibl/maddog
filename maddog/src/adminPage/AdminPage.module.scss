@@ -48,3 +48,27 @@
         text-align: center;
     }
 }
+
+.btnWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1%;
+}
+
+.btnNew {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1.7% 5%;
+    border-radius: $border-radius-20;
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, 0.411);
+    color: $white-main;
+    font-size: $font-size-16;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.678);
+        color: $white-main;
+    }
+}

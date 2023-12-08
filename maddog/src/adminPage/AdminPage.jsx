@@ -2,6 +2,7 @@ import NavBar from '../components/navbar/NavBar';
 import AdminTable from '../components/admin/AdminTable';
 import styles from './AdminPage.module.scss';
 import AdminsContext from '../context/AdminsContext';
+import AdminEditor from '../components/admin/AdminEditor';
 import { useState } from 'react';
 
 // Тестовые данные
@@ -30,6 +31,7 @@ const admins = [
 ]
 
 export default function AdminPage (props) {
+    const [isNewAdmin, setisNewAdmin] =useState(false);
 
     return (
         <AdminsContext.Provider value={admins}>
@@ -46,7 +48,10 @@ export default function AdminPage (props) {
                             <div></div>
                         </div>
                     <AdminTable />
-                    <button className={styles.btnNew}>Новый админ</button>
+                    {!isNewAdmin || <AdminEditor handleClick={setisNewAdmin}/>}
+                    <div className={styles.btnWrap}>
+                        <button className={styles.btnNew} onClick={()=> setisNewAdmin(!isNewAdmin)}>Новый админ</button>
+                    </div>
                 </div>
             </section>
         </div>

@@ -5,10 +5,8 @@ import AdminEditor from './AdminEditor';
 import { useState } from 'react';
 
 export default function AdminRow (props) {
-    
     const { login, name, role, id } = props;
     const [isEdit, setIsEdit] = useState(false);
-    console.log(isEdit);
 
     return (
         <>
@@ -19,7 +17,7 @@ export default function AdminRow (props) {
                 <button className={styles.btn} onClick={() => setIsEdit(!isEdit)}><EditIcon /></button>
                 <button className={styles.btn}><DeleteIcon /></button>
             </div>
-            {!isEdit || <AdminEditor id={id} login={login} name={name} role={role} setIsEdit={setIsEdit}/>}
+            {!isEdit || <AdminEditor id={id} login={login} name={name} role={role} handleClick={setIsEdit}/>}
         </>
     )
 }

@@ -2,8 +2,7 @@ import { useState } from 'react';
 import styles from './AdminEditor.module.scss';
 
 export default function AdminEditor (props) {
-
-    const {id, login, name, role, contact, setIsEdit} = props;
+    const {id, login, name, role, contact, handleClick } = props;
     // На старте делаем админа, который пришёл из пропсов, стартовым состоянием. 
     // Из него уже заполняем поля и меняем значения полей админа
     const [newName, setNewName] = useState(name || '');
@@ -29,8 +28,9 @@ export default function AdminEditor (props) {
     }
 
     function handleSaveAnmin (e) {
+        //!Добавить функционал - изменение в стейт-менеджере админов и отправка изменений на бек
         e.preventDefault();
-        setIsEdit(false);
+        handleClick(false);
     }
 
     return (
@@ -38,8 +38,8 @@ export default function AdminEditor (props) {
             <fieldset className={styles.wrap}>
                 <input className={styles.input} placeholder='Имя' name='name' type='text' autoFocus value={newName || ''} onChange={handleName} />
                 <input className={styles.input} placeholder='Логин' name='login' type='text' value={newLogin || ''} onChange={handleLogin} />
-                <input className={styles.input} placeholder='Новый телефон' name='contact' type='tel' value={newContact || ''} onChange={handleContact} />
-                <input className={styles.input} placeholder='Новый пароль' name='password' type='password' value={newPassword || ''} onChange={handlePassword} />
+                <input className={styles.input} placeholder='Телефон' name='contact' type='tel' value={newContact || ''} onChange={handleContact} />
+                <input className={styles.input} placeholder='Пароль' name='password' type='password' value={newPassword || ''} onChange={handlePassword} />
                 <label className={styles.selectWrap}>
                     <p>Выбрать новую роль</p>
                     <select className={styles.select} value={newRole} onChange={handleRole}>
@@ -49,7 +49,7 @@ export default function AdminEditor (props) {
                         <option value='WORKER'>WORKER</option>
                     </select>
                 </label>
-                <button className={styles.saveAdminBtn} type='submit' onClick={handleSaveAnmin}>Сохранить</button>
+                    <button className={styles.saveAdminBtn} type='submit' onClick={handleSaveAnmin}>Сохранить</button>
             </fieldset>
         </form>
     )
