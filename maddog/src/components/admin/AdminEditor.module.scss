@@ -42,6 +42,7 @@
     border-radius: $border-radius-20;
     backdrop-filter: blur(20px);
     background-color: rgba(0, 0, 0, 0.411);
+    cursor: pointer;
 
     &:hover {
         background-color: rgba(0, 0, 0, 0.678);
