@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import styles from './ContactsPage.module.scss';
 import { Link } from 'react-router-dom';
 import NavBar from '../../components/navbar/NavBar';
-import Button from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
 import Select from '../../components/Select/Select';
 import { types, tableHeader, contacts } from './mock';
@@ -47,10 +46,14 @@ const ContactsPage = () => {
                         <Input type='text' placeholder='ФИО' name='name' onChange={handleFilterChange} />
                         <Select items={types} placeholder='Выберите тип контакта' onChange={handleTypeChange}
                         />
-                        <Button type='submit' label='Найти' />
+                        <button type='submit' className={styles.button}>Найти</button>
                     </form>
-                    <Link to='/create' className={styles.createBtn}>
-                        <Button type='button' label='Создать' /></Link>
+
+                    <button className={styles.button} type='button' >
+                        <Link to='/create' className={styles.button}>
+                            Создать
+                        </Link>
+                    </button>
                 </div>
 
                 <div className={styles.table}>

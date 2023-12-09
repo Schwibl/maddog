@@ -8,4 +8,5 @@ export const contacts = [
   { id: 3, role: 1, name: 'Фрэнк', photoUrl: 'http://media5.cdnbase.com/media/files/s1/sx/no/bozhe-blagoslovi-ameriku-scene.jpg' },
   { id: 4, role: 2, name: 'Пискунов Жан-Поль Николаевич', photoUrl: 'https://i.ytimg.com/vi/bdUKytoYRJg/maxresdefault.jpg' },
   { id: 5, role: 1, name: 'Иннокентий Шниперсон', photoUrl: 'https://pp.userapi.com/c626524/v626524267/392c/wrlYTGsbE4Q.jpg' },
+  { id: 5, role: 1, name: 'Иннокентий Шниперсон', photoUrl: 'httprapi.com/c626524/v626524267/392c/wrlYTGsbE4Q.jpg' },
 ];
