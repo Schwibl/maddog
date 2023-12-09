@@ -51,3 +51,22 @@ const user = useContext(UserContext)
 ```sh
 console.log('Данные пользователя:', user.id, user.role, user.contacts)
 ```
+Задаём данные пользователя в компоненте App в App.js
+
+## ProjectPage
+
+ProjectPage является страницей, которая отображает список проектов и предоставляет функциональность по их управлению. Содержит в себе filters - массив доступных фильтров проектов. В таблицу ProjectTable через props должны передаваться актуальные фильтры и название проекта для поиска. В строку табицы ProjectRow через props должны передаваться обязательные данные (projectHref, projectName, status, contact, phone, startDate, endDate,
+createdDate, creator, note, type, estimateHref), в том числе две ссылки projectHref и estimateHref, ведущие соответственно на страницу проекта и страницу со сметой.
+
+## AdminPage
+
+Использует временно AdminContext - в будущем это будут данные из стейт-менеджера.
+Страница стоит из нескольких слоёв:
+
+1. AdminPage
+2. AdminTable
+3. AdminRow
+4. AdminEditor
+
+Самое интересное происходит в AdminRow и AdminEditor. В зависимости от передаваемых данных (особенно - функций), AdminEditor выступает в роли формы для изменения уже 
+существующего администратора или в роли формы для добавления нового администратора. 
