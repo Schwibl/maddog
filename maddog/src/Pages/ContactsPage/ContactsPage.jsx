@@ -6,6 +6,7 @@ import Input from '../../components/Input/Input';
 import Select from '../../components/Select/Select';
 import { types, tableHeader, contacts } from './mock';
 import ContactRow from './ContactRow';
+import Button from '../../components/button/Button';
 
 /**
  * @description Страница для отображения всех контактов
@@ -44,16 +45,16 @@ const ContactsPage = () => {
                 <div className={styles.filterBlock}>
                     <form className={styles.filterForm} onSubmit={handleSubmit}>
                         <Input type='text' placeholder='ФИО' name='name' onChange={handleFilterChange} />
-                        <Select items={types} placeholder='Выберите тип контакта' onChange={handleTypeChange}
+                        <Select items={types} placeholder='Выберите тип контакта' name='role' onChange={handleTypeChange}
                         />
-                        <button type='submit' className={styles.button}>Найти</button>
+                        <Button type='submit' className={styles.button}>Найти</Button>
                     </form>
 
-                    <button className={styles.button} type='button' >
-                        <Link to='/create' className={styles.button}>
+                    <Button className={styles.button} type='button' >
+                        <Link to='/create' >
                             Создать
                         </Link>
-                    </button>
+                    </Button>
                 </div>
 
                 <div className={styles.table}>
