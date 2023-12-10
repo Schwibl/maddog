@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './EstimatePage.module.scss'
 import Button from '../../components/button/Button';
 import NavBar from '../../components/navbar/NavBar';
+import EstimateTable from './EstimateTable';
 
 export default function EstimatePage() {
     const [fileType, setFileType] = useState('excel'); // значение типа файла по умолчанию
@@ -21,7 +22,7 @@ export default function EstimatePage() {
         <div className={styles.container}>
             <NavBar/>
             <section className={styles.estimatePage}>
-                {/* <EstimateTable/> */}
+                <EstimateTable/>
                 <Button className={styles.save} onClick={handleSaveEstimate} type='button' name='save-estimate' value='Сохранить смету' children='Сохранить смету' />
                 <div className={styles.downloadBlock}>
                     <p className={styles.text}>Выберите тип файлов: </p>
