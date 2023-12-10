@@ -1,0 +1,11 @@
+@import '/src/variables.scss';
+
+.input {
+    font-size: $font-size-16;
+    font-weight: bold;
+    background-color: $btn-color;
+    text-align: center;
+    color: $text-and-icons;
+    border: none;
+    padding: 2% 4%;
+}
