@@ -8,6 +8,43 @@
     display: flex;
     flex-grow: 1;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     padding-top: 3%;
+}
+
+.save,
+.download {
+    font-size: $font-size-16;
+    font-weight: bold;
+    background-color: $btn-color;
+    color: $text-and-icons;
+    border: none;
+    border-radius: $border-radius-16;
+    padding: 1%;
+    cursor: pointer;
+}
+
+.downloadBlock {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2%;
+    margin-top: 2%;
+}
+
+.text {
+    font-size: $font-size-16;
+}
+
+.select {
+    border: 1px solid $grey-medium-light;
+    border-radius: $border-radius-8;
+    padding: 0.5%;
+    font-size: $font-size-16;
+    cursor: pointer;
+    &:focus {
+        outline: none;
+        box-shadow: $box-shadow-blur-hover;
+    }
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './estimatePage.module.scss'
+import styles from './EstimatePage.module.scss'
 import Button from '../../components/button/Button';
 import NavBar from '../../components/navbar/NavBar';
 
@@ -24,8 +24,8 @@ export default function EstimatePage() {
                 {/* <EstimateTable/> */}
                 <Button className={styles.save} onClick={handleSaveEstimate} type='button' name='save-estimate' value='Сохранить смету' children='Сохранить смету' />
                 <div className={styles.downloadBlock}>
-                    <p>Выберите тип файлов: </p>
-                    <select value={fileType} onChange={(e) => setFileType(e.target.value)}>
+                    <p className={styles.text}>Выберите тип файлов: </p>
+                    <select value={fileType} onChange={(e) => setFileType(e.target.value)} className={styles.select}>
                         {options.map((option) => (
                             <option key={option} value={option}>
                                 {option.toUpperCase()}

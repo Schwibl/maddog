@@ -34,7 +34,7 @@ function ProjectRow(props) {
             <p className={styles.gridCell}>{note}</p>
             <p className={styles.gridCell}>{type}</p>
             <p className={styles.gridCell}>
-                <Link to={estimateHref}>Смета</Link>
+                <Link to={`/estimate/${estimateHref}`}>Смета</Link>
             </p>
         </div>
     );

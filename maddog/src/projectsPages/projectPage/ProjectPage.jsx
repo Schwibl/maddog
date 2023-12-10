@@ -22,7 +22,7 @@ const testProjects = [
     creator: 'Petrov Ivan',
     note: 'Примечание 1',
     type: 'Разовый',
-    estimateHref: '/estimate1'
+    estimateHref: 'estimate1'
   },
   {
     projectHref: '/project2',
@@ -36,7 +36,7 @@ const testProjects = [
     creator: 'Petrov Ivan',
     note: 'Примечание 2',
     type: 'Субаренда',
-    estimateHref: '/estimate2'
+    estimateHref: 'estimate2'
   },
 ];
 
