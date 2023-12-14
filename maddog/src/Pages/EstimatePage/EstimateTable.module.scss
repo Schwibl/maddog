@@ -63,3 +63,26 @@ select {
 select {
     cursor: pointer;
 }
+
+.secure {
+    font-size: $font-size-12;
+    font-weight: bold;
+    background-color: $btn-color;
+    color: $text-and-icons;
+    border: none;
+    border-radius: $border-radius-16;
+    padding: 2%;
+    margin-bottom: 2%;
+    cursor: pointer;
+}
+
+.category {
+    font-size: $font-size-12;
+    background-color: $btn-color;
+    color: $text-and-icons;
+    border: none;
+    border-radius: $border-radius-16;
+    padding: 2%;
+    margin-bottom: 2%;
+    cursor: pointer;
+}

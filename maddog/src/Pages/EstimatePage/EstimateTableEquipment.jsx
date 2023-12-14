@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import styles from './EstimateTable.module.scss';
+import Button from '../../components/button/Button';
 
 export default function EstimateTableEquipment() {
     const [cost, setCost] = useState(11);
     const [quantity, setQuantity] = useState(1);
     const [days, setDays] = useState(1);
     const [discount, setDiscount] = useState(0);
+    const [showFilters, setShowFilters] = useState(false);
 
     const calculateTotal = () => {
         const total = Math.ceil(cost * quantity * days);
@@ -53,6 +56,10 @@ export default function EstimateTableEquipment() {
 
     const price = calculateTotal();
 
+    const toggleFilters = () => {
+        setShowFilters(!showFilters);
+    };
+
     return (
         <tbody>
             <tr>
@@ -71,7 +78,16 @@ export default function EstimateTableEquipment() {
                 <th colSpan={7}>Оборудование</th>
             </tr>
             <tr>
-                <td>Микрофон</td>
+                <td>Микрофон
+                    <br />
+                    <Button className={styles.secure} onClick={toggleFilters} type='button' value='secure' name='secure' children='Закрепить оборудование'/>
+                    {showFilters && (
+                        <div>
+                            <Button className={styles.category} type='button' value='category' name='category' children='Из соответствующей категории'/>
+                            <Button className={styles.category} type='button' value='all' name='all' children='Из всего оборудования'/>
+                        </div>
+                    )}
+                </td>
                 <td><input type='text' name='cost' value={cost} onChange={handleCostChange} placeholder='Стоимость'/></td>
                 <td><input type='text' name='quantity' value={quantity} onChange={handleQuantityChange} placeholder='Количество'/></td>
                 <td><input type='text' name='days' value={days} onChange={handleDaysChange} placeholder='Количество'/></td>
