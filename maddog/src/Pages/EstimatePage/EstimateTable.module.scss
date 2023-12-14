@@ -23,9 +23,10 @@ th {
     text-align: center;
 }
 
-.head {
-    text-align: right;
-    padding: 0.5% 2%;
+.head,
+.textLeft {
+    text-align: left;
+    padding: 0.5% 1%;
 }
 
 .tdLogo {

@@ -40,12 +40,13 @@ export default function EstimateTableHead() {
             </tr>
             <tr>
                 <th colSpan={2} className={styles.head}>Менеджер:</th>
-                <td colSpan={3}>Petrov Ivan</td>
-                <td>+79887555454</td>
+                <td colSpan={2} className={styles.textLeft}>Petrov Ivan</td>
+                <td colSpan={2} className={styles.textLeft}>+79887555454</td>
                 <td className={styles.link}>
                     <a href='https://maddogrental.pro/'>https://maddogrental.pro/</a>
                 </td>
             </tr>
+            <tr colSpan={7}><br /></tr>
         </thead>
     );
 }

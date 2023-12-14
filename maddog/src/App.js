@@ -1,20 +1,20 @@
 // import logo from './panel-logo2x.webp';
 // import styles from './App.module.scss';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AuthorizePage from './authorizePage/AuthorizePage';
-import ProjectPage from './projectsPages/projectPage/ProjectPage';
-import AdminPage from './adminPage/AdminPage';
-import UserContext from './context/UserContext';
-import ContactsPage from './Pages/ContactsPage/ContactsPage';
-import EstimatePage from './projectsPages/estimatePage/EstimatePage'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AuthorizePage from "./authorizePage/AuthorizePage";
+import ProjectPage from "./Pages/ProjectsPage/ProjectPage";
+import AdminPage from "./adminPage/AdminPage";
+import UserContext from "./context/UserContext";
+import ContactsPage from "./Pages/ContactsPage/ContactsPage";
+import EstimatePage from "./Pages/EstimatePage/EstimatePage";
 // import CreateContactPage from './Pages/CreateContactPage/CreateContactPage';
 
 function App() {
   const user = {
     id: 123,
-    role: 'admin',
-    contacts: 'example@example.com',
-    name: 'Skelork',
+    role: "admin",
+    contacts: "example@example.com",
+    name: "Skelork",
   };
   return (
     <UserContext.Provider value={user}>
