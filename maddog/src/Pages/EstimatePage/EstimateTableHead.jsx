@@ -11,34 +11,34 @@ export default function EstimateTableHead() {
                 <td rowSpan={7} className={styles.tdLogo}>
                     <img className={styles.img} src={logo} alt='MadDog Rental Logo' />
                 </td>
-                <th rowSpan={2} colSpan={2} className={styles.head}>Съемочный период:</th>
+                <th rowSpan={2} className={styles.head}>Съемочный период:</th>
                 <td colSpan={5}>02-10-2023</td>
             </tr>
             <tr>
                 <td colSpan={5}>19-10-2023</td>
             </tr>
             <tr>
-                <th colSpan={2} className={styles.head}>Количество смен:</th>
+                <th className={styles.head}>Количество смен:</th>
                 <td colSpan={5}>
                     <input type='text' defaultValue={1} />
                 </td>
             </tr>
             <tr>
-                <th colSpan={2} className={styles.head}>Проект:</th>
+                <th className={styles.head}>Проект:</th>
                 <td colSpan={5}>Название</td>
             </tr>
             <tr>
-                <th colSpan={2} className={styles.head}>Оператор:</th>
+                <th className={styles.head}>Оператор:</th>
                 <td colSpan={5}>
                     <Select items={items} placeholder='Выберите оператора' name='operator'/>
                 </td>
             </tr>
             <tr>
-                <th colSpan={2} className={styles.head}>Заказчик:</th>
+                <th className={styles.head}>Заказчик:</th>
                 <td colSpan={5}>Иванов Сергей</td>
             </tr>
             <tr>
-                <th colSpan={2} className={styles.head}>Менеджер:</th>
+                <th className={styles.head}>Менеджер:</th>
                 <td colSpan={2} className={styles.textLeft}>Petrov Ivan</td>
                 <td colSpan={2} className={styles.textLeft}>+79887555454</td>
                 <td className={styles.link}>
