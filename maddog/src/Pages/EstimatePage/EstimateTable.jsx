@@ -1,6 +1,6 @@
-import styles from "./EstimateTable.module.scss";
-import EstimateTableEquipment from "./EstimateTableEquipment";
-import EstimateTableHead from "./EstimateTableHead";
+import styles from './EstimateTable.module.scss';
+import EstimateTableEquipment from './EstimateTableEquipment';
+import EstimateTableHead from './EstimateTableHead';
 
 export default function EstimateTable() {
   return (

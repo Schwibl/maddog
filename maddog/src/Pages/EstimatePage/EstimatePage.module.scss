@@ -41,6 +41,8 @@
     max-width: 10%;
     border: 1px solid $grey-medium-light;
     border-radius: $border-radius-8;
+    background-color: $btn-color;
+    color: $text-and-icons;
     padding: 0.5%;
     font-size: $font-size-16;
     cursor: pointer;
@@ -48,4 +50,11 @@
         outline: none;
         box-shadow: $box-shadow-blur-hover;
     }
+}
+
+.option {
+    font-weight: bold;
+    background-color: $btn-color;
+    color: $text-and-icons;
+    border: none;
 }

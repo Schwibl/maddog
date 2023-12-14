@@ -1,7 +1,10 @@
 import styles from './EstimateTable.module.scss';
 import logo from './logoInEstimateTable.png';
+import Select from '../../components/Select/Select';
 
 export default function EstimateTableHead() {
+    const items = ['Клиент', 'Менеджер'];
+
     return (
         <thead>
             <tr>
@@ -27,11 +30,7 @@ export default function EstimateTableHead() {
             <tr>
                 <th colSpan={2} className={styles.head}>Оператор:</th>
                 <td colSpan={5}>
-                    <select>
-                        <option>Выберите оператора</option>
-                        <option>Клиент</option>
-                        <option>Менеджер</option>
-                    </select>
+                    <Select items={items} placeholder='Выберите оператора' name='operator'/>
                 </td>
             </tr>
             <tr>
