@@ -27,9 +27,11 @@
 .imgWrap {
     transition: $transition-common;
     width: 3.5rem;
-    >svg {
+   & >svg {
+        fill:currentColor;
         padding-left: 1.5rem;
         width: 3vw;
+        height: 2vw;
         max-width: 100%;
     }
 }
