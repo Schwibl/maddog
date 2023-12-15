@@ -63,7 +63,7 @@ export default function EstimateTableEquipment() {
     return (
         <tbody>
             <tr>
-                <th rowSpan={2}>Наименование оборудования</th>
+                <th rowSpan={2} colSpan={2}>Наименование оборудования</th>
                 <th rowSpan={2}>Стоимость</th>
                 <th colSpan={3}>Количество</th>
                 <th rowSpan={2}>Итого за смену</th>
@@ -75,10 +75,10 @@ export default function EstimateTableEquipment() {
                 <th>Скидка</th>
             </tr>
             <tr>
-                <th colSpan={7}>Оборудование</th>
+                <th colSpan={8}>Оборудование</th>
             </tr>
             <tr>
-                <td>Микрофон
+                <td colSpan={2}>Микрофон
                     <br />
                     <Button className={styles.secure} onClick={toggleFilters} type='button' value='secure' name='secure' children='Закрепить оборудование'/>
                     {showFilters && (
@@ -95,6 +95,7 @@ export default function EstimateTableEquipment() {
                 <td>{price.total}</td>
                 <td>{price.totalWithDiscount}</td>
             </tr>
+            <tr colSpan={8}><br /></tr>
         </tbody>
     );
 }

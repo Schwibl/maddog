@@ -8,7 +8,7 @@ export default function EstimateTableHead() {
     return (
         <thead>
             <tr>
-                <td rowSpan={7} className={styles.tdLogo}>
+                <td rowSpan={7} colSpan={2} className={styles.tdLogo}>
                     <img className={styles.img} src={logo} alt='MadDog Rental Logo' />
                 </td>
                 <th rowSpan={2} className={styles.head}>Съемочный период:</th>
@@ -45,7 +45,7 @@ export default function EstimateTableHead() {
                     <a href='https://maddogrental.pro/'>https://maddogrental.pro/</a>
                 </td>
             </tr>
-            <tr colSpan={7}><br /></tr>
+            <tr colSpan={8}><br /></tr>
         </thead>
     );
 }
