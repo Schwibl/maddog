@@ -88,10 +88,10 @@ export default function EstimateTableEquipment() {
                         </div>
                     )}
                 </td>
-                <td><input type='text' name='cost' value={cost} onChange={handleCostChange} placeholder='Стоимость'/></td>
-                <td><input type='text' name='quantity' value={quantity} onChange={handleQuantityChange} placeholder='Количество'/></td>
-                <td><input type='text' name='days' value={days} onChange={handleDaysChange} placeholder='Количество'/></td>
-                <td><input type='text' name='discount' value={discount} onChange={handleDiscountChange} placeholder='Скидка'/></td>
+                <td><input type='text' name='cost' value={cost} onChange={handleCostChange} className={styles.input} placeholder='Стоимость'/></td>
+                <td><input type='text' name='quantity' value={quantity} onChange={handleQuantityChange} className={styles.input} placeholder='Количество'/></td>
+                <td><input type='text' name='days' value={days} onChange={handleDaysChange} className={styles.input} placeholder='Количество'/></td>
+                <td><input type='text' name='discount' value={discount} onChange={handleDiscountChange} className={styles.input} placeholder='Скидка'/></td>
                 <td>{price.total}</td>
                 <td>{price.totalWithDiscount}</td>
             </tr>

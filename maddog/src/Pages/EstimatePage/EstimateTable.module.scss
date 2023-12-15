@@ -41,10 +41,14 @@ th {
 }
 
 .link {
-    width: 19%;
+    width: 20%;
+    font-weight: bold;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
-input[type="text"],
+.quantityShift,
 select {
     width: 60%;
     font-size: $font-size-18;
@@ -72,6 +76,7 @@ select {
     border: none;
     border-radius: $border-radius-16;
     padding: 2%;
+    margin-top: 1%;
     margin-bottom: 2%;
     cursor: pointer;
 }
@@ -85,4 +90,25 @@ select {
     padding: 2%;
     margin-bottom: 2%;
     cursor: pointer;
+    &:hover {
+        font-weight: bold;
+    }
+}
+
+.input {
+    width: 80%;
+    font-size: $font-size-18;
+    text-align: center;
+    background-color: $white-main;
+    border: 1px solid $grey-light;
+    border-radius: $border-radius-8;
+    padding: 1%;
+    &:focus {
+        outline: none;
+        border-color: $grey-medium;
+        box-shadow: $box-shadow-blur-15;
+    }
+    &::placeholder {
+        font-size: $font-size-14;
+    }
 }

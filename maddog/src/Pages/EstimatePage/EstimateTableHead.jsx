@@ -20,7 +20,7 @@ export default function EstimateTableHead() {
             <tr>
                 <th className={styles.head}>Количество смен:</th>
                 <td colSpan={5}>
-                    <input type='text' defaultValue={1} />
+                    <input type='text' className={styles.quantityShift} defaultValue={1} />
                 </td>
             </tr>
             <tr>
