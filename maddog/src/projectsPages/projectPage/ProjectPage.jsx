@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import {
-    Link
+  Link
 } from 'react-router-dom';
-import styles from './ProjectPage.module.scss';
-import NavBar from '../../components/navbar/NavBar';
-import ProjectTable from './ProjectTable';
+
 import Button from '../../components/button/Button';
 import Icon from '../../components/Icon/Icon';
+import NavBar from '../../components/navbar/NavBar';
+
+import ProjectTable from './ProjectTable';
+
+import styles from './ProjectPage.module.scss';
 
 // для проверки ProjectRow
 const testProjects = [
@@ -41,44 +44,44 @@ const testProjects = [
 ];
 
 function ProjectPage() {
-    const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState('');
 
-    const filters = [
-        'Все',
-        'Разовые',
-        'Длинный',
-        'Субаренда',
-        'Тест',
-    ];
+  const filters = [
+    'Все',
+    'Разовые',
+    'Длинный',
+    'Субаренда',
+    'Тест',
+  ];
 
-    return (
-        <div className={styles.container}>
-            <NavBar />
-            <section className={styles.projectPage}>
-                <div className={styles.buttonContainer}>
-                    <Link to='/newProject'>
-                        <Button className={styles.create} type='button' name='create' value='Создать' children='Создать'/>
-                    </Link>
-                    <Button className={styles.delete} type='button' name='delete' value='Удалить' children='Удалить'/>
-                </div>
-                <div className={styles.search}>
-                    <input type='text' placeholder='Поиск' value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
-                </div>
-                <div className={styles.filterContainer}>
-                    {filters.map((filter, index) => (
-                        <Button className={styles.filter} key={index} type='button' name={filter} value={filter} children={filter}/>
-                    ))}
-                    <div className={styles.calendar}>
-                        <input type='date' name='date' />
-                        <Button className={styles.searchBtn} type='button' name='search' value='search'>
-                            <Icon iconId='search' />
-                        </Button>
-                    </div>
-                </div>
-                <ProjectTable projects={testProjects} searchValue={searchValue} />
-            </section>
+  return (
+    <div className={styles.container}>
+      <NavBar />
+      <section className={styles.projectPage}>
+        <div className={styles.buttonContainer}>
+          <Link to='/newProject'>
+            <Button className={styles.create} type='button' name='create' value='Создать' children='Создать'/>
+          </Link>
+          <Button className={styles.delete} type='button' name='delete' value='Удалить' children='Удалить'/>
         </div>
-    );
+        <div className={styles.search}>
+          <input type='text' placeholder='Поиск' value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+        </div>
+        <div className={styles.filterContainer}>
+          {filters.map((filter, index) => (
+            <Button className={styles.filter} key={index} type='button' name={filter} value={filter} children={filter}/>
+          ))}
+          <div className={styles.calendar}>
+            <input type='date' name='date' />
+            <Button className={styles.searchBtn} type='button' name='search' value='search'>
+              <Icon iconId='search' />
+            </Button>
+          </div>
+        </div>
+        <ProjectTable projects={testProjects} searchValue={searchValue} />
+      </section>
+    </div>
+  );
 }
 
 export default ProjectPage;

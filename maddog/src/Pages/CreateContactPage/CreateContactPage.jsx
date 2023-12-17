@@ -1,6 +1,8 @@
-import React from 'react'
-import styles from './CreateContactPage.module.scss';
+import React from 'react';
+
 import NavBar from '../../components/navbar/NavBar';
+
+import styles from './CreateContactPage.module.scss';
 
 
 /**
@@ -10,13 +12,13 @@ import NavBar from '../../components/navbar/NavBar';
  */
 
 const CreateContactPage = () => {
-    return (
-        <main className={styles.main}>
-            <NavBar />
-            <section className={styles.createContactPage}>
-            </section>
-        </main>
-    )
-}
+  return (
+    <main className={styles.main}>
+      <NavBar />
+      <section className={styles.createContactPage}>
+      </section>
+    </main>
+  );
+};
 
-export default CreateContactPage
+export default CreateContactPage;
