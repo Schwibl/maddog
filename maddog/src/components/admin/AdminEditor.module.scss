@@ -13,12 +13,39 @@
     backdrop-filter: blur(10px);
 }
 
-.input,
-.select {
+.input {
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    padding: 5% 20%;
+    padding: 4% 18%;
     margin-bottom: 2%;
     border-radius: $border-radius-20;
+}
+
+.selectWrap{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: $border-radius-20;
+}
+
+.select {
+    width: 100%;
+    height: 100%;
+    padding: 4% 18%;
+    margin-bottom: 2%;
+    border-radius: $border-radius-20;
+}
+
+.saveAdminBtn {
+    padding: 3% 7%;
+    border-radius: $border-radius-20;
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, 0.411);
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.678);
+        color: $white-main;
+    }
 }

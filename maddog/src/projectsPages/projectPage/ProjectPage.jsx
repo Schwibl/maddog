@@ -4,9 +4,9 @@ import {
 } from 'react-router-dom';
 import styles from './ProjectPage.module.scss';
 import NavBar from '../../components/navbar/NavBar';
-import SearchSVG from './searchSVG';
 import ProjectTable from './ProjectTable';
 import Button from '../../components/button/Button';
+import Icon from '../../components/Icon/Icon';
 
 // для проверки ProjectRow
 const testProjects = [
@@ -71,7 +71,7 @@ function ProjectPage() {
                     <div className={styles.calendar}>
                         <input type='date' name='date' />
                         <Button className={styles.searchBtn} type='button' name='search' value='search'>
-                            <SearchSVG />
+                            <Icon iconId='search' />
                         </Button>
                     </div>
                 </div>

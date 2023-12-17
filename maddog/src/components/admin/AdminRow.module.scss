@@ -25,9 +25,13 @@
 .btn {
     background-color: transparent;
     transition: $transition-common;
+    cursor: pointer;
+
     &>svg {
         width: 3vw;
+        height: 2.5vw;
     }
+    
     &:hover {
         &>svg {
             fill: $text-and-icons;
