@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
-import styles from './NavBar.module.scss';
+import { Link } from 'react-router-dom';
+
+import UserContext from '../../context/UserContext';
 import LogoBlackOnTransparent from '../logo/LogoBlackOnTransparent/LogoBlackOnTransparent';
 import NavItem from '../NavItem/NavItem';
 
-import UserContext from '../../context/UserContext';
-import { Link } from 'react-router-dom';
 
 import Icon from './../Icon/Icon';
+
+import styles from './NavBar.module.scss';
 
 export default function NavBar(props) {
   // Забираем из контекста данные текущего юзера
@@ -19,7 +21,7 @@ export default function NavBar(props) {
         <LogoBlackOnTransparent />
         <div className={styles.items}>
           <NavItem text={'Проекты'} href={'/projects'}>
-           <Icon iconId='projects'/> 
+            <Icon iconId='projects'/> 
           </NavItem>
           <NavItem text={'Календарь'}>
             <Icon iconId='calendar' />
