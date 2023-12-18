@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import styles from "./ProjectPage.module.scss";
-import NavBar from "../../components/navbar/NavBar";
-import ProjectTable from "./ProjectTable";
+
 import Button from "../../components/button/Button";
 import Icon from "../../components/Icon/Icon";
+import NavBar from "../../components/navbar/NavBar";
+
+import ProjectTable from "./ProjectTable";
+
+import styles from "./ProjectPage.module.scss";
 
 // для проверки ProjectRow
 const testProjects = [

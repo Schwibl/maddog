@@ -1,31 +1,33 @@
 // import logo from './panel-logo2x.webp';
 // import styles from './App.module.scss';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AuthorizePage from "./authorizePage/AuthorizePage";
-import ProjectPage from "./Pages/ProjectsPage/ProjectPage";
-import AdminPage from "./adminPage/AdminPage";
-import UserContext from "./context/UserContext";
-import ContactsPage from "./Pages/ContactsPage/ContactsPage";
-import EstimatePage from "./Pages/EstimatePage/EstimatePage";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import AdminPage from './adminPage/AdminPage';
+import AuthorizePage from './authorizePage/AuthorizePage';
+import UserContext from './context/UserContext';
+import ContactsPage from './Pages/ContactsPage/ContactsPage';
+import EstimatePage from './Pages/EstimatePage/EstimatePage';
+import ProjectPage from './Pages/ProjectsPage/ProjectPage';
+
 // import CreateContactPage from './Pages/CreateContactPage/CreateContactPage';
 
 function App() {
   const user = {
     id: 123,
-    role: "admin",
-    contacts: "example@example.com",
-    name: "Skelork",
+    role: 'admin',
+    contacts: 'example@example.com',
+    name: 'Skelork',
   };
   return (
     <UserContext.Provider value={user}>
-      <BrowserRouter className="App">
+      <BrowserRouter className='App'>
         <Routes>
-          <Route path="/" element={<AuthorizePage />} />
-          <Route path="projects" element={<ProjectPage />} />
-          <Route path="admin" element={<AdminPage />} />
-          <Route path="contacts" element={<ContactsPage />} />
-          <Route path="estimate/:estimateHref" element={<EstimatePage />} />
-          {/* <Route path="create" element={<CreateContactPage />} /> */}
+          <Route path='/' element={<AuthorizePage />} />
+          <Route path='projects' element={<ProjectPage />} />
+          <Route path='admin' element={<AdminPage />} />
+          <Route path='contacts' element={<ContactsPage />} />
+          <Route path='estimate/:estimateHref' element={<EstimatePage />} />
+          {/* <Route path='create' element={<CreateContactPage />} /> */}
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

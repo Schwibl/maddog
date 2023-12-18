@@ -1,8 +1,11 @@
 import { useState } from 'react';
-import styles from './EstimatePage.module.scss';
+
 import Button from '../../components/button/Button';
 import NavBar from '../../components/navbar/NavBar';
+
 import EstimateTable from './EstimateTable';
+
+import styles from './EstimatePage.module.scss';
 
 export default function EstimatePage() {
   const [fileType, setFileType] = useState('excel'); // значение типа файла по умолчанию

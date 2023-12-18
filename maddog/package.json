@@ -25,7 +25,9 @@
     "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "npx eslint . --ext .js,jsx",
+    "lint-fix": "npx eslint --ext .js,jsx --fix --color ."
   },
   "eslintConfig": {
     "extends": [
@@ -46,6 +48,13 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^6.1.0"
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-css-import-order": "^1.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "gh-pages": "^6.1.0",
+    "prettier": "^3.1.1"
   }
 }

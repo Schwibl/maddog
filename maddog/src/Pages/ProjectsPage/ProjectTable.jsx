@@ -1,5 +1,7 @@
-import styles from "./ProjectPage.module.scss";
+
 import ProjectRow from "./ProjectRow";
+
+import styles from "./ProjectPage.module.scss";
 
 function ProjectTable({ projects, searchValue }) {
   const headers = [
