@@ -1,21 +1,20 @@
+import ProjectRow from './ProjectRow';
 
-import ProjectRow from "./ProjectRow";
-
-import styles from "./ProjectPage.module.scss";
+import styles from './ProjectPage.module.scss';
 
 function ProjectTable({ projects, searchValue }) {
   const headers = [
-    "Проект",
-    "Статус",
-    "Контакт",
-    "Телефон",
-    "Начало аренды",
-    "Окончание аренды",
-    "Дата и время создания",
-    "Сотрудник",
-    "Примечание",
-    "Тип",
-    "Открыть смету",
+    'Проект',
+    'Статус',
+    'Контакт',
+    'Телефон',
+    'Начало аренды',
+    'Окончание аренды',
+    'Дата и время создания',
+    'Сотрудник',
+    'Примечание',
+    'Тип',
+    'Открыть смету',
   ];
 
   return (

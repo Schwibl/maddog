@@ -2,7 +2,6 @@ import Select from '../../components/Select/Select';
 
 import logo from './logoInEstimateTable.png';
 
-
 import styles from './EstimateTable.module.scss';
 
 export default function EstimateTableHead() {
@@ -45,7 +44,7 @@ export default function EstimateTableHead() {
         <td colSpan={2} className={styles.textLeft}>Petrov Ivan</td>
         <td colSpan={2} className={styles.textLeft}>+79887555454</td>
         <td className={styles.link}>
-          <a href='https://maddogrental.pro/'>https://maddogrental.pro/</a>
+          <a href='https://maddogrental.pro/'>maddogrental.pro</a>
         </td>
       </tr>
       <tr colSpan={8}><br /></tr>

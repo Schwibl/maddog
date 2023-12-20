@@ -112,13 +112,7 @@ export default function EstimateTableService() {
     <tbody>
       <tr>
         <td>
-          <Button className={styles.addService}
-            type='button'
-            value='add-service'
-            name='add-service'
-            children='+'
-            onClick={handleAddRow}
-          />
+          <Button className={styles.addService} type='button' value='add-service' name='add-service' children='+' onClick={handleAddRow} />
         </td>
         <th colSpan={7}>Обслуживание и транспорт</th>
       </tr>
@@ -129,14 +123,7 @@ export default function EstimateTableService() {
         return (
           <tr key={id}>
             <td>
-              <Button
-                className={styles.deleteService}
-                type='button'
-                value='delete-service'
-                name='delete-service'
-                children='-'
-                onClick={() => handleDeleteRow(id)}
-              />
+              <Button className={styles.deleteService} type='button' value='delete-service' name='delete-service' children='-' onClick={() => handleDeleteRow(id)} />
             </td>
             <td>
               <select className={styles.selectService} name='service'>
@@ -149,34 +136,13 @@ export default function EstimateTableService() {
               </select>
             </td>
             <td>
-              <input
-                type='text'
-                name='cost'
-                value={cost}
-                onChange={(event) => handleCostChange(event, id)}
-                className={styles.input}
-                placeholder='Цена за смену'
-              />
+              <input type='text' name='cost' value={cost} onChange={(event) => handleCostChange(event, id)} className={styles.input} placeholder='Цена за смену' />
             </td>
             <td>
-              <input
-                type='text'
-                name='quantity'
-                value={quantity}
-                onChange={(event) => handleQuantityChange(event, id)}
-                className={styles.input}
-                placeholder='Количество'
-              />
+              <input type='text' name='quantity' value={quantity} onChange={(event) => handleQuantityChange(event, id)} className={styles.input} placeholder='Количество' />
             </td>
             <td>
-              <input
-                type='text'
-                name='days'
-                value={days}
-                onChange={(event) => handleDaysChange(event, id)}
-                className={styles.input}
-                placeholder='Количество'
-              />
+              <input type='text' name='days' value={days} onChange={(event) => handleDaysChange(event, id)} className={styles.input} placeholder='Количество'/>
             </td>
             <td>-</td>
             <td>{price}</td>
