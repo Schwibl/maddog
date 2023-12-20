@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import AdminEditor from '../components/admin/AdminEditor';
 import AdminTable from '../components/admin/AdminTable';
-import NavBar from '../components/navbar/NavBar';
 import AdminsContext from '../context/AdminsContext';
 
 import styles from './AdminPage.module.scss';
@@ -39,7 +38,6 @@ export default function AdminPage (props) {
   return (
     <AdminsContext.Provider value={admins}>
       <div className={styles.container}>
-        <NavBar />
         <section className={styles.adminPage}>
           <h1 className={styles.title}>Администраторы</h1>
           <div className={styles.currentAdmins}>

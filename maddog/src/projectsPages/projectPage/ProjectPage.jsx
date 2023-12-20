@@ -2,10 +2,11 @@ import { useState } from 'react';
 import {
   Link
 } from 'react-router-dom';
-
+
+
 import Button from '../../components/button/Button';
 import Icon from '../../components/Icon/Icon';
-import NavBar from '../../components/navbar/NavBar';
+
 
 import ProjectTable from './ProjectTable';
 
@@ -56,7 +57,7 @@ function ProjectPage() {
 
   return (
     <div className={styles.container}>
-      <NavBar />
+      
       <section className={styles.projectPage}>
         <div className={styles.buttonContainer}>
           <Link to='/newProject'>
