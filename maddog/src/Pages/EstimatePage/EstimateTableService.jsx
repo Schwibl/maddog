@@ -35,73 +35,17 @@ export default function EstimateTableService() {
     setRows(updatedRows);
   };
 
-  const handleCostChange = (event, id) => {
+  // Функция обработки изменения значения поля в ряду
+  const handleFieldChange = (event, id, field) => {
     const value = parseInt(event.target.value);
-    if (!isNaN(value)) {
-      const updatedRows = rows.map((row) => {
-        if (row.id === id) {
-          return { ...row, cost: value };
-        }
-        return row;
-      });
+    const updatedRows = rows.map((row) => {
+      if (row.id === id) {
+        return { ...row, [field]: !isNaN(value) ? value : '' };
+      }
+      return row;
+    });
 
-      setRows(updatedRows);
-    } else {
-      const updatedRows = rows.map((row) => {
-        if (row.id === id) {
-          return { ...row, cost: '' };
-        }
-        return row;
-      });
-
-      setRows(updatedRows);
-    }
-  };
-
-  const handleQuantityChange = (event, id) => {
-    const value = parseInt(event.target.value);
-    if (!isNaN(value)) {
-      const updatedRows = rows.map((row) => {
-        if (row.id === id) {
-          return { ...row, quantity: value };
-        }
-        return row;
-      });
-
-      setRows(updatedRows);
-    } else {
-      const updatedRows = rows.map((row) => {
-        if (row.id === id) {
-          return { ...row, quantity: '' };
-        }
-        return row;
-      });
-
-      setRows(updatedRows);
-    }
-  };
-
-  const handleDaysChange = (event, id) => {
-    const value = parseInt(event.target.value);
-    if (!isNaN(value)) {
-      const updatedRows = rows.map((row) => {
-        if (row.id === id) {
-          return { ...row, days: value };
-        }
-        return row;
-      });
-
-      setRows(updatedRows);
-    } else {
-      const updatedRows = rows.map((row) => {
-        if (row.id === id) {
-          return { ...row, days: '' };
-        }
-        return row;
-      });
-
-      setRows(updatedRows);
-    }
+    setRows(updatedRows);
   };
 
   const calculateTotal = (cost, quantity, days) => {
@@ -136,13 +80,13 @@ export default function EstimateTableService() {
               </select>
             </td>
             <td>
-              <input type='text' name='cost' value={cost} onChange={(event) => handleCostChange(event, id)} className={styles.input} placeholder='Цена за смену' />
+              <input type='text' name='cost' value={cost} onChange={(event) => handleFieldChange(event, id, 'cost')} className={styles.input} placeholder='Цена за смену' />
             </td>
             <td>
-              <input type='text' name='quantity' value={quantity} onChange={(event) => handleQuantityChange(event, id)} className={styles.input} placeholder='Количество' />
+              <input type='text' name='quantity' value={quantity} onChange={(event) => handleFieldChange(event, id, 'quantity')} className={styles.input} placeholder='Количество' />
             </td>
             <td>
-              <input type='text' name='days' value={days} onChange={(event) => handleDaysChange(event, id)} className={styles.input} placeholder='Количество'/>
+              <input type='text' name='days' value={days} onChange={(event) =>handleFieldChange(event, id, 'days')} className={styles.input} placeholder='Количество'/>
             </td>
             <td>-</td>
             <td>{price}</td>
