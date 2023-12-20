@@ -5,7 +5,7 @@ import Button from '../../components/button/Button';
 import styles from './EstimateTable.module.scss';
 
 export default function EstimateTableService() {
-  const items = ['Механик', 'Такси', 'Фокуспуллер'];
+  const items = ['Механик', 'Фокуспуллер', 'Мех-фокус', 'Переработка', 'Камерваген', 'Такси', 'Парковка', 'Прогон за МКАД'];
 
   const [rows, setRows] = useState([
     {
@@ -55,7 +55,7 @@ export default function EstimateTableService() {
   return (
     <tbody>
       <tr>
-        <td>
+        <td className={styles.button}>
           <Button className={styles.addService} type='button' value='add-service' name='add-service' children='+' onClick={handleAddRow} />
         </td>
         <th colSpan={7}>Обслуживание и транспорт</th>
