@@ -9,7 +9,7 @@
     flex-grow: 1;
     flex-direction: column;
     align-items: center;
-    padding-top: 3%;
+    padding: 3% 0;
 }
 
 .save,
@@ -22,6 +22,10 @@
     border-radius: $border-radius-16;
     padding: 1%;
     cursor: pointer;
+    transition: $transition-common;
+    &:hover {
+        transform: scale(1.1);
+    }
 }
 
 .downloadBlock {
@@ -29,12 +33,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2%;
+    gap: 3%;
     margin-top: 2%;
 }
 
 .text {
-    font-size: $font-size-16;
+    font-size: $font-size-18;
+    color: $white-main;
 }
 
 .select {
