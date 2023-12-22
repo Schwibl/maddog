@@ -6,7 +6,9 @@ import AdminPage from './adminPage/AdminPage';
 import AuthorizePage from './authorizePage/AuthorizePage';
 import UserContext from './context/UserContext';
 import ContactsPage from './Pages/ContactsPage/ContactsPage';
-import ProjectPage from './projectsPages/projectPage/ProjectPage';
+import EstimatePage from './Pages/EstimatePage/EstimatePage';
+import ProjectPage from './Pages/ProjectsPage/ProjectPage';
+
 // import CreateContactPage from './Pages/CreateContactPage/CreateContactPage';
 
 function App() {
@@ -18,13 +20,14 @@ function App() {
   };
   return (
     <UserContext.Provider value={user}>
-      <BrowserRouter className="App">
+      <BrowserRouter className='App'>
         <Routes>
-          <Route path="/" element={<AuthorizePage />} />
-          <Route path="projects" element={<ProjectPage />} />
-          <Route path="admin" element={<AdminPage />} />
-          <Route path="contacts" element={<ContactsPage />} />
-          {/* <Route path="create" element={<CreateContactPage />} /> */}
+          <Route path='/' element={<AuthorizePage />} />
+          <Route path='projects' element={<ProjectPage />} />
+          <Route path='admin' element={<AdminPage />} />
+          <Route path='contacts' element={<ContactsPage />} />
+          <Route path='estimate/:estimateHref' element={<EstimatePage />} />
+          {/* <Route path='create' element={<CreateContactPage />} /> */}
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
