@@ -5,6 +5,9 @@ import { NotFound } from './Pages/404/404';
 import ProjectPage from './projectsPages/projectPage/ProjectPage';
 import ContactsPage from './Pages/ContactsPage/ContactsPage';
 import AdminPage from './adminPage/AdminPage';
+import EstimatePage from './Pages/EstimatePage/EstimatePage';
+
+// import CreateContactPage from './Pages/CreateContactPage/CreateContactPage';
 
 
 //create array of routes, which will be rendered in component layout
@@ -30,6 +33,14 @@ export const router = createBrowserRouter([
           path: '/contacts',
           element: <ContactsPage />,
         },
+        {
+          path: 'estimate/:estimateHref',
+          element: <EstimatePage />
+        },
+        // {
+        //   path: 'create',
+        //   element: <CreateContactPage />
+        // },
       ]
     },
     {
