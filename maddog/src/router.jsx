@@ -1,37 +1,39 @@
-import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
-import { Layout } from "./layouts/Layout";
-import { NotFound } from "./Pages/404/404";
-import ProjectPage from "./projectsPages/projectPage/ProjectPage";
-import ContactsPage from "./Pages/ContactsPage/ContactsPage";
-import AdminPage from "./adminPage/AdminPage";
+import { createBrowserRouter } from 'react-router-dom';
+import App from './App';
+import { Layout } from './layouts/Layout';
+import { NotFound } from './Pages/404/404';
+import ProjectPage from './projectsPages/projectPage/ProjectPage';
+import ContactsPage from './Pages/ContactsPage/ContactsPage';
+import AdminPage from './adminPage/AdminPage';
 
+
+//create array of routes, which will be rendered in component layout
 export const router = createBrowserRouter([
     {
-      path: "/",
+      path: '/',
       element: <Layout />,
       errorElement: <NotFound />,
       children: [
         {
-          path: "/",
+          path: '/',
           element: <App />,
         },
         {
-          path: "/projects",
+          path: '/projects',
           element: <ProjectPage />,
         },
         {
-          path: "/admin",
+          path: '/admin',
           element: <AdminPage />,
         },
         {
-          path: "/contacts",
+          path: '/contacts',
           element: <ContactsPage />,
         },
       ]
     },
     {
-      path: "*",
+      path: '*',
       element: <NotFound />,
     },
   ]
