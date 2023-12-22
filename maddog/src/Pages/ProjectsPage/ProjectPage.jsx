@@ -1,12 +1,9 @@
 import { useState } from 'react';
-import {
-  Link
-} from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 
 import Button from '../../components/button/Button';
 import Icon from '../../components/Icon/Icon';
-
+import NavBar from '../../components/navbar/NavBar';
 
 import ProjectTable from './ProjectTable';
 
@@ -26,7 +23,7 @@ const testProjects = [
     creator: 'Petrov Ivan',
     note: 'Примечание 1',
     type: 'Разовый',
-    estimateHref: '/estimate1'
+    estimateHref: 'estimate1',
   },
   {
     projectHref: '/project2',
@@ -40,41 +37,35 @@ const testProjects = [
     creator: 'Petrov Ivan',
     note: 'Примечание 2',
     type: 'Субаренда',
-    estimateHref: '/estimate2'
+    estimateHref: 'estimate2',
   },
 ];
 
 function ProjectPage() {
   const [searchValue, setSearchValue] = useState('');
 
-  const filters = [
-    'Все',
-    'Разовые',
-    'Длинный',
-    'Субаренда',
-    'Тест',
-  ];
+  const filters = ['Все', 'Разовые', 'Длинный', 'Субаренда', 'Тест'];
 
   return (
     <div className={styles.container}>
-      
+      <NavBar />
       <section className={styles.projectPage}>
         <div className={styles.buttonContainer}>
           <Link to='/newProject'>
-            <Button className={styles.create} type='button' name='create' value='Создать' children='Создать'/>
+            <Button className={styles.create} type='button' name='create' value='Создать' children='Создать' />
           </Link>
-          <Button className={styles.delete} type='button' name='delete' value='Удалить' children='Удалить'/>
+          <Button className={styles.delete} type='button' name='delete' value='Удалить' children='Удалить' />
         </div>
         <div className={styles.search}>
           <input type='text' placeholder='Поиск' value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
         </div>
         <div className={styles.filterContainer}>
           {filters.map((filter, index) => (
-            <Button className={styles.filter} key={index} type='button' name={filter} value={filter} children={filter}/>
+            <Button className={styles.filter} key={index} type='button' name={filter} value={filter} children={filter} />
           ))}
           <div className={styles.calendar}>
             <input type='date' name='date' />
-            <Button className={styles.searchBtn} type='button' name='search' value='search'>
+            <Button className={styles.searchBtn} type='button' name='search' value='search' >
               <Icon iconId='search' />
             </Button>
           </div>
