@@ -1,4 +1,4 @@
-@import '/src/variables.scss';
+@import '/src/styles/variables.scss';
 
 .navigation {
     position: relative;
@@ -48,8 +48,9 @@
     justify-content: center;
     align-items: center;
     gap: 5%;
-    padding-top: 30%;
+    padding-top: 20%;
     transition: $transition-common;
+    color: $white-main;
 
     &:hover {
         transform: scale(0.9);
@@ -57,7 +58,6 @@
 }
 
 .admName {
-    color: $white-main;
     font-size: $font-size-18;
     text-decoration: none;
 }

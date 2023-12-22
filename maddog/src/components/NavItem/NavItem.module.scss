@@ -1,16 +1,17 @@
-@import '/src/variables.scss';
+@import '/src/styles/variables.scss';
 
 .wrap {
     width: 100%;
     padding-top: 5%;
     padding-bottom: 5%;
     display: grid;
-    grid-template-columns: 15% 85%;
+    grid-template-columns: 15% 70%;
     grid-template-rows: 1fr;
     align-items: center;
     gap: 15%;
     box-shadow: 0 7px 7px -7px #11111173;
     cursor: pointer;
+    color: $white-main;
 
     &>p {
         transition: $transition-common;
@@ -42,7 +43,7 @@
 }
 
 .text {
-    color: $white-main;
+    // color: $white-main;
     font-size: $font-size-18;
     text-decoration: none;
 }
