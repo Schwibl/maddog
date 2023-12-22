@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import { Layout } from './layouts/Layout';
 import { NotFound } from './Pages/404/404';
-import ProjectPage from './projectsPages/projectPage/ProjectPage';
+import ProjectPage from './Pages/ProjectsPage/ProjectPage';
 import ContactsPage from './Pages/ContactsPage/ContactsPage';
 import AdminPage from './adminPage/AdminPage';
 import EstimatePage from './Pages/EstimatePage/EstimatePage';
