@@ -27,7 +27,7 @@ export default function EstimateTableTotal() {
       </tr>
       <tr>
         <td colSpan={3} className={styles.textLeft}>
-            Скидка % <input type='text' name='discount' value={discount} onChange={(e) => {handleChange(e, setDiscount);}} className={styles.inputTotal} placeholder='Скидка %'/>
+          Скидка % <input type='text' name='discount' value={discount} onChange={(e) => handleChange(e, setDiscount)} className={styles.inputTotal} placeholder='Скидка %'/>
         </td>
       </tr>
       <tr>
@@ -55,7 +55,7 @@ export default function EstimateTableTotal() {
       </tr>
       <tr>
         <td colSpan={3} className={styles.textLeft}>
-            Процент УСН <input type='number' name='tax' value={tax} onChange={(e) => {handleChange(e, setTax);}} className={styles.inputTotal} placeholder='УСН %'/>
+          Процент УСН <input type='number' name='tax' value={tax} onChange={(e) => handleChange(e, setTax)} className={styles.inputTotal} placeholder='УСН %'/>
         </td>
       </tr>
       <tr>
