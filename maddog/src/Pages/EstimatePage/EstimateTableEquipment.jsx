@@ -73,7 +73,9 @@ export default function EstimateTableEquipment() {
         <td>{price.total}</td>
         <td>{price.totalWithDiscount}</td>
       </tr>
-      <tr colSpan={8}><br /></tr>
+      <tr>
+        <td colSpan={8} className={styles.emptyRow}></td>
+      </tr>
     </tbody>
   );
 }

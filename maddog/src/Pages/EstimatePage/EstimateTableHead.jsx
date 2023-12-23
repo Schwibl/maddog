@@ -66,7 +66,9 @@ export default function EstimateTableHead() {
           <a href='https://maddogrental.pro/'>maddogrental.pro</a>
         </td>
       </tr>
-      <tr colSpan={8}><br /></tr>
+      <tr>
+        <td colSpan={8} className={styles.emptyRow}></td>
+      </tr>
     </thead>
   );
 }

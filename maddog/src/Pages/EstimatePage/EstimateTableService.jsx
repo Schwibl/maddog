@@ -95,8 +95,8 @@ export default function EstimateTableService() {
           </tr>
         );
       })}
-      <tr colSpan={7}>
-        <br />
+      <tr>
+        <td colSpan={8} className={styles.emptyRow}></td>
       </tr>
     </tbody>
   );
