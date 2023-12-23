@@ -6,6 +6,7 @@ export default function EstimateTableTotal() {
   const [discount, setDiscount] = useState(0);
   const [tax, setTax] = useState(0);
 
+  // Функция для обработки изменения значения в поле ввода
   const handleChange = (event, setter) => {
     const value = parseInt(event.target.value);
     if (!isNaN(value)) {
@@ -26,7 +27,7 @@ export default function EstimateTableTotal() {
       </tr>
       <tr>
         <td colSpan={3} className={styles.textLeft}>
-            Скидка % <input type='text' name='discount' value={discount} onChange={(event) => {handleChange(event, setDiscount);}} className={styles.inputTotal} placeholder='Скидка %'/>
+            Скидка % <input type='text' name='discount' value={discount} onChange={(e) => {handleChange(e, setDiscount);}} className={styles.inputTotal} placeholder='Скидка %'/>
         </td>
       </tr>
       <tr>
@@ -54,7 +55,7 @@ export default function EstimateTableTotal() {
       </tr>
       <tr>
         <td colSpan={3} className={styles.textLeft}>
-            Процент УСН <input type='number' name='tax' value={tax} onChange={(event) => {handleChange(event, setTax);}} className={styles.inputTotal} placeholder='УСН %'/>
+            Процент УСН <input type='number' name='tax' value={tax} onChange={(e) => {handleChange(e, setTax);}} className={styles.inputTotal} placeholder='УСН %'/>
         </td>
       </tr>
       <tr>
