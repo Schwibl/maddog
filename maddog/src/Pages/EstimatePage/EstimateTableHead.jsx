@@ -10,15 +10,16 @@ export default function EstimateTableHead() {
   const items = ['Клиент', 'Менеджер'];
   const [startDate, setStartDate] = useState('02-10-2023');
   const [endDate, setEndDate] = useState('19-10-2023');
+  const [quantityShift, setQuantityShift] = useState('1');
 
-  // Обработчик изменения начальной даты
-  const handleStartDateChange = (event) => {
-    setStartDate(event.target.value);
-  };
-
-  // Обработчик изменения конечной даты
-  const handleEndDateChange = (event) => {
-    setEndDate(event.target.value);
+  // Функция для обработки изменения значения в поле ввода
+  const handleChange = (event, setter) => {
+    const value = parseInt(event.target.value);
+    if (!isNaN(value)) {
+      setter(value);
+    } else {
+      setter('');
+    }
   };
 
   return (
@@ -29,18 +30,18 @@ export default function EstimateTableHead() {
         </td>
         <th rowSpan={2} className={styles.head}>Съемочный период:</th>
         <td colSpan={5}>
-          <input type='text' className={styles.dateInput} value={startDate} onChange={handleStartDateChange} />
+          <input type='text' className={styles.dateInput} value={startDate} onChange={(e) => handleChange(e, setStartDate)} placeholder='Начало аренды'/>
         </td>
       </tr>
       <tr>
         <td colSpan={5}>
-          <input type='text' className={styles.dateInput} value={endDate} onChange={handleEndDateChange} />
+          <input type='text' className={styles.dateInput} value={endDate} onChange={(e) => handleChange(e, setEndDate)} placeholder='Окончание аренды'/>
         </td>
       </tr>
       <tr>
         <th className={styles.head}>Количество смен:</th>
         <td colSpan={5}>
-          <input type='text' className={styles.quantityShift} defaultValue={1} />
+          <input type='text' className={styles.quantityShift} value={quantityShift} onChange={(e) => handleChange(e, setQuantityShift)} placeholder='Количество'/>
         </td>
       </tr>
       <tr>

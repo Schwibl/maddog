@@ -63,6 +63,9 @@ select {
     border-color: $grey-medium;
     box-shadow: $box-shadow-blur-15;
   }
+  &::placeholder {
+    font-size: $font-size-14;
+  }
 }
 
 select {
