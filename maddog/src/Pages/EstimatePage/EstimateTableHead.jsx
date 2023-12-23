@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import Select from '../../components/Select/Select';
 
 import logo from './logoInEstimateTable.png';
@@ -6,6 +8,18 @@ import styles from './EstimateTable.module.scss';
 
 export default function EstimateTableHead() {
   const items = ['Клиент', 'Менеджер'];
+  const [startDate, setStartDate] = useState('02-10-2023');
+  const [endDate, setEndDate] = useState('19-10-2023');
+
+  // Обработчик изменения начальной даты
+  const handleStartDateChange = (event) => {
+    setStartDate(event.target.value);
+  };
+
+  // Обработчик изменения конечной даты
+  const handleEndDateChange = (event) => {
+    setEndDate(event.target.value);
+  };
 
   return (
     <thead>
@@ -14,10 +28,14 @@ export default function EstimateTableHead() {
           <img className={styles.img} src={logo} alt='MadDog Rental Logo' />
         </td>
         <th rowSpan={2} className={styles.head}>Съемочный период:</th>
-        <td colSpan={5}>02-10-2023</td>
+        <td colSpan={5}>
+          <input type='text' className={styles.dateInput} value={startDate} onChange={handleStartDateChange} />
+        </td>
       </tr>
       <tr>
-        <td colSpan={5}>19-10-2023</td>
+        <td colSpan={5}>
+          <input type='text' className={styles.dateInput} value={endDate} onChange={handleEndDateChange} />
+        </td>
       </tr>
       <tr>
         <th className={styles.head}>Количество смен:</th>
