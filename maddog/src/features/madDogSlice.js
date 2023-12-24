@@ -9,8 +9,9 @@ export const estimateSlice = createSlice({
   initialState,
   reducers: {
     // methods, that change state of estimate's type
+    exampleAction: (state) => {},
   },
-})
-export const {  } = estimateSlice.actions
+});
+export const { exampleAction } = estimateSlice.actions;
 
-export default estimateSlice.reducer
+export default estimateSlice.reducer;
