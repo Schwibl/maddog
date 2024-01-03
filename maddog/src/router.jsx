@@ -9,8 +9,7 @@ import EstimatePage from './Pages/EstimatePage/EstimatePage';
 
 // import CreateContactPage from './Pages/CreateContactPage/CreateContactPage';
 
-
-//create array of routes, which will be rendered in component layout
+//создаем массив роутов, которые будут рендериться внутри компонента Layout, в зависимости от указанного пути
 export const router = createBrowserRouter([
     {
       path: '/',

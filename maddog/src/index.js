@@ -6,8 +6,7 @@ import './index.scss';
 import { store } from './store';
 import { RouterProvider } from 'react-router-dom';
 
-
-//RouterProvider is router's object, that has params and settings
+//RouterProvider - это объект роутера
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
