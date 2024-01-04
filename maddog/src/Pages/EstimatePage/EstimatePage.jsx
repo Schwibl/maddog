@@ -1,14 +1,16 @@
-import { useState } from 'react';
-
+import { useDispatch, useSelector } from "react-redux";
 import Button from '../../components/button/Button';
 import NavBar from '../../components/navbar/NavBar';
+
+// import { funstions } from "../features/madDogSlice";
 
 import EstimateTable from './EstimateTable';
 
 import styles from './EstimatePage.module.scss';
 
 export default function EstimatePage() {
-  const [fileType, setFileType] = useState('excel'); // значение типа файла по умолчанию
+  // const [fileType, setFileType] = useState('excel'); // значение типа файла по умолчанию
+  const typeFile = useSelector((state) => state.typeFile.value);
   const options = ['excel', 'pdf']; // доступные типы файлов
 
   const handleSaveEstimate = () => {
@@ -29,7 +31,7 @@ export default function EstimatePage() {
         <Button className={styles.save} onClick={handleSaveEstimate} type='button' name='save-estimate' value='Сохранить смету' children='Сохранить смету'/>
         <div className={styles.downloadBlock}>
           <p className={styles.text}>Выберите тип файлов: </p>
-          <select value={fileType} onChange={(e) => setFileType(e.target.value)} className={styles.select}>
+          <select value={value} onChange={(e) => state.typeFile.value} className={styles.select}>
             {options.map((option) => (
               <option key={option} value={option} className={styles.option}>
                 {option.toUpperCase()}
