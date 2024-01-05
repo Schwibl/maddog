@@ -1,5 +1,6 @@
-import { jsPDF } from 'jspdf';
+// import Html2Pdf from 'js-html2pdf';
 import { useState, useRef } from 'react';
+import { useReactToPrint } from 'react-to-print';
 
 import Button from '../../components/button/Button';
 import NavBar from '../../components/navbar/NavBar';
@@ -18,25 +19,25 @@ export default function EstimatePage() {
     console.log('Сохранение сметы');
   };
 
-  const handleDownload = async () => {
-    // логика генерации и скачивания файла в соответствии с выбранным типом
-    if (fileType === 'pdf') {
-      console.log('work');
-      const doc = new jsPDF('p', 'mm', 'a4');
-      doc.addFont('Arial', 'normal', 'utf8');
-      doc.setFont('Arial');
-      doc.setFontSize(10);
-      const table = tableRef.current;
+  const handlePrint = useReactToPrint({
+    bodyClass: styles.printPdf,
+    content: () => tableRef.current,
 
-      doc.html(table, {
-        callback: function (pdf) {
-          pdf.save('estimate.pdf');
-        },
-        x: 5,
-        y: 5,
-        // pagesplit: true,
-        // scale: 0.8,
-      });
+    // логика сохранения в пдф таблицы как изображения
+    // print: async (printIframe) => {
+    //   const document = printIframe.contentDocument;
+    //   if (document) {
+    //     const html = document.getElementsByTagName('html')[0];
+    //     const exporter = new Html2Pdf(html);
+    //     await exporter.getPdf(true);
+    //   }
+    // },
+  });
+
+  // логика генерации и скачивания файла в соответствии с выбранным типом
+  const handleDownload = async () => {
+    if (fileType === 'pdf') {
+      handlePrint();
     } else {
       console.log('Выгрузка в другие типы файлов');
     }
@@ -50,10 +51,10 @@ export default function EstimatePage() {
         <Button
           className={styles.save}
           onClick={handleSaveEstimate}
-          type="button"
-          name="save-estimate"
-          value="Сохранить смету"
-          children="Сохранить смету"
+          type='button'
+          name='save-estimate'
+          value='Сохранить смету'
+          children='Сохранить смету'
         />
         <div className={styles.downloadBlock}>
           <p className={styles.text}>Выберите тип файлов: </p>
@@ -71,10 +72,10 @@ export default function EstimatePage() {
           <Button
             className={styles.download}
             onClick={handleDownload}
-            type="button"
-            name="download-estimate"
-            value="Выгрузить смету"
-            children="Выгрузить смету"
+            type='button'
+            name='download-estimate'
+            value='Выгрузить смету'
+            children='Выгрузить смету'
           />
         </div>
       </section>
