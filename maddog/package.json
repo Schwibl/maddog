@@ -10,8 +10,6 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.2",
     "classnames": "^2.3.2",
-    "js-html2pdf": "^1.1.4",
-    "jspdf": "^2.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.0",

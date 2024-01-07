@@ -1,4 +1,3 @@
-// import Html2Pdf from 'js-html2pdf';
 import { useState, useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
 
@@ -9,35 +8,31 @@ import EstimateTable from './EstimateTable';
 
 import styles from './EstimatePage.module.scss';
 
+// Перечисление доступных типов файлов
+const FileTypes = {
+  EXCEL: 'excel',
+  PDF: 'pdf',
+};
+
 export default function EstimatePage() {
   const tableRef = useRef(null);
-  const [fileType, setFileType] = useState('excel'); // значение типа файла по умолчанию
-  const options = ['excel', 'pdf']; // доступные типы файлов
+  const [fileType, setFileType] = useState(FileTypes.EXCEL); // значение типа файла по умолчанию
 
+  // Обработчик сохранения сметы.
   const handleSaveEstimate = () => {
-    // логика сохранения сметы
     console.log('Сохранение сметы');
   };
 
-  const handlePrint = useReactToPrint({
+  // Функция для предпросмотра и сохранения сметы в формате пдф
+  const handlePreviewAndPrintPDF = useReactToPrint({
     bodyClass: styles.printPdf,
     content: () => tableRef.current,
-
-    // логика сохранения в пдф таблицы как изображения
-    // print: async (printIframe) => {
-    //   const document = printIframe.contentDocument;
-    //   if (document) {
-    //     const html = document.getElementsByTagName('html')[0];
-    //     const exporter = new Html2Pdf(html);
-    //     await exporter.getPdf(true);
-    //   }
-    // },
   });
 
-  // логика генерации и скачивания файла в соответствии с выбранным типом
+  // Обработчик загрузки файла в соответствии с выбранным типом
   const handleDownload = async () => {
-    if (fileType === 'pdf') {
-      handlePrint();
+    if (fileType === FileTypes.PDF && tableRef.current) {
+      handlePreviewAndPrintPDF();
     } else {
       console.log('Выгрузка в другие типы файлов');
     }
@@ -63,7 +58,7 @@ export default function EstimatePage() {
             onChange={(e) => setFileType(e.target.value)}
             className={styles.select}
           >
-            {options.map((option) => (
+            {Object.values(FileTypes).map((option) => (
               <option key={option} value={option} className={styles.option}>
                 {option.toUpperCase()}
               </option>
