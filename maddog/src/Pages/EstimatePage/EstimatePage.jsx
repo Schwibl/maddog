@@ -2,7 +2,8 @@ import { useState, useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
 
 import Button from '../../components/button/Button';
-import NavBar from '../../components/navbar/NavBar';
+
+// import { funstions } from "../features/madDogSlice";
 
 import EstimateTable from './EstimateTable';
 
@@ -40,7 +41,6 @@ export default function EstimatePage() {
 
   return (
     <div className={styles.container}>
-      <NavBar />
       <section className={styles.estimatePage}>
         <EstimateTable ref={tableRef} />
         <Button

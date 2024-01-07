@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 import Button from '../../components/button/Button';
 import Input from '../../components/Input/Input';
-import NavBar from '../../components/navbar/NavBar';
 import Select from '../../components/Select/Select';
 
 import ContactRow from './ContactRow';
@@ -43,7 +42,6 @@ const ContactsPage = () => {
 
   return (
     <main className={styles.main}>
-      <NavBar />
       <section className={styles.contactsPage}>
         <div className={styles.filterBlock}>
           <form className={styles.filterForm} onSubmit={handleSubmit}>
