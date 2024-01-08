@@ -1,5 +1,6 @@
-@import '/src/variables.scss';
-@import '/src/mixins.scss';
+@import '/src/styles/variables.scss';
+@import '/src/styles/mixins.scss';
+@import '/src/styles/tables.scss';
 
 * {
   padding: 0px;
@@ -16,7 +17,7 @@ body {
 *:after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  // font-family: "Roboto", sans-serif;
   box-sizing: border-box;
 }
 
