@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+
+
 import styles from './404.module.scss';
 
 export const NotFound = () => {

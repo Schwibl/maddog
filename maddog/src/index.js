@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { router } from './router';
-import './index.scss';
-import { store } from './store';
 import { RouterProvider } from 'react-router-dom';
+
+import { router } from './router';
+import { store } from './store';
+
+
+import './index.scss';
 
 //RouterProvider - это объект роутера
 const root = ReactDOM.createRoot(document.getElementById('root'));
