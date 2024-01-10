@@ -1,4 +1,3 @@
-
 import {
   Link
 } from 'react-router-dom';
@@ -24,7 +23,7 @@ function ProjectRow(props) {
   return (
     <div className={styles.gridRow}>
       <p className={styles.gridCell}>
-        <Link href={projectHref}>{projectName}</Link>
+        <Link to={projectHref}>{projectName}</Link>
       </p>
       <p className={styles.gridCell}>{status}</p>
       <p className={styles.gridCell}>{contact}</p>
@@ -36,7 +35,7 @@ function ProjectRow(props) {
       <p className={styles.gridCell}>{note}</p>
       <p className={styles.gridCell}>{type}</p>
       <p className={styles.gridCell}>
-        <Link href={estimateHref}>Смета</Link>
+        <Link to={`/estimate/${estimateHref}`}>Смета</Link>
       </p>
     </div>
   );

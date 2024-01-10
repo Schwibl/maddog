@@ -1,4 +1,3 @@
-
 import ProjectRow from './ProjectRow';
 
 import styles from './ProjectPage.module.scss';
