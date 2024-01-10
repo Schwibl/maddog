@@ -4,7 +4,6 @@ import { createPortal } from 'react-dom';
 
 import Button from '../../components/button/Button';
 import Icon from '../../components/Icon/Icon';
-import NavBar from '../../components/navbar/NavBar';
 import { AG_GRID_LOCALE_RU } from '../../utils/ag-grid-locale-ru';
 
 import { types, contacts } from './mock';
@@ -123,7 +122,6 @@ const ContactsPage = () => {
   return (
     <main className={styles.main}>
       {isShowModal && createPortal(<PhotoModal url={modalUrl} />, document.body)}
-      <NavBar />
       <section className={styles.contactsPage}>
         <h1 className={styles.title}>Контакты</h1>
 
