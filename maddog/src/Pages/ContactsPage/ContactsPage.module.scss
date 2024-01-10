@@ -1,112 +1,106 @@
-@import '/src/variables.scss';
+@import '/src/styles/globals.scss';
 
 .main {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .contactsPage {
   display: flex;
-
+  // flex: 1;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  min-height: 100vh;
-  padding: 2.5% 0;
-
-  background-image: url('./../../images/bg.jpg');
-  background-repeat: no-repeat;
-  background-position: top 0% right 28%;
-  background-size: 56%;
-  background-attachment: fixed;
-}
-
-.filterBlock {
-  width: 90%;
-  height: 15%;
-  display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  box-sizing: border-box;
-  margin-bottom: 3%;
-}
-
-.filterForm {
-  display: flex;
-  flex-direction: column;
-  gap: 10%;
-  // justify-content: space-between;
-  width: 25%;
-  height: 100%;
-}
-
-.table {
-  width: 90%;
-  // height: 75%;
-  // overflow-y: auto;
-}
-
-.gridRowHeader,
-.gridRow {
-  display: grid;
-  grid-template-columns: 1fr 3fr 8fr;
-  justify-items: center;
-  align-items: center;
-  text-align: center;
-  font-size: $font-size-15;
-  color: $black;
-}
-
-.gridRowHeader {
-  background-color: $grey-medium-light;
-  font-weight: bold;
-}
-
-.gridRow {
-  background-color: $white-main;
-}
-
-.gridHeader,
-.gridCell {
-  display: flex;
-  gap: 8%;
-  align-items: center;
-  justify-content: center;
-  padding: 1% 0;
+  gap: 5%;
   width: 100%;
-  height: 100%;
-  border: 1px solid $grey-medium;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 2.5% 0;
+  @include page-bg;
 }
 
-.gridCell input[type='checkbox'] {
-  width: 15%;
-
-  border: 1px solid $grey-medium;
-  border-radius: $border-radius-8;
-  cursor: pointer;
+.title {
+  @include page-title;
 }
 
-.gridCell img {
-  height: 95%;
-  width: 30%;
-  object-fit: cover;
-}
-
-.link {
-  color: $blue;
+.buttons {
+  display: flex;
+  gap: 1%;
+  padding-bottom: 0.5%;
 }
 
 .button {
-  height: 30%;
-  font-size: $font-size-16;
+  height: 100%;
+  font-size: $font-size-12;
+  line-height: 100%;
   font-weight: bold;
   background-color: $btn-color;
   color: $text-and-icons;
   border: none;
-  border-radius: $border-radius-16;
-  padding: 2% 4%;
+  border-radius: $border-radius-10;
+  padding: 0.5% 1%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
+
+// .filterBlock {
+//   width: 90%;
+//   margin: 3% 0;
+
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   align-items: center;
+//   box-sizing: border-box;
+//   margin-bottom: 3%;
+// }
+
+// .filterForm {
+//   display: grid;
+//   grid-template-columns: 3fr 4fr 2fr;
+//   gap: 3%;
+//   justify-content: space-between;
+//   // width: 50%;
+//   height: 100%;
+//   padding: 0;margin: 0;
+// }
+
+.agTable {
+  width: 90%;
+  height: 100%;
+  // flex: 1;
+
+}
+
+
+.tableBtn {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+
+  & svg {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.modal {
+  width: 50%;
+  height: 50%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  // background-color: yellow;
+
+  color: $bg-modal;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
