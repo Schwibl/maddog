@@ -32,13 +32,13 @@ export default function EstimatePage() {
         <Button className={styles.save} onClick={handleSaveEstimate} type='button' name='save-estimate' value='Сохранить смету' children='Сохранить смету'/>
         <div className={styles.downloadBlock}>
           <p className={styles.text}>Выберите тип файлов: </p>
-          <select value={value} onChange={(e) => state.typeFile.value} className={styles.select}>
+          {/* <select value={value} onChange={(e) => state.typeFile.value} className={styles.select}>
             {options.map((option) => (
               <option key={option} value={option} className={styles.option}>
                 {option.toUpperCase()}
               </option>
             ))}
-          </select>
+          </select> */}
           <Button className={styles.download} onClick={handleDownload} type='button' name='download-estimate' value='Выгрузить смету' children='Выгрузить смету'/>
         </div>
       </section>
