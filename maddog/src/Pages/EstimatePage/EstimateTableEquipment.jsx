@@ -11,6 +11,7 @@ export default function EstimateTableEquipment() {
   const [discount, setDiscount] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
 
+  // Функция для вычисления общей стоимости обслуживания и стоимости с учетом скидки
   const calculateTotal = () => {
     const total = Math.ceil(cost * quantity * days);
     const totalWithDiscount = Math.ceil(total * (1 - discount / 100));
@@ -20,6 +21,9 @@ export default function EstimateTableEquipment() {
     };
   };
 
+  const price = calculateTotal();
+
+  // Функция для обработки изменения значения в поле ввода
   const handleChange = (event, setter) => {
     const value = parseInt(event.target.value);
     if (!isNaN(value)) {
@@ -29,8 +33,7 @@ export default function EstimateTableEquipment() {
     }
   };
 
-  const price = calculateTotal();
-
+  // Функция для переключения фильтров, инвертирует значение переменной showFilters
   const toggleFilters = () => {
     setShowFilters(!showFilters);
   };
@@ -63,14 +66,16 @@ export default function EstimateTableEquipment() {
             </div>
           )}
         </td>
-        <td><input type='text' name='cost' value={cost} onChange={(event) => {handleChange(event, setCost);}} className={styles.input} placeholder='Стоимость'/></td>
-        <td><input type='text' name='quantity' value={quantity} onChange={(event) => {handleChange(event, setQuantity);}} className={styles.input} placeholder='Количество'/></td>
-        <td><input type='text' name='days' value={days} onChange={(event) => {handleChange(event, setDays);}} className={styles.input} placeholder='Количество'/></td>
-        <td><input type='text' name='discount' value={discount} onChange={(event) => {handleChange(event, setDiscount);}} className={styles.input} placeholder='Скидка'/></td>
+        <td><input type='text' name='cost' value={cost} onChange={(e) => handleChange(e, setCost)} className={styles.input} placeholder='Стоимость'/></td>
+        <td><input type='text' name='quantity' value={quantity} onChange={(e) => handleChange(e, setQuantity)} className={styles.input} placeholder='Количество'/></td>
+        <td><input type='text' name='days' value={days} onChange={(e) => handleChange(e, setDays)} className={styles.input} placeholder='Количество'/></td>
+        <td><input type='text' name='discount' value={discount} onChange={(e) => handleChange(e, setDiscount)} className={styles.input} placeholder='Скидка'/></td>
         <td>{price.total}</td>
         <td>{price.totalWithDiscount}</td>
       </tr>
-      <tr colSpan={8}><br /></tr>
+      <tr>
+        <td colSpan={8} className={styles.emptyRow}></td>
+      </tr>
     </tbody>
   );
 }

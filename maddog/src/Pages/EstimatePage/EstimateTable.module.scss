@@ -1,151 +1,166 @@
 @import '/src/variables.scss';
+@import '/src/mixins.scss';
 
 .tableContainer {
-    width: 100%;
-    padding: 0 3%;
+  width: 100%;
+  padding: 0 3%;
 }
 
 .table {
-    width: 100%;
-    font-size: $font-size-18;
-    background-color: $white-main;
-    color: $black-text;
-    border: 1px solid $black-text;
-    border-collapse: collapse;
-    padding: 0 3%;
-    margin-bottom: 2%;
+  width: 100%;
+  font-size: $font-size-16;
+  background-color: $white-main;
+  color: $black-text;
+  @include border-black;
+  border-collapse: collapse;
+  padding: 0 3%;
+  margin-bottom: 2%;
 }
 
 td,
 th {
-    border: 1px solid $black-text;
-    padding: 0.5% 0;
-    text-align: center;
+  @include border-black;
+  padding: 0.5% 0;
+  text-align: center;
 }
 
 .head,
 .textLeft {
-    text-align: left;
-    padding: 0.5% 1%;
+  text-align: left;
+  padding: 0.7% 1.5%;
 }
 
 .tdLogo {
-    width: 26%;
-    padding: 0.5% 1%;
+  width: 26%;
+  padding: 0.5% 1%;
 }
 
 .img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
+  @include img;
+  object-fit: cover;
 }
 
 .link {
-    width: 20%;
-    font-weight: bold;
-    &:hover {
-        text-decoration: underline;
-    }
+  width: 20%;
+  font-weight: bold;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .quantityShift,
+.dateInput,
 select {
-    width: 60%;
-    font-size: $font-size-18;
-    text-align: center;
-    background-color: $btn-color;
-    border: 1px solid $grey-light;
-    border-radius: $border-radius-8;
-    padding: 1%;
-    &:focus {
-        outline: none;
-        border-color: $grey-medium;
-        box-shadow: $box-shadow-blur-15;
-    }
+  width: 60%;
+  font-size: $font-size-18;
+  text-align: center;
+  background-color: $btn-color;
+  @include border-grey-light;
+  border-radius: $border-radius-8;
+  padding: 1%;
+  &:focus {
+    outline: none;
+    border-color: $grey-medium;
+    box-shadow: $box-shadow-blur-15;
+  }
+  &::placeholder {
+    font-size: $font-size-14;
+  }
 }
 
 select {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .secure {
-    font-size: $font-size-12;
-    font-weight: bold;
-    background-color: $btn-color;
-    color: $text-and-icons;
-    border: none;
-    border-radius: $border-radius-16;
-    padding: 2%;
-    margin-top: 1%;
-    margin-bottom: 2%;
-    cursor: pointer;
+  font-size: $font-size-12;
+  font-weight: bold;
+  background-color: $btn-color;
+  color: $text-and-icons;
+  border: none;
+  border-radius: $border-radius-16;
+  padding: 2%;
+  margin-top: 1%;
+  margin-bottom: 2%;
+  cursor: pointer;
 }
 
 .category {
-    font-size: $font-size-12;
-    background-color: $btn-color;
-    color: $text-and-icons;
-    border: none;
-    border-radius: $border-radius-16;
-    padding: 2%;
-    margin-bottom: 2%;
-    cursor: pointer;
-    &:hover {
-        font-weight: bold;
-    }
+  font-size: $font-size-12;
+  background-color: $btn-color;
+  color: $text-and-icons;
+  border: none;
+  border-radius: $border-radius-16;
+  padding: 2%;
+  margin-bottom: 2%;
+  cursor: pointer;
+  &:hover {
+    font-weight: bold;
+  }
 }
 
-.input {
-    width: 80%;
-    font-size: $font-size-18;
-    text-align: center;
-    background-color: $white-main;
-    border: 1px solid $grey-light;
-    border-radius: $border-radius-8;
-    padding: 1%;
-    &:focus {
-        outline: none;
-        border-color: $grey-medium;
-        box-shadow: $box-shadow-blur-15;
-    }
-    &::placeholder {
-        font-size: $font-size-14;
-    }
+.input,
+.inputTotal {
+  width: 80%;
+  font-size: $font-size-18;
+  text-align: center;
+  background-color: $white-main;
+  @include border-grey-medium;
+  border-radius: $border-radius-8;
+  padding: 6%;
+  &:focus {
+    outline: none;
+    border-color: $grey-medium;
+    box-shadow: $box-shadow-blur-15;
+  }
+  &::placeholder {
+    font-size: $font-size-14;
+  }
+}
+
+.inputTotal {
+  width: 50%;
+  padding: 2%;
+  margin-left: 3%;
 }
 
 .button {
-    width: 3%;
-    background-color: $grey-dark;
+  width: 3%;
+  background-color: $grey-dark;
 }
 
 .addService,
 .deleteService {
-    font-size: $font-size-20;
-    padding: 3% 20%;
-    cursor: pointer;
+  font-size: $font-size-20;
+  padding: 3% 20%;
+  cursor: pointer;
 }
 
 .addService {
-    background-color: $grey-dark;
-    color: $white-main;
+  background-color: $grey-dark;
+  color: $white-main;
 }
 
 .deleteService {
-    background-color: $white-main;
-    color: $black-text;
+  background-color: $white-main;
+  color: $black-text;
 }
 
 .selectService {
-    width: 95%;
-    font-size: $font-size-15;
-    text-align: center;
-    background-color: $btn-color;
-    border: 1px solid $grey-light;
-    border-radius: $border-radius-8;
-    padding: 1%;
-    &:focus {
-        outline: none;
-        border-color: $grey-medium;
-        box-shadow: $box-shadow-blur-15;
-    }
+  width: 95%;
+  font-size: $font-size-15;
+  text-align: center;
+  background-color: $btn-color;
+  @include border-grey-light;
+  border-radius: $border-radius-8;
+  padding: 1%;
+  &:focus {
+    outline: none;
+    border-color: $grey-medium;
+    box-shadow: $box-shadow-blur-15;
+  }
+}
+
+.emptyRow {
+  padding: 1%;
 }

@@ -1,6 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useRef } from 'react';
+import { useReactToPrint } from 'react-to-print';
+
 import Button from '../../components/button/Button';
-import NavBar from '../../components/navbar/NavBar';
 
 // import { funstions } from "../features/madDogSlice";
 
@@ -8,37 +9,69 @@ import EstimateTable from './EstimateTable';
 
 import styles from './EstimatePage.module.scss';
 
-export default function EstimatePage() {
-  // const [fileType, setFileType] = useState('excel'); // значение типа файла по умолчанию
-  const typeFile = useSelector((state) => state.typeFile.value);
-  const options = ['excel', 'pdf']; // доступные типы файлов
+// Перечисление доступных типов файлов
+const FileTypes = {
+  EXCEL: 'excel',
+  PDF: 'pdf',
+};
 
+export default function EstimatePage() {
+  const tableRef = useRef(null);
+  const [fileType, setFileType] = useState(FileTypes.EXCEL); // значение типа файла по умолчанию
+
+  // Обработчик сохранения сметы.
   const handleSaveEstimate = () => {
-    // логика сохранения сметы
     console.log('Сохранение сметы');
   };
 
-  const handleDownload = () => {
-    // логика генерации и скачивания файла в соответствии с выбранным типом
-    console.log('Выгрузка файла');
+  // Функция для предпросмотра и сохранения сметы в формате пдф
+  const handlePreviewAndPrintPDF = useReactToPrint({
+    bodyClass: styles.printPdf,
+    content: () => tableRef.current,
+  });
+
+  // Обработчик загрузки файла в соответствии с выбранным типом
+  const handleDownload = async () => {
+    if (fileType === FileTypes.PDF && tableRef.current) {
+      handlePreviewAndPrintPDF();
+    } else {
+      console.log('Выгрузка в другие типы файлов');
+    }
   };
 
   return (
     <div className={styles.container}>
-      <NavBar />
       <section className={styles.estimatePage}>
-        <EstimateTable />
-        <Button className={styles.save} onClick={handleSaveEstimate} type='button' name='save-estimate' value='Сохранить смету' children='Сохранить смету'/>
+        <EstimateTable ref={tableRef} />
+        <Button
+          className={styles.save}
+          onClick={handleSaveEstimate}
+          type='button'
+          name='save-estimate'
+          value='Сохранить смету'
+          children='Сохранить смету'
+        />
         <div className={styles.downloadBlock}>
           <p className={styles.text}>Выберите тип файлов: </p>
-          <select value={value} onChange={(e) => state.typeFile.value} className={styles.select}>
-            {options.map((option) => (
+          <select
+            value={fileType}
+            onChange={(e) => setFileType(e.target.value)}
+            className={styles.select}
+          >
+            {Object.values(FileTypes).map((option) => (
               <option key={option} value={option} className={styles.option}>
                 {option.toUpperCase()}
               </option>
             ))}
           </select>
-          <Button className={styles.download} onClick={handleDownload} type='button' name='download-estimate' value='Выгрузить смету' children='Выгрузить смету'/>
+          <Button
+            className={styles.download}
+            onClick={handleDownload}
+            type='button'
+            name='download-estimate'
+            value='Выгрузить смету'
+            children='Выгрузить смету'
+          />
         </div>
       </section>
     </div>

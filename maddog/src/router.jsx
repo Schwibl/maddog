@@ -1,16 +1,18 @@
 import { createBrowserRouter } from 'react-router-dom';
+
+import AdminPage from './adminPage/AdminPage';
 import App from './App';
 import { Layout } from './layouts/Layout';
 import { NotFound } from './Pages/404/404';
-import ProjectPage from './Pages/ProjectsPage/ProjectPage';
 import ContactsPage from './Pages/ContactsPage/ContactsPage';
-import AdminPage from './adminPage/AdminPage';
 import EstimatePage from './Pages/EstimatePage/EstimatePage';
+import ProjectPage from './Pages/ProjectsPage/ProjectPage';
 
 // import CreateContactPage from './Pages/CreateContactPage/CreateContactPage';
 
 //создаем массив роутов, которые будут рендериться внутри компонента Layout, в зависимости от указанного пути
-export const router = createBrowserRouter([
+export const router = createBrowserRouter(
+  [
     {
       path: '/',
       element: <Layout />,
@@ -34,13 +36,13 @@ export const router = createBrowserRouter([
         },
         {
           path: 'estimate/:estimateHref',
-          element: <EstimatePage />
+          element: <EstimatePage />,
         },
         // {
         //   path: 'create',
         //   element: <CreateContactPage />
         // },
-      ]
+      ],
     },
     {
       path: '*',
@@ -48,4 +50,4 @@ export const router = createBrowserRouter([
     },
   ]
   // , { basename: '/MadDog/'}
-  );
+);
