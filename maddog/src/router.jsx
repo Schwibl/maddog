@@ -38,10 +38,6 @@ export const router = createBrowserRouter(
           path: 'estimate/:estimateHref',
           element: <EstimatePage />,
         },
-        // {
-        //   path: 'create',
-        //   element: <CreateContactPage />
-        // },
       ],
     },
     {
