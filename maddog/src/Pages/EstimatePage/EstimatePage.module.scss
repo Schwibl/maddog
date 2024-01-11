@@ -1,65 +1,71 @@
 @import '/src/variables.scss';
+@import '/src/mixins.scss';
 
 .container {
-    display: flex;
+  display: flex;
 }
 
 .estimatePage {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    align-items: center;
-    padding: 3% 0;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  padding: 3% 0;
 }
 
 .save,
 .download {
-    font-size: $font-size-16;
-    font-weight: bold;
-    background-color: $btn-color;
-    color: $text-and-icons;
-    border: none;
-    border-radius: $border-radius-16;
-    padding: 1%;
-    cursor: pointer;
-    transition: $transition-common;
-    &:hover {
-        transform: scale(1.1);
-    }
+  font-size: $font-size-16;
+  font-weight: bold;
+  background-color: $btn-color;
+  color: $text-and-icons;
+  border: none;
+  border-radius: $border-radius-16;
+  padding: 1%;
+  cursor: pointer;
+  transition: $transition-common;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .downloadBlock {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3%;
-    margin-top: 2%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3%;
+  margin-top: 2%;
 }
 
 .text {
-    font-size: $font-size-18;
-    color: $white-main;
+  font-size: $font-size-18;
+  color: $white-main;
 }
 
 .select {
-    max-width: 10%;
-    border: 1px solid $grey-medium-light;
-    border-radius: $border-radius-8;
-    background-color: $btn-color;
-    color: $text-and-icons;
-    padding: 0.5%;
-    font-size: $font-size-16;
-    cursor: pointer;
-    &:focus {
-        outline: none;
-        box-shadow: $box-shadow-blur-hover;
-    }
+  max-width: 10%;
+  @include border-grey-light;
+  border-radius: $border-radius-8;
+  background-color: $btn-color;
+  color: $text-and-icons;
+  padding: 0.5%;
+  font-size: $font-size-16;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+    box-shadow: $box-shadow-blur-hover;
+  }
 }
 
 .option {
-    font-weight: bold;
-    background-color: $btn-color;
-    color: $text-and-icons;
-    border: none;
+  font-weight: bold;
+  background-color: $btn-color;
+  color: $text-and-icons;
+  border: none;
+}
+
+//стили для печати сметы в формате пдф
+.printPdf {
+  margin: 5px;
 }

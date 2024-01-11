@@ -48,6 +48,7 @@ export default function EstimateTableService() {
     setRows(updatedRows);
   };
 
+  // Функция для вычисления общей стоимости оборудования
   const calculateTotal = (cost, quantity, days) => {
     return Math.ceil(cost * quantity * days);
   };
@@ -80,13 +81,13 @@ export default function EstimateTableService() {
               </select>
             </td>
             <td>
-              <input type='text' name='cost' value={cost} onChange={(event) => handleFieldChange(event, id, 'cost')} className={styles.input} placeholder='Цена за смену' />
+              <input type='text' name='cost' value={cost} onChange={(e) => handleFieldChange(e, id, 'cost')} className={styles.input} placeholder='Цена за смену' />
             </td>
             <td>
-              <input type='text' name='quantity' value={quantity} onChange={(event) => handleFieldChange(event, id, 'quantity')} className={styles.input} placeholder='Количество' />
+              <input type='text' name='quantity' value={quantity} onChange={(e) => handleFieldChange(e, id, 'quantity')} className={styles.input} placeholder='Количество' />
             </td>
             <td>
-              <input type='text' name='days' value={days} onChange={(event) =>handleFieldChange(event, id, 'days')} className={styles.input} placeholder='Количество'/>
+              <input type='text' name='days' value={days} onChange={(e) =>handleFieldChange(e, id, 'days')} className={styles.input} placeholder='Количество'/>
             </td>
             <td>-</td>
             <td>{price}</td>
@@ -94,8 +95,8 @@ export default function EstimateTableService() {
           </tr>
         );
       })}
-      <tr colSpan={7}>
-        <br />
+      <tr>
+        <td colSpan={8} className={styles.emptyRow}></td>
       </tr>
     </tbody>
   );
