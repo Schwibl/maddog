@@ -5,7 +5,6 @@ import UserContext from '../../context/UserContext';
 import LogoBlackOnTransparent from '../logo/LogoBlackOnTransparent/LogoBlackOnTransparent';
 import NavItem from '../NavItem/NavItem';
 
-
 import Icon from './../Icon/Icon';
 
 import styles from './NavBar.module.scss';
@@ -21,7 +20,7 @@ export default function NavBar(props) {
         <LogoBlackOnTransparent />
         <div className={styles.items}>
           <NavItem text={'Проекты'} href={'/projects'}>
-            <Icon iconId='projects'/> 
+            <Icon iconId='projects' />
           </NavItem>
           <NavItem text={'Календарь'}>
             <Icon iconId='calendar' />
@@ -44,13 +43,13 @@ export default function NavBar(props) {
           <NavItem text={'Панель администратора'} href={'/admin'}>
             <Icon iconId='admin' />
           </NavItem>
-          <Link to="/" className={styles.admExit}>
-            <div className={styles.imgWrap}>
-              <Icon iconId="admExit" />
-            </div>
-            <p className={styles.admName}>{name}</p>
-          </Link>
         </div>
+        <Link to='/' className={styles.admExit}>
+          <div className={styles.imgWrap}>
+            <Icon iconId='admExit' />
+          </div>
+          <p className={styles.admName}>{name}</p>
+        </Link>
       </div>
     </div>
   );
