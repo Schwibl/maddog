@@ -19,8 +19,8 @@ export default function NavBar(props) {
       <div className={styles.container}>
         <LogoBlackOnTransparent />
         <div className={styles.items}>
-          <NavItem text={'Проекты'} href={'/projects'}>
-            <Icon iconId='projects' />
+          <NavItem text={'Проекты'} href={'/admin/projects'}>
+            <Icon iconId='projects'/> 
           </NavItem>
           <NavItem text={'Календарь'}>
             <Icon iconId='calendar' />
@@ -28,7 +28,7 @@ export default function NavBar(props) {
           <NavItem text={'Оборудование'}>
             <Icon iconId='tools' />
           </NavItem>
-          <NavItem text={'Контакты'} href={'/contacts'}>
+          <NavItem text={'Контакты'} href={'/admin/contacts'}>
             <Icon iconId='contacts' />
           </NavItem>
           <NavItem text={'Ремонт'}>
