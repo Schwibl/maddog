@@ -20,4 +20,12 @@
     padding: 2% 4%;
 }
 
+@media print {
+  .select,
+  .option {
+    background-color: $white-main;
+    appearance: none;
+    border: 0;
+  }
+}
 

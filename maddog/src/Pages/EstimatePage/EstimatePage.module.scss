@@ -65,7 +65,8 @@
   border: none;
 }
 
-//стили для печати сметы в формате пдф
-.printPdf {
-  margin: 5px;
+@media print {
+  .printPdf {
+    margin: 5px;
+  }
 }
