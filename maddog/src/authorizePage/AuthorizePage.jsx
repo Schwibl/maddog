@@ -31,7 +31,7 @@ function AuthorizePage() {
                 <input className={styles.input} type='password' name='password' placeholder='Введите свой пароль...' autoComplete='on' />
               </div>
             </div>
-            <Link to='/admin'>
+            <Link to='/projects'>
               <button className={styles.submit} name='submit' type='submit' value='ВХОД'>ВХОД</button>
             </Link>
           </form>
