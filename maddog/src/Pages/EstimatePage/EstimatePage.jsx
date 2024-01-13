@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react';
+import { useDownloadExcel } from 'react-export-table-to-excel';
 import { useReactToPrint } from 'react-to-print';
 
 import Button from '../../components/button/Button';
 
-// import { funstions } from "../features/madDogSlice";
+// import { funstions } from '../features/madDogSlice';
 
 import EstimateTable from './EstimateTable';
 
@@ -30,12 +31,19 @@ export default function EstimatePage() {
     content: () => tableRef.current,
   });
 
+  // Функция для сохранения сметы в формате exel
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current,
+    filename: 'Смета',
+    sheet: 'Estimate',
+  });
+
   // Обработчик загрузки файла в соответствии с выбранным типом
   const handleDownload = async () => {
     if (fileType === FileTypes.PDF && tableRef.current) {
       handlePreviewAndPrintPDF();
     } else {
-      console.log('Выгрузка в другие типы файлов');
+      onDownload();
     }
   };
 

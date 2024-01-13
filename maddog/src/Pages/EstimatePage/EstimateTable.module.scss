@@ -164,3 +164,16 @@ select {
 .emptyRow {
   padding: 1%;
 }
+
+@media print {
+  .quantityShift,
+  .dateInput,
+  .selectService,
+  .input,
+  .inputTotal,
+  select {
+    background-color: $white-main;
+    appearance: none;
+    border: 0;
+  }
+}
