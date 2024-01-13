@@ -3,7 +3,7 @@ import {
   Link
 } from 'react-router-dom';
 
-import UserContext from '../context/UserContext';
+import UserContext from '../../context/UserContext';
 
 import logo from './logoBlackOnTransparent.png';
 
@@ -31,7 +31,7 @@ function AuthorizePage() {
                 <input className={styles.input} type='password' name='password' placeholder='Введите свой пароль...' autoComplete='on' />
               </div>
             </div>
-            <Link to='/admin'>
+            <Link to='/projects'>
               <button className={styles.submit} name='submit' type='submit' value='ВХОД'>ВХОД</button>
             </Link>
           </form>

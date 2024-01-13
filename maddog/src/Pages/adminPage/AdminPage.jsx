@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import AdminEditor from '../components/admin/AdminEditor';
-import AdminTable from '../components/admin/AdminTable';
-import AdminsContext from '../context/AdminsContext';
+import AdminEditor from '../../components/admin/AdminEditor';
+import AdminTable from '../../components/admin/AdminTable';
+import AdminsContext from '../../context/AdminsContext';
 
 import styles from './AdminPage.module.scss';
 

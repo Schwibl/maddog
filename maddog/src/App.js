@@ -1,7 +1,7 @@
 // import logo from './panel-logo2x.webp';
 // import styles from './App.module.scss';
-import AuthorizePage from './authorizePage/AuthorizePage';
 import UserContext from './context/UserContext';
+import AuthorizePage from './Pages/authorizePage/AuthorizePage';
 // import CreateContactPage from './Pages/CreateContactPage/CreateContactPage';
 
 function App() {
