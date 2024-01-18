@@ -8,6 +8,12 @@ import ProjectTable from './ProjectTable';
 
 import styles from './ProjectPage.module.scss';
 
+/**
+ * @description Проекты
+ *
+ * @returns {JSX.Element}
+ */
+
 // для проверки ProjectRow
 const testProjects = [
   {
@@ -49,7 +55,7 @@ function ProjectPage() {
     <div className={styles.container}>
       <section className={styles.projectPage}>
         <div className={styles.buttonContainer}>
-          <Link to='/newProject'>
+          <Link to='/newProjectPage'>
             <Button className={styles.create} type='button' name='create' value='Создать' children='Создать' />
           </Link>
           <Button className={styles.delete} type='button' name='delete' value='Удалить' children='Удалить' />

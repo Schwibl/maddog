@@ -1,0 +1,41 @@
+@import '/src/styles/mixins.scss';
+
+.mainInfo {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10%;
+    justify-content: space-between;
+    align-items: center;
+
+    &>label, 
+    &>select {
+        height: 4vh;
+        width: 25%;
+        padding: 0;
+    }
+}
+
+.input {
+    width: 100%;
+    height: 100%;
+    @include inputField;
+}
+
+.clientWrap {
+    display: flex;
+    align-items: center;
+}
+
+.btnAddClient {
+    margin-left: 4%;
+    padding: 1%;
+    border-radius: $border-radius-8;
+    cursor: pointer;
+}
+
+.selectClientsName {
+    margin-top: 4vh;
+    width: 25%;
+    height: 4vh;
+    padding: 0;
+}
