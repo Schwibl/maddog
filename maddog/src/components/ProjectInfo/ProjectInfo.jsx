@@ -52,10 +52,11 @@ export default function ProjectInfo (props) {
                 <Select name={'typeLease'} items={typesLease} placeholder={'Тип аренды'} value={typeLease} onChange={(e) => handleTypeLease(e)}></Select>
                 <Select name={'classLease'} items={classesLease} placeholder={'Разновидность аренды'} value={classLease} onChange={(e) => handleClassLease(e)}></Select>
             </div>
-            <div className={styles.clientWrap}></div>
+            <div className={styles.clientWrap}>
                 <Select name={'clientName'} className={styles.selectClientsName} items={clientsNames} placeholder={'Выберите клиента'} value={clientName} onChange={(e) => handleClientName(e)}/>
                 <Button className={styles.btnAddClient} title={'Добавить клиента'}><Icon iconId='addPlus'/> </Button>
             </div>
+        </div>
 
     )
 }

@@ -24,17 +24,33 @@
 .clientWrap {
     display: flex;
     align-items: center;
+    max-height: 4vh;
+    margin-top: 4vh;
 }
 
 .btnAddClient {
+    max-height: 100%;
     margin-left: 4%;
-    padding: 1%;
-    border-radius: $border-radius-8;
+    border-radius: $border-radius-20;
     cursor: pointer;
+
+    &:hover {
+        transform: scale(1.1);
+        transition: all 0.3s;
+    }
+
+    &>svg {
+        width: 3vh;
+        height: 3vh;
+
+        &:hover {
+            transform: scale(1.1);
+            transition: all 0.3s;
+        }
+    }
 }
 
 .selectClientsName {
-    margin-top: 4vh;
     width: 25%;
     height: 4vh;
     padding: 0;
