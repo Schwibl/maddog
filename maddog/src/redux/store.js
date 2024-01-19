@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import estimateReducer from './features/madDogSlice';
+import estimateReducer from './features/estimateSlice';
 
 export const store = configureStore({
   reducer: {
-    fileType: estimateReducer,
+    estimate: estimateReducer,
   },
 });

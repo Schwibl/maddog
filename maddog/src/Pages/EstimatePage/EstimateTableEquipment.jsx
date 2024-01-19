@@ -1,14 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../../components/button/Button';
+import {
+  updateEquipmentCost,
+  updateEquipmentQuantity,
+  updateEquipmentDays,
+  updateEquipmentDiscount,
+  updateEquipmentTotalWithDiscount,
+  updateTotalEquipmentPerShift,
+} from '../../redux/features/estimateSlice';
 
 import styles from './EstimateTable.module.scss';
 
 export default function EstimateTableEquipment() {
-  const [cost, setCost] = useState(11);
-  const [quantity, setQuantity] = useState(1);
-  const [days, setDays] = useState(1);
-  const [discount, setDiscount] = useState(0);
+  const dispatch = useDispatch();
+  const cost = useSelector((state) => state.estimate.equipmentCost);
+  const quantity = useSelector((state) => state.estimate.equipmentQuantity);
+  const days = useSelector((state) => state.estimate.equipmentDays);
+  const discount = useSelector((state) => state.estimate.equipmentDiscount);
+  const quantityShift = useSelector((state) => state.estimate.quantityShift); 
+
   const [showFilters, setShowFilters] = useState(false);
 
   // Функция для вычисления общей стоимости обслуживания и стоимости с учетом скидки
@@ -27,9 +39,9 @@ export default function EstimateTableEquipment() {
   const handleChange = (event, setter) => {
     const value = parseInt(event.target.value);
     if (!isNaN(value)) {
-      setter(value);
+      dispatch(setter(value));
     } else {
-      setter('');
+      dispatch(setter(''));
     }
   };
 
@@ -37,6 +49,19 @@ export default function EstimateTableEquipment() {
   const toggleFilters = () => {
     setShowFilters(!showFilters);
   };
+
+  // Считаем стоимость оборудования в смену
+  useEffect(() => {
+    let totalPerShift = 0;
+
+    if (quantityShift > 0) {
+      const price = calculateTotal();
+      totalPerShift = Math.ceil(price.totalWithDiscount / quantityShift);
+    }
+
+    dispatch(updateEquipmentTotalWithDiscount(price.totalWithDiscount));
+    dispatch(updateTotalEquipmentPerShift(totalPerShift));
+  }, [cost, quantity, days, discount, quantityShift]);
 
   return (
     <tbody>
@@ -66,10 +91,10 @@ export default function EstimateTableEquipment() {
             </div>
           )}
         </td>
-        <td><input type='text' name='cost' value={cost} onChange={(e) => handleChange(e, setCost)} className={styles.input} placeholder='Стоимость'/></td>
-        <td><input type='text' name='quantity' value={quantity} onChange={(e) => handleChange(e, setQuantity)} className={styles.input} placeholder='Количество'/></td>
-        <td><input type='text' name='days' value={days} onChange={(e) => handleChange(e, setDays)} className={styles.input} placeholder='Количество'/></td>
-        <td><input type='text' name='discount' value={discount} onChange={(e) => handleChange(e, setDiscount)} className={styles.input} placeholder='Скидка'/></td>
+        <td><input type='text' name='cost' value={cost} onChange={(e) => handleChange(e, updateEquipmentCost)} className={styles.input} placeholder='Стоимость'/></td>
+        <td><input type='text' name='quantity' value={quantity} onChange={(e) => handleChange(e, updateEquipmentQuantity)} className={styles.input} placeholder='Количество'/></td>
+        <td><input type='text' name='days' value={days} onChange={(e) => handleChange(e, updateEquipmentDays)} className={styles.input} placeholder='Количество'/></td>
+        <td><input type='text' name='discount' value={discount} onChange={(e) => handleChange(e, updateEquipmentDiscount)} className={styles.input} placeholder='Скидка'/></td>
         <td>{price.total}</td>
         <td>{price.totalWithDiscount}</td>
       </tr>
