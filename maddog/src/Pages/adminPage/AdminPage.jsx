@@ -6,6 +6,11 @@ import AdminsContext from '../../context/AdminsContext';
 
 import styles from './AdminPage.module.scss';
 
+/**
+ * @description Панель администратора
+ *
+ * @returns {JSX.Element}
+ */ 
 
 // Тестовые данные
 const admins = [

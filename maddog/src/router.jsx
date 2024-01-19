@@ -8,6 +8,7 @@ import AdminPage from './Pages/adminPage/AdminPage';
 import ContactsPage from './Pages/ContactsPage/ContactsPage';
 import EstimatePage from './Pages/EstimatePage/EstimatePage';
 import ProjectPage from './Pages/ProjectsPage/ProjectPage';
+import NewProjectPage from './Pages/NewProjectPage/NewProjectPage';
 
 //создаем массив роутов, которые будут рендериться внутри компонента Layout, в зависимости от указанного пути
 export const router = createBrowserRouter(
@@ -62,6 +63,17 @@ export const router = createBrowserRouter(
             {
               path: '/estimate/:estimateHref',
               element: <EstimatePage />,
+            },
+          ],
+        },
+        {
+          path: '/newProjectPage',
+          element: <LayoutChild />,
+          errorElement: <NotFound />,
+          children: [
+            {
+              path: '/newProjectPage',
+              element: <NewProjectPage />,
             },
           ],
         },

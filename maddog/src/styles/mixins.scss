@@ -15,6 +15,16 @@
   background-color: rgba(0, 0, 0, 0.411);
 }
 
+@mixin inputField {
+  // стили для инпутов - не включают высоту/ширину 
+    font-size: $font-size-16;
+    font-weight: bold;
+    background-color: $blue-light;
+    text-align: center;
+    color: $text-and-icons;
+    border-radius: $border-radius-8;
+}
+
 @mixin page-bg {
   // стили для фоновой картинки страницы
   background-image: url('./../../images/bg.jpg');

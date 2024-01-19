@@ -1,0 +1,57 @@
+@import '/src/styles/mixins.scss';
+
+.mainInfo {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10%;
+    justify-content: space-between;
+    align-items: center;
+
+    &>label, 
+    &>select {
+        height: 4vh;
+        width: 25%;
+        padding: 0;
+    }
+}
+
+.input {
+    width: 100%;
+    height: 100%;
+    @include inputField;
+}
+
+.clientWrap {
+    display: flex;
+    align-items: center;
+    max-height: 4vh;
+    margin-top: 4vh;
+}
+
+.btnAddClient {
+    max-height: 100%;
+    margin-left: 4%;
+    border-radius: $border-radius-20;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.1);
+        transition: all 0.3s;
+    }
+
+    &>svg {
+        width: 3vh;
+        height: 3vh;
+
+        &:hover {
+            transform: scale(1.1);
+            transition: all 0.3s;
+        }
+    }
+}
+
+.selectClientsName {
+    width: 25%;
+    height: 4vh;
+    padding: 0;
+}
