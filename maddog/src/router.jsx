@@ -7,8 +7,8 @@ import { NotFound } from './Pages/404/404';
 import AdminPage from './Pages/adminPage/AdminPage';
 import ContactsPage from './Pages/ContactsPage/ContactsPage';
 import EstimatePage from './Pages/EstimatePage/EstimatePage';
-import ProjectPage from './Pages/ProjectsPage/ProjectPage';
 import NewProjectPage from './Pages/NewProjectPage/NewProjectPage';
+import ProjectPage from './Pages/ProjectsPage/ProjectPage';
 
 //создаем массив роутов, которые будут рендериться внутри компонента Layout, в зависимости от указанного пути
 export const router = createBrowserRouter(
