@@ -23,6 +23,7 @@ export default function EstimateTableService() {
       cost: '',
       quantity: '',
       days: '',
+      total: 0,
     };
 
     setRows([...rows, newRow]);
@@ -40,7 +41,9 @@ export default function EstimateTableService() {
     const value = parseInt(event.target.value);
     const updatedRows = rows.map((row) => {
       if (row.id === id) {
-        return { ...row, [field]: !isNaN(value) ? value : '' };
+        const updatedRow = { ...row, [field]: !isNaN(value) ? value : '' };
+        updatedRow.total = calculateTotal(updatedRow.cost, updatedRow.quantity, updatedRow.days);
+        return updatedRow;
       }
       return row;
     });
@@ -62,8 +65,7 @@ export default function EstimateTableService() {
         <th colSpan={7}>Обслуживание и транспорт</th>
       </tr>
       {rows.map((row) => {
-        const { id, cost, quantity, days } = row;
-        const price = calculateTotal(cost, quantity, days);
+        const { id, cost, quantity, days, total } = row;
 
         return (
           <tr key={id}>
@@ -90,7 +92,7 @@ export default function EstimateTableService() {
               <input type='text' name='days' value={days} onChange={(e) =>handleFieldChange(e, id, 'days')} className={styles.input} placeholder='Количество'/>
             </td>
             <td>-</td>
-            <td>{price}</td>
+            <td>{total}</td>
             <td>-</td>
           </tr>
         );
