@@ -1,11 +1,15 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Button from '../../components/button/Button';
+import { updateServiceTotal } from '../../redux/features/estimateSlice';
 
 import styles from './EstimateTable.module.scss';
 
 export default function EstimateTableService() {
   const items = ['Механик', 'Фокуспуллер', 'Мех-фокус', 'Переработка', 'Камерваген', 'Такси', 'Парковка', 'Прогон за МКАД'];
+
+  const dispatch = useDispatch();
 
   const [rows, setRows] = useState([
     {
@@ -49,6 +53,10 @@ export default function EstimateTableService() {
     });
 
     setRows(updatedRows);
+
+    // Вызов редюсера для обновления итоговой стоимости сервиса
+    const serviceTotal = updatedRows.reduce((total, row) => total + row.total, 0);
+    dispatch(updateServiceTotal(serviceTotal));
   };
 
   // Функция для вычисления общей стоимости оборудования

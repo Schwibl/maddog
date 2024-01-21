@@ -9,6 +9,7 @@ const initialState = {
   equipmentTotalWithDiscount: 0,
   totalEquipmentPerShift: 0,
   totalDiscount: 0,
+  serviceTotal: 0,
   totalTax: 0,
 };
 
@@ -40,6 +41,9 @@ const estimateSlice = createSlice({
     updateTotalDiscount: (state, action) => {
       state.totalDiscount = action.payload;
     },
+    updateServiceTotal: (state, action) => {
+      state.serviceTotal = action.payload;
+    },
     updateTotalTax: (state, action) => {
       state.totalTax = action.payload;
     },
@@ -55,6 +59,7 @@ export const {
   updateEquipmentTotalWithDiscount,
   updateTotalEquipmentPerShift,
   updateTotalDiscount,
+  updateServiceTotal,
   updateTotalTax,
 } = estimateSlice.actions;
 

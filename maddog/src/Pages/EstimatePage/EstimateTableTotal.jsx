@@ -9,6 +9,7 @@ export default function EstimateTableTotal() {
   const discount = useSelector((state) => state.estimate.totalDiscount);
   const tax = useSelector((state) => state.estimate.totalTax);
   const totalEquipmentPerShift = useSelector((state) => state.estimate.totalEquipmentPerShift);
+  const totalServise = useSelector((state) => state.estimate.serviceTotal);
 
   // Функция для обработки изменения значения в поле ввода
   const handleChange = (event, setter) => {
@@ -48,7 +49,7 @@ export default function EstimateTableTotal() {
         <td rowSpan={2}></td>
       </tr>
       <tr>
-        <td colSpan={3} className={styles.textLeft}>За проект</td>
+        <td colSpan={3} className={styles.textLeft}>За проект {totalServise}</td>
       </tr>
       <tr>
         <td rowSpan={3} colSpan={4}>
