@@ -1,18 +1,22 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { updateTotalDiscount, updateTotalTax } from '../../redux/features/estimateSlice';
 
 import styles from './EstimateTable.module.scss';
 
 export default function EstimateTableTotal() {
-  const [discount, setDiscount] = useState(0);
-  const [tax, setTax] = useState(0);
+  const dispatch = useDispatch();
+  const discount = useSelector((state) => state.estimate.totalDiscount);
+  const tax = useSelector((state) => state.estimate.totalTax);
+  const totalEquipmentPerShift = useSelector((state) => state.estimate.totalEquipmentPerShift);
 
   // Функция для обработки изменения значения в поле ввода
   const handleChange = (event, setter) => {
     const value = parseInt(event.target.value);
     if (!isNaN(value)) {
-      setter(value);
+      dispatch(setter(value));
     } else {
-      setter('');
+      dispatch(setter(''));
     }
   };
 
@@ -22,12 +26,12 @@ export default function EstimateTableTotal() {
         <td rowSpan={4} colSpan={4}>
           Итоговая стоимость оборудования
         </td>
-        <td colSpan={3} className={styles.textLeft}>В смену</td>
+        <td colSpan={3} className={styles.textLeft}>В смену {totalEquipmentPerShift}</td>
         <td rowSpan={4}></td>
       </tr>
       <tr>
         <td colSpan={3} className={styles.textLeft}>
-          Скидка % <input type='text' name='discount' value={discount} onChange={(e) => handleChange(e, setDiscount)} className={styles.inputTotal} placeholder='Скидка %'/>
+          Скидка % <input type='text' name='discount' value={discount} onChange={(e) => handleChange(e, updateTotalDiscount)} className={styles.inputTotal} placeholder='Скидка %'/>
         </td>
       </tr>
       <tr>
@@ -55,7 +59,7 @@ export default function EstimateTableTotal() {
       </tr>
       <tr>
         <td colSpan={3} className={styles.textLeft}>
-          Процент УСН <input type='number' name='tax' value={tax} onChange={(e) => handleChange(e, setTax)} className={styles.inputTotal} placeholder='УСН %'/>
+          Процент УСН <input type='number' name='tax' value={tax} onChange={(e) => handleChange(e, updateTotalTax)} className={styles.inputTotal} placeholder='УСН %'/>
         </td>
       </tr>
       <tr>

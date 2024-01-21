@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Select from '../../components/Select/Select';
+import { updateQuantityShift } from '../../redux/features/estimateSlice';
 
 import logo from './logoInEstimateTable.png';
 
@@ -10,15 +12,17 @@ export default function EstimateTableHead() {
   const items = ['Клиент', 'Менеджер'];
   const [startDate, setStartDate] = useState('02-10-2023');
   const [endDate, setEndDate] = useState('19-10-2023');
-  const [quantityShift, setQuantityShift] = useState('1');
+
+  const dispatch = useDispatch();
+  const quantityShift = useSelector((state) => state.estimate.quantityShift);
 
   // Функция для обработки изменения значения в поле ввода
   const handleChange = (event, setter) => {
     const value = parseInt(event.target.value);
     if (!isNaN(value)) {
-      setter(value);
+      dispatch(setter(value));
     } else {
-      setter('');
+      dispatch(setter(''));
     }
   };
 
@@ -41,7 +45,7 @@ export default function EstimateTableHead() {
       <tr>
         <th className={styles.head}>Количество смен:</th>
         <td colSpan={5}>
-          <input type='text' className={styles.quantityShift} value={quantityShift} onChange={(e) => handleChange(e, setQuantityShift)} placeholder='Количество'/>
+          <input type='text' className={styles.quantityShift} value={quantityShift} onChange={(e) => handleChange(e, updateQuantityShift)} placeholder='Количество'/>
         </td>
       </tr>
       <tr>
