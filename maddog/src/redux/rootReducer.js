@@ -1,7 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
-import estimateReducer from './features/madDogSlice';
+import estimateReducer from './features/estimateSlice';
 
+//корневой редьюсер вмещает в себя все редьюсеры хранилища
 export const rootReducer = combineReducers({
-  navigation: estimateReducer,
+  estimate: estimateReducer,
 });
