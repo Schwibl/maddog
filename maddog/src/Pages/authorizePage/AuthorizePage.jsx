@@ -7,6 +7,12 @@ import UserContext from '../../context/UserContext';
 
 import logo from './logoBlackOnTransparent.png';
 
+/**
+ * @description Страница fавторизации
+ *
+ * @returns {JSX.Element}
+ */
+
 
 import styles from './AuthorizePage.module.scss';
 

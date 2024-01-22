@@ -10,6 +10,12 @@ import EstimateTable from './EstimateTable';
 
 import styles from './EstimatePage.module.scss';
 
+/**
+ * @description Смета
+ *
+ * @returns {JSX.Element}
+ */
+
 // Перечисление доступных типов файлов
 const FileTypes = {
   EXCEL: 'excel',

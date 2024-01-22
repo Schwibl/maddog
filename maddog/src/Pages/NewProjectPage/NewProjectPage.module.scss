@@ -1,0 +1,16 @@
+@import '/src/styles/mixins.scss';
+
+.main {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 3vh;
+}
+
+.title {
+    @include page-title;
+}
+
+.projectInfo {
+    margin-top: 5vh;
+}
