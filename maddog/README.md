@@ -244,7 +244,9 @@ createAction: (state, action) => {
       };
       state.todos = [...state.todos, newToDo];
     },
-```## Таблицы AgGrid
+```
+
+## Таблицы AgGrid
 ### Подключение
 Для работы таблицы нужны: 
 ```
