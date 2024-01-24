@@ -1,3 +1,5 @@
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { AgGridReact } from 'ag-grid-react';
 import React, { useState, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
@@ -32,12 +34,14 @@ const NewProjectPage = () => {
   //   );
 
   return (
-    <main className={styles.main}>
-      <h1 className={styles.title}>Новый проект</h1>
-      <section className={styles.projectInfo}>
-        <ProjectInfo></ProjectInfo>
-      </section>
-    </main>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <main className={styles.main}>
+        <h1 className={styles.title}>Новый проект</h1>
+        <section className={styles.projectInfo}>
+          <ProjectInfo></ProjectInfo>
+        </section>
+      </main>
+    </LocalizationProvider>
   );
 };
 
