@@ -82,3 +82,27 @@
     height: 4vh;
     padding: .4%;
 }
+
+.datasWrap {
+    margin-top: 8vh;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-weight: $font-size-14;
+}
+
+.dataPicker {
+    width: 25%;
+
+    &:nth-child(n) {
+        background-color: $white-main;
+        border-radius: 4px;
+    }
+
+}
+
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+    color: wheat;
+}
