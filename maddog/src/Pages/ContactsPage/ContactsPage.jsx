@@ -1,18 +1,18 @@
-import { AgGridReact } from 'ag-grid-react';
-import React, { useState, useMemo, useCallback } from 'react';
+import { AgGridReact, gridRef } from 'ag-grid-react';
+import React, { useState, useMemo, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import Button from '../../components/button/Button';
 import Icon from '../../components/Icon/Icon';
 import { AG_GRID_LOCALE_RU } from '../../utils/ag-grid-locale-ru';
 
+import CheckboxFilter from './CheckBoxCustomFilter';
 import { types, contacts } from './mock';
 
 import styles from './ContactsPage.module.scss';
 
 // eslint-disable-next-line import/order, import/no-unresolved
 import 'ag-grid-community/styles/ag-grid.css';
-
 
 /**
  * @description Страница для отображения всех контактов
@@ -35,12 +35,10 @@ const ContactsPage = () => {
   const avatarFormatter = ({ value }) => {
     return (
       <img
-        onMouseEnter={
-          () => {
-            setIsShowModal(true);
-            setModalUrl(value);
-          }
-        }
+        onMouseEnter={() => {
+          setIsShowModal(true);
+          setModalUrl(value);
+        }}
         onMouseLeave={() => {
           setIsShowModal(false);
         }}
@@ -65,6 +63,10 @@ const ContactsPage = () => {
     );
   };
 
+  const RoleFilter = () => {
+    return <p>hello</p>;
+  };
+
   const gridOptions = {
     localeText: AG_GRID_LOCALE_RU,
   };
@@ -72,6 +74,18 @@ const ContactsPage = () => {
   const cellClickedListener = useCallback((e) => {
     console.log(e);
   });
+
+  const gridRef = useRef();
+
+  const [typesList, setTypesList] = useState(types);
+
+  const [rowData, setRowData] = useState(
+    contacts.map(({ name, role, photoUrl }) => ({
+      name,
+      role: types.find((type) => type.id === role).role,
+      photoUrl,
+    }))
+  );
 
   const tableHeader = [
     {
@@ -81,9 +95,8 @@ const ContactsPage = () => {
       resizable: true,
       sortable: true,
       // filter: true,
-     
       floatingFilter: true,
-      filter: 'agTextColumnFilter', 
+      filter: 'agTextColumnFilter',
       cellClass: 'vertical-middle',
     },
     {
@@ -91,7 +104,18 @@ const ContactsPage = () => {
       field: 'role',
       flex: 2,
       sortable: true,
-      filter: 'agSetColumnFilter',
+      filter: CheckboxFilter,
+      filterParams: {
+        filterChangedCallback: (checkedValues) => {
+          console.log('Checked values:', checkedValues);
+          const gridApi = gridRef.current.api;
+          const filteredData = rowData.filter((row) =>
+            checkedValues.includes('Все типы') ? row : checkedValues.includes(row.role)
+          );
+          gridApi.setRowData(filteredData);
+        },
+        typesValues: ['Все типы', ...types.map((item) => item.role)],
+      },
       cellClass: 'all-middle',
     },
     {
@@ -102,22 +126,10 @@ const ContactsPage = () => {
       filter: false,
       cellClass: 'vertical-middle',
       cellRenderer: avatarFormatter,
-    }
+    },
   ];
 
-  const [typesList, setTypesList] = useState(types);
-
-
   const [columnDefs, setColumnDefs] = useState(tableHeader);
-
-  const [rowData, setRowData] = useState(
-    contacts.map(({ name, role, photoUrl }) => ({
-      name,
-      role: types.find((type) => type.id === role).role,
-      photoUrl,
-    }))
-  );
-
 
   return (
     <main className={styles.main}>
@@ -142,6 +154,7 @@ const ContactsPage = () => {
           </div>
           <div className={styles['ag-table']}>
             <AgGridReact
+              ref={gridRef}
               onCellClicked={cellClickedListener}
               rowData={rowData}
               defaultColDef={{ flex: 1 }}
