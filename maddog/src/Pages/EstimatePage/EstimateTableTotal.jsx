@@ -5,6 +5,7 @@ import {
   updateTotalDiscount, 
   updateTotalEquipmentPerShiftWithDiscount,
   updateTotalEquipment,
+  updateTotalService,
   updateTotalTax
 } from '../../redux/features/estimateSlice';
 
@@ -19,7 +20,8 @@ export default function EstimateTableTotal() {
   const totalEquipmentWithDiscount = useSelector((state) => state.estimate.totalEquipmentPerShiftWithDiscount);
   const totalEquipment = useSelector((state) => state.estimate.totalEquipment);
 
-  const totalServise = useSelector((state) => state.estimate.serviceTotal);
+  const totalServicePerShift = useSelector((state) => state.estimate.totalServicePerShift);
+  const totalService = useSelector((state) => state.estimate.totalService);
   const tax = useSelector((state) => state.estimate.totalTax);
 
   // Функция для обработки изменения значения в поле ввода
@@ -32,16 +34,19 @@ export default function EstimateTableTotal() {
     }
   };
 
+  //подсчет общей стоимости по проекту
   useEffect(() => {
     const totalEquipmentPerShiftWithDiscount = Math.ceil(
       totalEquipmentPerShift * (1 - discount / 100)
     );
 
     const totalEquipment = totalEquipmentPerShiftWithDiscount * quantityShift;
+    const totalService = totalServicePerShift * quantityShift;
 
     dispatch(updateTotalEquipmentPerShiftWithDiscount(totalEquipmentPerShiftWithDiscount));
     dispatch(updateTotalEquipment(totalEquipment));
-  }, [totalEquipmentPerShift, discount]);
+    dispatch(updateTotalService(totalService));
+  }, [totalEquipmentPerShift, discount, totalServicePerShift]);
 
   return (
     <tbody>
@@ -67,11 +72,11 @@ export default function EstimateTableTotal() {
         <td rowSpan={2} colSpan={4}>
           Итоговая стоимость обслуживания
         </td>
-        <td colSpan={3} className={styles.textLeft}>В смену</td>
+        <td colSpan={3} className={styles.textLeft}>В смену {totalServicePerShift}</td>
         <td rowSpan={2}></td>
       </tr>
       <tr>
-        <td colSpan={3} className={styles.textLeft}>За проект {totalServise}</td>
+        <td colSpan={3} className={styles.textLeft}>За проект {totalService}</td>
       </tr>
       <tr>
         <td rowSpan={3} colSpan={4}>

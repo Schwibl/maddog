@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Button from '../../components/button/Button';
-import { updateServiceTotal } from '../../redux/features/estimateSlice';
+import { updateTotalServicePerShift } from '../../redux/features/estimateSlice';
 
 import styles from './EstimateTable.module.scss';
 
@@ -56,7 +56,7 @@ export default function EstimateTableService() {
 
     // Вызов редюсера для обновления итоговой стоимости сервиса
     const serviceTotal = updatedRows.reduce((total, row) => total + row.total, 0);
-    dispatch(updateServiceTotal(serviceTotal));
+    dispatch(updateTotalServicePerShift(serviceTotal));
   };
 
   // Функция для вычисления общей стоимости оборудования
