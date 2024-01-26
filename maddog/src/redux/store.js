@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import estimateReducer from './features/estimateSlice';
+import { rootReducer } from './rootReducer';
 
-export const store = configureStore({
-  reducer: {
-    estimate: estimateReducer,
-  },
+const store = configureStore({
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV !== 'production',
 });
+
+export default store;

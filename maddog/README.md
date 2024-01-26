@@ -129,6 +129,122 @@ const router = createBrowserRouter([ ... ]);
 <RouterProvider router={router} />
 ```
 
+## Redux-toolkit
+
+Файл store.js содержит компонент store - это функция configureStore, предоставленная redux-toolkit, которая хранит в себе общий/корневой редьюсер, также эта функция позволяет использовать инструменты devTools.
+
+```sh
+const store = configureStore({
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV !== 'production',
+});
+
+export default store;
+```
+
+В файле index.js главный компонент оборачиваем провайдером, который в виде пропсов принимает store.
+
+```sh
+<React.StrictMode>
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
+</React.StrictMode>
+```
+
+Далее создаем корневой редьюсер - rootReducer.js с помощью функции combineReducers, предоставленной redux-toolkit, которая помогает совмещать в себе все необходимые нам редьюсеры.
+
+```sh
+export const rootReducer = combineReducers({
+  todoList: todoReducer,
+});
+```
+
+Далее создаем папку features, в ней файл редьюсера, который обычно имеет название somethingSlice.js. 
+
+Внутри слайс-файла мы указываем начальное состояние компонента.
+
+```sh
+const initialState = {
+  todos: [],
+};
+```
+
+Далее создаем сам редьюсер (мутатор состояния) с помощью функции createSlice из пакета redux-toolkit. Внутри редьюсера указываем его имя, передаем initialState (начальное состояние), и создаем функции-редьюсеры (это мпециальные методы, которые имеют доступ к состоянию и могут его менять). Есть редьюсеры, которые имеют доступ к внешнему экшену.
+
+```sh
+export const todoSlice = createSlice({
+  name: "todoList",
+  initialState,
+  reducers: {
+    createAction: (state, action) => {
+      const newToDo = {
+        id: state.todos.length,
+        text: action.payload,
+        isDone: false,
+      };
+      state.todos = [...state.todos, newToDo];
+    },
+    updateAction: (state, action) => {
+      const newTodos = state.todos.map((todo) => {
+        if (todo.id === action.payload.id) {
+          todo.isDone = !todo.isDone;
+        }
+        return todo;
+      });
+      state.todos = newTodos;
+    },
+    deleteAction: (state, action) => {
+      const newTodos = state.todos.filter(
+        (todo) => todo.id !== action.payload.id
+      );
+      state.todos = newTodos;
+    },
+  },
+});
+
+export const { createAction, updateAction, deleteAction } = todoSlice.actions;
+
+export default todoSlice.reducer;
+```
+Обратите внимание! Что todoSlice.reducer мы экспортируем, а импортируем под другим названием (обычно сокращают название до todoReducer) в ручную в корневом редьюсере. Затем в файле rootReducer.js, после импорта, внутри функции combineReducer, которая создаем обьект-список из всех наших редьюсеров, прописываем имя редьюсера из файла smthSlice.js и даем ему значение импортированного редьюсера.
+
+```sh
+import todoReducer from "./features/ToDoSlice";
+
+export const rootReducer = combineReducers({
+  todoList: todoReducer,
+});
+```
+
+Чтобы обратиться к данным внутри хранилища состояния используем хук useSelector. Он принимает аргументом state и получает определенные данные (по названию обьекта внутри initialState) внутри определенного редьюсера (по его названию).
+
+```sh
+const todoList = useSelector((state) => state.todoList.todos);
+```
+
+Чтобы использовать нами созданные экшены (методы редьюсера), нужно сначала создать новую сущность dispath. Это вызов хука useDispatch. Далее при вызове dispatch внутрь передаем нужный нам экшн с аргументом, который будет использован для изменения состояния.
+
+```sh
+const dispatch = useDispatch();
+
+const createNewToDo = (text) => {
+    dispatch(createAction({ text: text}));
+  };
+```
+
+Далее этот аргумент мы передаем внутрь метода редьюсера с помощью action.payload, и text мы назначили свойством объекта payload text.
+
+```sh
+createAction: (state, action) => {
+      const newToDo = {
+        id: state.todos.length,
+        text: action.payload.text,
+        isDone: false,
+      };
+      state.todos = [...state.todos, newToDo];
+    },
+```
 
 ## Таблицы AgGrid
 ### Подключение

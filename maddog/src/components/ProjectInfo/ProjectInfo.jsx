@@ -1,8 +1,12 @@
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import React, { useState } from 'react';
 
+import getDates from '../../utils/getDates';
 import Button from '../button/Button';
 import Icon from '../Icon/Icon';
 import Select from '../Select/Select';
+
 
 import styles from './ProjectInfo.module.scss';
 
@@ -36,11 +40,34 @@ export default function ProjectInfo(props) {
     setClassLease(e.target.value);
   }
 
-  // Кллиент
+  // Клиент
   const [clientName, setClientName] = useState('');
   function handleClientName(e) {
     setClientName(e.target.value);
   }
+
+  // Примечание
+  const [note, setNote] = useState('');
+  function handleNote(e) {
+    setNote(e.target.value);
+  }
+
+  // Ссылки
+  const [links, setLinks] = useState('');
+  function handleLinks(e) {
+    setLinks(e.target.value);
+  }
+
+  // Календари
+  const [startData, setStartData] = useState(null);
+  const [endData, setEndData] = useState(null);
+  const [projectCreatedData, setProjectCreatedData] = useState(dayjs(new Date()));
+
+  // Смены
+  // Если не заполнена дата начала или конца, дни равны пустому массиву. 
+  // Если обе даты заполнены, дни считаем дни в промежутке от первого до последнего. 
+  const days = startData === null || endData === null ? [] : getDates(startData, endData);
+  console.log(days);
 
   return (
     <div className={styles.wrap}>
@@ -48,6 +75,7 @@ export default function ProjectInfo(props) {
         <label htmlFor='name'>
           <input
             className={styles.input}
+            autoFocus={true}
             type='text'
             name='name'
             value={projectName}
@@ -71,17 +99,58 @@ export default function ProjectInfo(props) {
         ></Select>
       </div>
       <div className={styles.clientWrap}>
-        <Select
-          name={'clientName'}
-          className={styles.selectClientsName}
-          items={clientsNames}
-          placeholder={'Выберите клиента'}
-          value={clientName}
-          onChange={(e) => handleClientName(e)}
+        {/* Здесь имя клиента */}
+        <div className={styles.client}>
+          <Select
+            name={'clientName'}
+            className={styles.selectClientsName}
+            items={clientsNames}
+            placeholder={'Выберите клиента'}
+            value={clientName}
+            onChange={(e) => handleClientName(e)}
+          />
+          <Button className={styles.btnAddClient} title={'Добавить клиента'}>
+            <Icon iconId='addPlus' />{' '}
+          </Button>
+        </div>
+        {/* Здесь примечание и ссылки */}
+        <textarea
+          className={styles.note}
+          name='note'
+          value={note}
+          onChange={handleNote}
+          placeholder={'Примечания по проекту'}
         />
-        <Button className={styles.btnAddClient} title={'Добавить клиента'}>
-          <Icon iconId='addPlus' />{' '}
-        </Button>
+        <textarea
+          className={styles.links}
+          name='links'
+          value={links}
+          onChange={handleLinks}
+          placeholder={'Ссылки - через запятую'}
+        />
+      </div>
+      <div className={styles.datasWrap}>
+        <DatePicker
+          label='Начало срока аренды'
+          className={styles.dataPicker}
+          value={startData}
+          onChange={(newValue) => setStartData(newValue)}
+        />
+        <DatePicker
+          label='Окончание срока аренды'
+          className={styles.dataPicker}
+          value={endData}
+          onChange={(newValue) => setEndData(newValue)}
+        />
+        <DatePicker
+          label='Создан'
+          className={styles.dataPicker}
+          value={projectCreatedData}
+          onChange={(newValue) => setProjectCreatedData(newValue)}
+        />
+      </div>
+      <div>
+        <h2>Смены</h2>
       </div>
     </div>
   );
