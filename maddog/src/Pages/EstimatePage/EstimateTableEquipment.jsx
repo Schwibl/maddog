@@ -14,13 +14,13 @@ import {
   updateHeadphoneDiscount,
   updateHeadphoneTotalWithDiscount,
   updateTotalEquipmentPerShift,
-  updateTotalEquipmentCostWithDiscount,
 } from '../../redux/features/estimateSlice';
 
 import styles from './EstimateTable.module.scss';
 
 export default function EstimateTableEquipment() {
   const dispatch = useDispatch();
+
   const cost = useSelector((state) => state.estimate.equipmentCost);
   const quantity = useSelector((state) => state.estimate.equipmentQuantity);
   const days = useSelector((state) => state.estimate.equipmentDays);
@@ -30,8 +30,6 @@ export default function EstimateTableEquipment() {
   const headphoneQuantity = useSelector((state) => state.estimate.headphoneQuantity);
   const headphoneDays = useSelector((state) => state.estimate.headphoneDays);
   const headphoneDiscount = useSelector((state) => state.estimate.headphoneDiscount);
-
-  const quantityShift = useSelector((state) => state.estimate.quantityShift); 
 
   const [showFilters, setShowFilters] = useState(false);
 
@@ -45,6 +43,7 @@ export default function EstimateTableEquipment() {
     };
   };
 
+  //считаем Итого за смену
   const equipmentPrice = calculateTotal(cost, quantity, days, discount);
   const headphonePrice = calculateTotal(
     headphoneCost,
@@ -52,10 +51,6 @@ export default function EstimateTableEquipment() {
     headphoneDays,
     headphoneDiscount
   );
-
-  const totalEquipmentCostWithDiscount =
-    equipmentPrice.totalWithDiscount + headphonePrice.totalWithDiscount;
-  // const totalEquipmentCostWithDiscount = price.totalWithDiscount * quantity;
 
   // Функция для обработки изменения значения в поле ввода
   const handleChange = (event, setter) => {
@@ -72,19 +67,15 @@ export default function EstimateTableEquipment() {
     setShowFilters(!showFilters);
   };
 
-  // Считаем стоимость оборудования в смену
+  // Считаем стоимость всего оборудования в смену с учетом скидки
   useEffect(() => {
-    let totalPerShift = 0;
-
-    if (quantityShift > 0) {
-      totalPerShift = Math.ceil(totalEquipmentCostWithDiscount / quantityShift);
-    }
+    const totalEquipmentPerShift =
+      equipmentPrice.totalWithDiscount + headphonePrice.totalWithDiscount;
 
     dispatch(updateEquipmentTotalWithDiscount(equipmentPrice.totalWithDiscount));
     dispatch(updateHeadphoneTotalWithDiscount(headphonePrice.totalWithDiscount));
-    dispatch(updateTotalEquipmentCostWithDiscount(totalEquipmentCostWithDiscount));
-    dispatch(updateTotalEquipmentPerShift(totalPerShift));
-  }, [cost, quantity, days, discount, quantityShift]);
+    dispatch(updateTotalEquipmentPerShift(totalEquipmentPerShift));
+  }, [cost, quantity, days, discount]);
 
   return (
     <tbody>

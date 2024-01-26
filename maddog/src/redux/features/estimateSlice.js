@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  quantityShift: 1,
+  quantityShift: 2,
   equipmentCost: 10,
   equipmentQuantity: 1,
   equipmentDays: 1,
@@ -13,7 +13,6 @@ const initialState = {
   headphoneDiscount: 0,
   headphoneTotalWithDiscount: 0,
   totalEquipmentPerShift: 0,
-  totalEquipmentCostWithDiscount: 0,
   totalDiscount: 0,
   serviceTotal: 0,
   totalTax: 0,
@@ -23,9 +22,6 @@ const estimateSlice = createSlice({
   name: 'estimate',
   initialState: initialState,
   reducers: {
-    updateQuantityShift: (state, action) => {
-      state.quantityShift = action.payload;
-    },
     updateEquipmentCost: (state, action) => {
       state.equipmentCost = action.payload;
     },
@@ -59,9 +55,6 @@ const estimateSlice = createSlice({
     updateTotalEquipmentPerShift: (state, action) => {
       state.totalEquipmentPerShift = action.payload;
     },
-    updateTotalEquipmentCostWithDiscount: (state, action) => {
-      state.totalEquipmentCostWithDiscount = action.payload;
-    },
     updateTotalDiscount: (state, action) => {
       state.totalDiscount = action.payload;
     },
@@ -87,7 +80,6 @@ export const {
   updateHeadphoneDiscount,
   updateHeadphoneTotalWithDiscount,
   updateTotalEquipmentPerShift,
-  updateTotalEquipmentCostWithDiscount,
   updateTotalDiscount,
   updateServiceTotal,
   updateTotalTax,

@@ -6,10 +6,10 @@ import styles from './EstimateTable.module.scss';
 
 export default function EstimateTableTotal() {
   const dispatch = useDispatch();
-  const discount = useSelector((state) => state.estimate.totalDiscount);
-  const tax = useSelector((state) => state.estimate.totalTax);
   const totalEquipmentPerShift = useSelector((state) => state.estimate.totalEquipmentPerShift);
+  const discount = useSelector((state) => state.estimate.totalDiscount);
   const totalServise = useSelector((state) => state.estimate.serviceTotal);
+  const tax = useSelector((state) => state.estimate.totalTax);
 
   // Функция для обработки изменения значения в поле ввода
   const handleChange = (event, setter) => {
