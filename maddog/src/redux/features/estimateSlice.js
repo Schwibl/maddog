@@ -14,6 +14,8 @@ const initialState = {
   headphoneTotalWithDiscount: 0,
   totalEquipmentPerShift: 0,
   totalDiscount: 0,
+  totalEquipmentPerShiftWithDiscount: 0,
+  totalEquipment: 0,
   serviceTotal: 0,
   totalTax: 0,
 };
@@ -58,6 +60,12 @@ const estimateSlice = createSlice({
     updateTotalDiscount: (state, action) => {
       state.totalDiscount = action.payload;
     },
+    updateTotalEquipmentPerShiftWithDiscount: (state, action) => {
+      state.totalEquipmentPerShiftWithDiscount = action.payload;
+    },
+    updateTotalEquipment: (state, action) => {
+      state.totalEquipment = action.payload;
+    },
     updateServiceTotal: (state, action) => {
       state.serviceTotal = action.payload;
     },
@@ -81,6 +89,8 @@ export const {
   updateHeadphoneTotalWithDiscount,
   updateTotalEquipmentPerShift,
   updateTotalDiscount,
+  updateTotalEquipmentPerShiftWithDiscount,
+  updateTotalEquipment,
   updateServiceTotal,
   updateTotalTax,
 } = estimateSlice.actions;

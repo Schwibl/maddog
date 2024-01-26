@@ -1,13 +1,24 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateTotalDiscount, updateTotalTax } from '../../redux/features/estimateSlice';
+import { 
+  updateTotalDiscount, 
+  updateTotalEquipmentPerShiftWithDiscount,
+  updateTotalEquipment,
+  updateTotalTax
+} from '../../redux/features/estimateSlice';
 
 import styles from './EstimateTable.module.scss';
 
 export default function EstimateTableTotal() {
   const dispatch = useDispatch();
+  const quantityShift = useSelector((state) => state.estimate.quantityShift);
+
   const totalEquipmentPerShift = useSelector((state) => state.estimate.totalEquipmentPerShift);
   const discount = useSelector((state) => state.estimate.totalDiscount);
+  const totalEquipmentWithDiscount = useSelector((state) => state.estimate.totalEquipmentPerShiftWithDiscount);
+  const totalEquipment = useSelector((state) => state.estimate.totalEquipment);
+
   const totalServise = useSelector((state) => state.estimate.serviceTotal);
   const tax = useSelector((state) => state.estimate.totalTax);
 
@@ -20,6 +31,17 @@ export default function EstimateTableTotal() {
       dispatch(setter(''));
     }
   };
+
+  useEffect(() => {
+    const totalEquipmentPerShiftWithDiscount = Math.ceil(
+      totalEquipmentPerShift * (1 - discount / 100)
+    );
+
+    const totalEquipment = totalEquipmentPerShiftWithDiscount * quantityShift;
+
+    dispatch(updateTotalEquipmentPerShiftWithDiscount(totalEquipmentPerShiftWithDiscount));
+    dispatch(updateTotalEquipment(totalEquipment));
+  }, [totalEquipmentPerShift, discount]);
 
   return (
     <tbody>
@@ -36,10 +58,10 @@ export default function EstimateTableTotal() {
         </td>
       </tr>
       <tr>
-        <td colSpan={3} className={styles.textLeft}>С учетом скидки</td>
+        <td colSpan={3} className={styles.textLeft}>С учетом скидки {totalEquipmentWithDiscount}</td>
       </tr>
       <tr>
-        <td colSpan={3} className={styles.textLeft}>За проект</td>
+        <td colSpan={3} className={styles.textLeft}>За проект {totalEquipment}</td>
       </tr>
       <tr>
         <td rowSpan={2} colSpan={4}>
