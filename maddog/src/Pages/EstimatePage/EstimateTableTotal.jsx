@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { 
-  updateTotalDiscount, 
+import {
+  updateTotalDiscount,
   updateTotalEquipmentPerShiftWithDiscount,
   updateTotalEquipment,
   updateTotalService,
-  updateTotalTax
+  updateTotalCost,
+  updateTotalTax,
+  updateTotalCostWithTax,
 } from '../../redux/features/estimateSlice';
 
 import styles from './EstimateTable.module.scss';
@@ -22,7 +24,10 @@ export default function EstimateTableTotal() {
 
   const totalServicePerShift = useSelector((state) => state.estimate.totalServicePerShift);
   const totalService = useSelector((state) => state.estimate.totalService);
+
+  const totalCost = useSelector((state) => state.estimate.totalCost);
   const tax = useSelector((state) => state.estimate.totalTax);
+  const totalCostWithTax = useSelector((state) => state.estimate.totalCostWithTax);
 
   // Функция для обработки изменения значения в поле ввода
   const handleChange = (event, setter) => {
@@ -42,11 +47,15 @@ export default function EstimateTableTotal() {
 
     const totalEquipment = totalEquipmentPerShiftWithDiscount * quantityShift;
     const totalService = totalServicePerShift * quantityShift;
+    const totalCost = totalEquipment + totalService;
+    const totalCostWithTax = Math.ceil(totalCost + (totalCost * (tax / 100)));
 
     dispatch(updateTotalEquipmentPerShiftWithDiscount(totalEquipmentPerShiftWithDiscount));
     dispatch(updateTotalEquipment(totalEquipment));
     dispatch(updateTotalService(totalService));
-  }, [totalEquipmentPerShift, discount, totalServicePerShift]);
+    dispatch(updateTotalCost(totalCost));
+    dispatch(updateTotalCostWithTax(totalCostWithTax));
+  }, [totalEquipmentPerShift, discount, totalServicePerShift, totalCost, tax]);
 
   return (
     <tbody>
@@ -82,7 +91,7 @@ export default function EstimateTableTotal() {
         <td rowSpan={3} colSpan={4}>
           Общая стоимость
         </td>
-        <td colSpan={3} className={styles.textLeft}>За проект</td>
+        <td colSpan={3} className={styles.textLeft}>За проект {totalCost}</td>
         <td rowSpan={3}></td>
       </tr>
       <tr>
@@ -91,7 +100,7 @@ export default function EstimateTableTotal() {
         </td>
       </tr>
       <tr>
-        <td colSpan={3} className={styles.textLeft}>При оплате по УСН</td>
+        <td colSpan={3} className={styles.textLeft}>При оплате по УСН {totalCostWithTax}</td>
       </tr>
     </tbody>
   );

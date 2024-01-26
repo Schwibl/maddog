@@ -18,7 +18,9 @@ const initialState = {
   totalEquipment: 0,
   totalServicePerShift: 0,
   totalService: 0,
+  totalCost: 0,
   totalTax: 0,
+  totalCostWithTax: 0,
 };
 
 const estimateSlice = createSlice({
@@ -73,8 +75,14 @@ const estimateSlice = createSlice({
     updateTotalService: (state, action) => {
       state.totalService = action.payload;
     },
+    updateTotalCost: (state, action) => {
+      state.totalCost = action.payload;
+    },
     updateTotalTax: (state, action) => {
       state.totalTax = action.payload;
+    },
+    updateTotalCostWithTax: (state, action) => {
+      state.totalCostWithTax = action.payload;
     },
   },
 });
@@ -97,7 +105,9 @@ export const {
   updateTotalEquipment,
   updateTotalServicePerShift,
   updateTotalService,
+  updateTotalCost,
   updateTotalTax,
+  updateTotalCostWithTax,
 } = estimateSlice.actions;
 
 export default estimateSlice.reducer;
