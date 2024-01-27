@@ -1,13 +1,17 @@
 import { AgGridReact, gridRef } from 'ag-grid-react';
-import React, { useState, useMemo, useCallback, useRef } from 'react';
+import React, { useState, useMemo, useCallback, useRef, memo } from 'react';
 import { createPortal } from 'react-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../../components/button/Button';
 import Icon from '../../components/Icon/Icon';
+import { selectContact } from '../../redux/features/contactsSlice';
+import { openModalDeleteContact } from '../../redux/features/modalsSlice';
 import { AG_GRID_LOCALE_RU } from '../../utils/ag-grid-locale-ru';
 
 import CheckboxFilter from './CheckBoxCustomFilter';
-import { types, contacts } from './mock';
+import DeleteContactModal from './Modals/DeleteContactModal';
+import PhotoModal from './Modals/PhotoModal';
 
 import styles from './ContactsPage.module.scss';
 
@@ -21,26 +25,24 @@ import 'ag-grid-community/styles/ag-grid.css';
  */
 
 const ContactsPage = () => {
-  const [isShowModal, setIsShowModal] = useState(false);
-  const [modalUrl, setModalUrl] = useState('');
+  const dispatch = useDispatch();
+  const contacts = useSelector((state) => state.contacts.contacts);
+  const isEnabledButtons = useSelector((state) => state.contacts.isEnabled);
+  const types = useSelector((state) => state.contacts.types);
+  const isShowDeleteModal = useSelector((state) => state.modals.modalDeleteContact);
 
-  const PhotoModal = ({ url }) => {
-    return (
-      <div className={styles.modal}>
-        <img src={url} alt='' />
-      </div>
-    );
-  };
+  const [isShowPhotoModal, setIsShowPhotoModal] = useState(false);
+  const [modalUrl, setModalUrl] = useState('');
 
   const avatarFormatter = ({ value }) => {
     return (
       <img
         onMouseEnter={() => {
-          setIsShowModal(true);
+          setIsShowPhotoModal(true);
           setModalUrl(value);
         }}
         onMouseLeave={() => {
-          setIsShowModal(false);
+          setIsShowPhotoModal(false);
         }}
         src={value}
         alt=''
@@ -48,44 +50,35 @@ const ContactsPage = () => {
     );
   };
 
-  const editFormatter = (p) => {
-    return (
-      <button
-        type='button'
-        className={styles.tableBtn}
-        onClick={() => {
-          window.alert('value= ', p.data.name);
-          console.log(p.data.name);
-        }}
-      >
-        <Icon iconId='edit' />
-      </button>
-    );
-  };
-
-  const RoleFilter = () => {
-    return <p>hello</p>;
-  };
-
   const gridOptions = {
     localeText: AG_GRID_LOCALE_RU,
   };
 
   const cellClickedListener = useCallback((e) => {
-    console.log(e);
+    // console.log(e);
+    dispatch(selectContact(e.data));
+    // console.log(gridRef.current.api.getSelectedNodes());
   });
 
   const gridRef = useRef();
 
   const [typesList, setTypesList] = useState(types);
 
-  const [rowData, setRowData] = useState(
-    contacts.map(({ name, role, photoUrl }) => ({
-      name,
-      role: types.find((type) => type.id === role).role,
-      photoUrl,
-    }))
-  );
+  // const [rowData, setRowData] = useState(
+  //   contacts.map(({ id, name, role, photoUrl }) => ({
+  //     id,
+  //     name,
+  //     role: types.find((type) => type.id === role).role,
+  //     photoUrl,
+  //   }))
+  // );
+
+  const rowData = contacts.map(({ id, name, role, photoUrl }) => ({
+    id,
+    name,
+    role: types.find((type) => type.id === role).role,
+    photoUrl,
+  }));
 
   const tableHeader = [
     {
@@ -107,12 +100,13 @@ const ContactsPage = () => {
       filter: CheckboxFilter,
       filterParams: {
         filterChangedCallback: (checkedValues) => {
-          console.log('Checked values:', checkedValues);
+          // console.log('Checked values:', checkedValues);
           const gridApi = gridRef.current.api;
           const filteredData = rowData.filter((row) =>
             checkedValues.includes('Все типы') ? row : checkedValues.includes(row.role)
           );
           gridApi.setRowData(filteredData);
+          // gridApi.isFilterActive(true);
         },
         typesValues: ['Все типы', ...types.map((item) => item.role)],
       },
@@ -125,42 +119,55 @@ const ContactsPage = () => {
       flex: 1,
       filter: false,
       cellClass: 'vertical-middle',
-      cellRenderer: avatarFormatter,
+      cellRenderer: memo(avatarFormatter),
     },
   ];
+
+  const getRowId = useCallback((params) => {
+    return params.data.id;
+  });
 
   const [columnDefs, setColumnDefs] = useState(tableHeader);
 
   return (
     <main className={styles.main}>
-      {isShowModal && createPortal(<PhotoModal url={modalUrl} />, document.body)}
+      {isShowPhotoModal && createPortal(<PhotoModal url={modalUrl} />, document.body)}
+      {isShowDeleteModal && createPortal(<DeleteContactModal />, document.body)}
       <section className={styles.contactsPage}>
         <h1 className={styles.title}>Контакты</h1>
 
         <div className={styles.agTable}>
           <div className={styles.buttons}>
-            <button className={styles.button} type='button'>
-              Удалить
+            <button
+              className={styles.button}
+              type='button'
+              onClick={() => dispatch(openModalDeleteContact())}
+              disabled={!isEnabledButtons}
+            >
+              Удалить контакт
             </button>
-            <button className={styles.button} type='button'>
-              Редактировать
-            </button>
-            <button className={styles.button} type='button'>
-              Добавить тип контакта
+            <button className={styles.button} type='button' disabled={!isEnabledButtons}>
+              Редактировать контакт
             </button>
             <button className={styles.button} type='button'>
               Добавить контакт
+            </button>
+            <button className={styles.button} type='button'>
+              Добавить тип контакта
             </button>
           </div>
           <div className={styles['ag-table']}>
             <AgGridReact
               ref={gridRef}
+              getRowId={getRowId}
               onCellClicked={cellClickedListener}
               rowData={rowData}
               defaultColDef={{ flex: 1 }}
               pagination={true}
               columnDefs={columnDefs}
               gridOptions={gridOptions}
+              animateRows={true}
+              rowSelection='single'
             />
           </div>
         </div>

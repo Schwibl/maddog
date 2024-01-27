@@ -1,3 +1,4 @@
+import { useGridFilter } from 'ag-grid-react';
 import React, { useState, useEffect } from 'react';
 
 /**
@@ -6,6 +7,7 @@ import React, { useState, useEffect } from 'react';
  * @returns {JSX.Element}
  */
 const CheckboxFilter = (props) => {
+  console.log(props);
   const [checkedItems, setCheckedItems] = useState({});
 
   const onCheckboxChange = (event) => {
@@ -16,6 +18,7 @@ const CheckboxFilter = (props) => {
     };
     setCheckedItems(newCheckedItems);
   };
+  
 
   useEffect(() => {
     const checkedValues = Object.keys(checkedItems).filter((key) => checkedItems[key]);
@@ -29,6 +32,13 @@ const CheckboxFilter = (props) => {
       setCheckedItems(newCheckedItems);
     }
   }, [props.typesValues]);
+
+  const doesFilterPass = (params) => {
+    console.log(params);
+    return true;
+  };
+
+  useGridFilter({ doesFilterPass });
 
   return (
     <div className='ag-filter-body-wrapper ag-simple-filter-body-wrapper'>
