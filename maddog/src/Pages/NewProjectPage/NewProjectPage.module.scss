@@ -2,7 +2,9 @@
 @import '/src/styles/variables.scss';
 
 .main {
+    background-color: $grey-medium;
     width: 100%;
+    min-height: 100vh;
     padding-left: 10%;
     padding-right: 10%;
     padding-top: 3vh;

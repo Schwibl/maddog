@@ -1,21 +1,23 @@
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ruRU } from '@mui/x-date-pickers/locales';
 import 'dayjs/locale/es';
-import { AgGridReact } from 'ag-grid-react';
-import React, { useState, useMemo, useCallback } from 'react';
-import { createPortal } from 'react-dom';
+// import { AgGridReact } from 'ag-grid-react';
+import React, { useState, useMemo, useCallback , useEffect } from 'react';
+// import { createPortal } from 'react-dom';
 
+// import { authorization } from '../../actions/authorization';
 import ProjectInfo from '../../components/ProjectInfo/ProjectInfo';
 // import Button from '../../components/button/Button';
 // import Icon from '../../components/Icon/Icon';
-import { AG_GRID_LOCALE_RU } from '../../utils/ag-grid-locale-ru';
+// import { AG_GRID_LOCALE_RU } from '../../utils/ag-grid-locale-ru';
 
 import styles from './NewProjectPage.module.scss';
 
 // eslint-disable-next-line import/order
 import 'ag-grid-community/styles/ag-grid.css';
+
 
 /**
  * @description Страница проекта
@@ -24,6 +26,11 @@ import 'ag-grid-community/styles/ag-grid.css';
  */
 
 const NewProjectPage = () => {
+
+  // useEffect(()=>{
+  //   authorization();
+  // })
+
 
   return (
     <LocalizationProvider locale='es' dateAdapter={AdapterDayjs} localeText={ruRU.components.MuiLocalizationProvider.defaultProps.localeText}>

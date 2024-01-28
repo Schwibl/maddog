@@ -99,9 +99,21 @@
     &:nth-child(n) {
         background-color: $white-main;
     }
-
 }
 
-.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
-    color: wheat;
+.subtitle {
+    font-size: $font-size-18;
+    margin-bottom: 1rem;
+}
+
+.shiftsWrap {
+    margin-top: 2rem;
+}
+
+.shifts {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2%;
 }

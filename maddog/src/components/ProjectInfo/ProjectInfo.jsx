@@ -1,12 +1,13 @@
 import Switch from '@mui/material/Switch';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
-import React, { useState } from 'react';
+import React, { useState, useId } from 'react';
 
 import getDates from '../../utils/getDates';
 import Button from '../button/Button';
 import Icon from '../Icon/Icon';
 import Select from '../Select/Select';
+import SwitchShifts from '../SwitchShifts/SwitchShifts';
 
 import styles from './ProjectInfo.module.scss';
 
@@ -62,11 +63,15 @@ export default function ProjectInfo(props) {
   const [startData, setStartData] = useState(null);
   const [endData, setEndData] = useState(null);
   const [projectCreatedData, setProjectCreatedData] = useState(dayjs(new Date()));
+  const [shifts, setShifts] = useState([]);
 
   // Смены
   // Если не заполнена дата начала или конца, дни равны пустому массиву.
   // Если обе даты заполнены, дни считаем дни в промежутке от первого до последнего.
   const days = startData === null || endData === null ? null : getDates(startData, endData);
+
+  // Собственно, смены
+  console.log(shifts);
 
   return (
     <div className={styles.wrap}>
@@ -151,12 +156,9 @@ export default function ProjectInfo(props) {
       {days && (
         <section className={styles.shiftsWrap}>
           <h2 className={styles.subtitle}>Смены</h2>
-          <div>
+          <div className={styles.shifts}>
             {days.map((day) => (
-              <div className={styles.shift}>
-                <Switch />
-                <p className={styles.shiftDay}>{dayjs(day).format('DD/MM/YYYY')}</p>
-              </div>
+              <SwitchShifts day={day} key={day} shifts={shifts} setShifts={setShifts} ></SwitchShifts>
             ))}
           </div>
         </section>

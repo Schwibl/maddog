@@ -1,3 +1,101 @@
 @import '/src/styles/mixins.scss';
 @import '/src/styles/variables.scss';
 
+.wrap {
+    width: 10%;
+    background-color: $grey-medium-light;
+    border-radius: $border-radius-16;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.shift {
+    width: 100%;
+    min-width: fit-content;
+}
+
+.btnsWrap {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: stretch;
+}
+
+.dayBtnDisable {
+    width: 50%;
+    max-width: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    padding-top: 6%;
+    padding-left: 3%;
+    padding-bottom: 2%;
+
+    >svg {
+        width: 3vh;
+        max-width: 3vh;
+        height: 3vh;
+        max-height: 3vh;
+        background-color: transparent;
+    }
+}
+
+.dayBtnActive {
+    width: 50%;
+    max-width: 50%;
+    background-color: $red-main-transparent;
+    cursor: pointer;
+    padding-top: 6%;
+    padding-left: 3%;
+    padding-bottom: 2%;
+
+    >svg {
+        width: 3vh;
+        max-width: 3vh;
+        height: 3vh;
+        max-height: 3vh;
+        background-color: transparent;
+    }
+}
+
+.nightBtnDisable {
+    width: 50%;
+    max-width: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    padding-top: 6%;
+    padding-right: 3%;
+    padding-bottom: 2%;
+
+    >svg {
+        width: 3vh;
+        max-width: 3vh;
+        height: 3vh;
+        max-height: 3vh;
+        background-color: transparent;
+    }
+}
+
+.nightBtnActive {
+    width: 50%;
+    max-width: 50%;
+    background-color: $blue-transparent;
+    cursor: pointer;
+    padding-top: 6%;
+    padding-right: 3%;
+    padding-bottom: 2%;
+
+    >svg {
+        width: 3vh;
+        max-width: 3vh;
+        height: 3vh;
+        max-height: 3vh;
+        background-color: transparent;
+    }
+}
+
+.data {
+    font-size: $font-size-14;
+    color: $black-text;
+    text-align: center;
+    padding-bottom: 3%;
+}
