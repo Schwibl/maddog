@@ -1,5 +1,8 @@
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { ruRU } from '@mui/x-date-pickers/locales';
+import 'dayjs/locale/es';
 import { AgGridReact } from 'ag-grid-react';
 import React, { useState, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
@@ -21,20 +24,9 @@ import 'ag-grid-community/styles/ag-grid.css';
  */
 
 const NewProjectPage = () => {
-  //   const [typesList, setTypesList] = useState(types);
-
-  //   const [columnDefs, setColumnDefs] = useState(tableHeader);
-
-  //   const [rowData, setRowData] = useState(
-  //     projects.map(({ name, barcode, group }) => ({
-  //       name,
-  //       role: types.find((type) => type.id === role).role,
-  //       photoUrl,
-  //     }))
-  //   );
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <LocalizationProvider locale='es' dateAdapter={AdapterDayjs} localeText={ruRU.components.MuiLocalizationProvider.defaultProps.localeText}>
       <main className={styles.main}>
         <h1 className={styles.title}>Новый проект</h1>
         <section className={styles.projectInfo}>
