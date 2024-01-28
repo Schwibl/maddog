@@ -43,7 +43,7 @@ const SwitchShifts = (props) => {
           } else return shift;
         } else return shift;
       })
-      .filter((newShift) => newShift !== null);
+        .filter((newShift) => newShift !== null);
 
       setShifts(newShifts);
       setDayShiht(!dayShift);
@@ -72,7 +72,7 @@ const SwitchShifts = (props) => {
           } else return shift;
         } else return shift;
       })
-      .filter((newShift) => newShift !== null);
+        .filter((newShift) => newShift !== null);
 
       setShifts(newShifts);
       setNightShiht(!nightShift);
