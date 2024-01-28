@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Select from '../../components/Select/Select';
-import { updateQuantityShift } from '../../redux/features/estimateSlice';
 
 import logo from './logoInEstimateTable.png';
 
@@ -45,7 +44,7 @@ export default function EstimateTableHead() {
       <tr>
         <th className={styles.head}>Количество смен:</th>
         <td colSpan={5}>
-          <input type='text' className={styles.quantityShift} value={quantityShift} onChange={(e) => handleChange(e, updateQuantityShift)} placeholder='Количество'/>
+          {quantityShift}
         </td>
       </tr>
       <tr>

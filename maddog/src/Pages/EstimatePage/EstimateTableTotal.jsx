@@ -1,14 +1,33 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateTotalDiscount, updateTotalTax } from '../../redux/features/estimateSlice';
+import {
+  updateTotalDiscount,
+  updateTotalEquipmentPerShiftWithDiscount,
+  updateTotalEquipment,
+  updateTotalService,
+  updateTotalCost,
+  updateTotalTax,
+  updateTotalCostWithTax,
+} from '../../redux/features/estimateSlice';
 
 import styles from './EstimateTable.module.scss';
 
 export default function EstimateTableTotal() {
   const dispatch = useDispatch();
-  const discount = useSelector((state) => state.estimate.totalDiscount);
-  const tax = useSelector((state) => state.estimate.totalTax);
+  const quantityShift = useSelector((state) => state.estimate.quantityShift);
+
   const totalEquipmentPerShift = useSelector((state) => state.estimate.totalEquipmentPerShift);
+  const discount = useSelector((state) => state.estimate.totalDiscount);
+  const totalEquipmentWithDiscount = useSelector((state) => state.estimate.totalEquipmentPerShiftWithDiscount);
+  const totalEquipment = useSelector((state) => state.estimate.totalEquipment);
+
+  const totalServicePerShift = useSelector((state) => state.estimate.totalServicePerShift);
+  const totalService = useSelector((state) => state.estimate.totalService);
+
+  const totalCost = useSelector((state) => state.estimate.totalCost);
+  const tax = useSelector((state) => state.estimate.totalTax);
+  const totalCostWithTax = useSelector((state) => state.estimate.totalCostWithTax);
 
   // Функция для обработки изменения значения в поле ввода
   const handleChange = (event, setter) => {
@@ -19,6 +38,24 @@ export default function EstimateTableTotal() {
       dispatch(setter(''));
     }
   };
+
+  //подсчет общей стоимости по проекту
+  useEffect(() => {
+    const totalEquipmentPerShiftWithDiscount = Math.ceil(
+      totalEquipmentPerShift * (1 - discount / 100)
+    );
+
+    const totalEquipment = totalEquipmentPerShiftWithDiscount * quantityShift;
+    const totalService = totalServicePerShift * quantityShift;
+    const totalCost = totalEquipment + totalService;
+    const totalCostWithTax = Math.ceil(totalCost + (totalCost * (tax / 100)));
+
+    dispatch(updateTotalEquipmentPerShiftWithDiscount(totalEquipmentPerShiftWithDiscount));
+    dispatch(updateTotalEquipment(totalEquipment));
+    dispatch(updateTotalService(totalService));
+    dispatch(updateTotalCost(totalCost));
+    dispatch(updateTotalCostWithTax(totalCostWithTax));
+  }, [totalEquipmentPerShift, discount, totalServicePerShift, totalCost, tax]);
 
   return (
     <tbody>
@@ -35,26 +72,26 @@ export default function EstimateTableTotal() {
         </td>
       </tr>
       <tr>
-        <td colSpan={3} className={styles.textLeft}>С учетом скидки</td>
+        <td colSpan={3} className={styles.textLeft}>С учетом скидки {totalEquipmentWithDiscount}</td>
       </tr>
       <tr>
-        <td colSpan={3} className={styles.textLeft}>За проект</td>
+        <td colSpan={3} className={styles.textLeft}>За проект {totalEquipment}</td>
       </tr>
       <tr>
         <td rowSpan={2} colSpan={4}>
           Итоговая стоимость обслуживания
         </td>
-        <td colSpan={3} className={styles.textLeft}>В смену</td>
+        <td colSpan={3} className={styles.textLeft}>В смену {totalServicePerShift}</td>
         <td rowSpan={2}></td>
       </tr>
       <tr>
-        <td colSpan={3} className={styles.textLeft}>За проект</td>
+        <td colSpan={3} className={styles.textLeft}>За проект {totalService}</td>
       </tr>
       <tr>
         <td rowSpan={3} colSpan={4}>
           Общая стоимость
         </td>
-        <td colSpan={3} className={styles.textLeft}>За проект</td>
+        <td colSpan={3} className={styles.textLeft}>За проект {totalCost}</td>
         <td rowSpan={3}></td>
       </tr>
       <tr>
@@ -63,7 +100,7 @@ export default function EstimateTableTotal() {
         </td>
       </tr>
       <tr>
-        <td colSpan={3} className={styles.textLeft}>При оплате по УСН</td>
+        <td colSpan={3} className={styles.textLeft}>При оплате по УСН {totalCostWithTax}</td>
       </tr>
     </tbody>
   );
