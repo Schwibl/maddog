@@ -8,6 +8,11 @@ import {
   updateEquipmentDays,
   updateEquipmentDiscount,
   updateEquipmentTotalWithDiscount,
+  updateHeadphoneCost,
+  updateHeadphoneQuantity,
+  updateHeadphoneDays,
+  updateHeadphoneDiscount,
+  updateHeadphoneTotalWithDiscount,
   updateTotalEquipmentPerShift,
 } from '../../redux/features/estimateSlice';
 
@@ -15,25 +20,37 @@ import styles from './EstimateTable.module.scss';
 
 export default function EstimateTableEquipment() {
   const dispatch = useDispatch();
+
   const cost = useSelector((state) => state.estimate.equipmentCost);
   const quantity = useSelector((state) => state.estimate.equipmentQuantity);
   const days = useSelector((state) => state.estimate.equipmentDays);
   const discount = useSelector((state) => state.estimate.equipmentDiscount);
-  const quantityShift = useSelector((state) => state.estimate.quantityShift); 
+
+  const headphoneCost = useSelector((state) => state.estimate.headphoneCost);
+  const headphoneQuantity = useSelector((state) => state.estimate.headphoneQuantity);
+  const headphoneDays = useSelector((state) => state.estimate.headphoneDays);
+  const headphoneDiscount = useSelector((state) => state.estimate.headphoneDiscount);
 
   const [showFilters, setShowFilters] = useState(false);
 
   // Функция для вычисления общей стоимости обслуживания и стоимости с учетом скидки
-  const calculateTotal = () => {
+  const calculateTotal = (cost, quantity, days, discount) => {
     const total = Math.ceil(cost * quantity * days);
     const totalWithDiscount = Math.ceil(total * (1 - discount / 100));
     return {
       total,
-      totalWithDiscount
+      totalWithDiscount,
     };
   };
 
-  const price = calculateTotal();
+  //считаем Итого за смену
+  const equipmentPrice = calculateTotal(cost, quantity, days, discount);
+  const headphonePrice = calculateTotal(
+    headphoneCost,
+    headphoneQuantity,
+    headphoneDays,
+    headphoneDiscount
+  );
 
   // Функция для обработки изменения значения в поле ввода
   const handleChange = (event, setter) => {
@@ -50,18 +67,15 @@ export default function EstimateTableEquipment() {
     setShowFilters(!showFilters);
   };
 
-  // Считаем стоимость оборудования в смену
+  // Считаем стоимость всего оборудования в смену с учетом скидки
   useEffect(() => {
-    let totalPerShift = 0;
+    const totalEquipmentPerShift =
+      equipmentPrice.totalWithDiscount + headphonePrice.totalWithDiscount;
 
-    if (quantityShift > 0) {
-      const price = calculateTotal();
-      totalPerShift = Math.ceil(price.totalWithDiscount / quantityShift);
-    }
-
-    dispatch(updateEquipmentTotalWithDiscount(price.totalWithDiscount));
-    dispatch(updateTotalEquipmentPerShift(totalPerShift));
-  }, [cost, quantity, days, discount, quantityShift]);
+    dispatch(updateEquipmentTotalWithDiscount(equipmentPrice.totalWithDiscount));
+    dispatch(updateHeadphoneTotalWithDiscount(headphonePrice.totalWithDiscount));
+    dispatch(updateTotalEquipmentPerShift(totalEquipmentPerShift));
+  }, [cost, quantity, days, discount]);
 
   return (
     <tbody>
@@ -95,8 +109,26 @@ export default function EstimateTableEquipment() {
         <td><input type='text' name='quantity' value={quantity} onChange={(e) => handleChange(e, updateEquipmentQuantity)} className={styles.input} placeholder='Количество'/></td>
         <td><input type='text' name='days' value={days} onChange={(e) => handleChange(e, updateEquipmentDays)} className={styles.input} placeholder='Количество'/></td>
         <td><input type='text' name='discount' value={discount} onChange={(e) => handleChange(e, updateEquipmentDiscount)} className={styles.input} placeholder='Скидка'/></td>
-        <td>{price.total}</td>
-        <td>{price.totalWithDiscount}</td>
+        <td>{equipmentPrice.total}</td>
+        <td>{equipmentPrice.totalWithDiscount}</td>
+      </tr>
+      <tr>
+        <td colSpan={2}>Наушники
+          <br />
+          <Button className={styles.secure} onClick={toggleFilters} type='button' value='secure' name='secure' children='Закрепить оборудование'/>
+          {showFilters && (
+            <div>
+              <Button className={styles.category} type='button' value='category' name='category' children='Из соответствующей категории'/>
+              <Button className={styles.category} type='button' value='all' name='all' children='Из всего оборудования'/>
+            </div>
+          )}
+        </td>
+        <td><input type='text' name='cost' value={headphoneCost} onChange={(e) => handleChange(e, updateHeadphoneCost)} className={styles.input} placeholder='Стоимость'/></td>
+        <td><input type='text' name='quantity' value={headphoneQuantity} onChange={(e) => handleChange(e, updateHeadphoneQuantity)} className={styles.input} placeholder='Количество'/></td>
+        <td><input type='text' name='days' value={headphoneDays} onChange={(e) => handleChange(e, updateHeadphoneDays)} className={styles.input} placeholder='Количество'/></td>
+        <td><input type='text' name='discount' value={headphoneDiscount} onChange={(e) => handleChange(e, updateHeadphoneDiscount)} className={styles.input} placeholder='Скидка'/></td>
+        <td>{headphonePrice.total}</td>
+        <td>{headphonePrice.totalWithDiscount}</td>
       </tr>
       <tr>
         <td colSpan={8} className={styles.emptyRow}></td>
