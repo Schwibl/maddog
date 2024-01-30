@@ -7,11 +7,14 @@ import 'dayjs/locale/es';
 import React, { useState, useMemo, useCallback , useEffect } from 'react';
 // import { createPortal } from 'react-dom';
 
-// import { authorization } from '../../actions/authorization';
+import { authorization } from '../../actions/authorization';
+import mock from '../../components/pattern/mock';
+import Pattern from '../../components/pattern/Pattern';
 import ProjectInfo from '../../components/ProjectInfo/ProjectInfo';
 // import Button from '../../components/button/Button';
 // import Icon from '../../components/Icon/Icon';
 // import { AG_GRID_LOCALE_RU } from '../../utils/ag-grid-locale-ru';
+
 
 import styles from './NewProjectPage.module.scss';
 
@@ -27,9 +30,11 @@ import 'ag-grid-community/styles/ag-grid.css';
 
 const NewProjectPage = () => {
 
-  // useEffect(()=>{
-  //   authorization();
-  // })
+  console.log(mock.sections);
+
+  useEffect(()=>{
+    authorization();
+  });
 
 
   return (
@@ -38,6 +43,9 @@ const NewProjectPage = () => {
         <h1 className={styles.title}>Новый проект</h1>
         <section className={styles.projectInfo}>
           <ProjectInfo></ProjectInfo>
+          <div className={styles.table}>
+            <Pattern sections={mock.sections}></Pattern>
+          </div>
         </section>
       </main>
     </LocalizationProvider>

@@ -158,7 +158,12 @@ export default function ProjectInfo(props) {
           <h2 className={styles.subtitle}>Смены</h2>
           <div className={styles.shifts}>
             {days.map((day) => (
-              <SwitchShifts day={day} key={day} shifts={shifts} setShifts={setShifts} ></SwitchShifts>
+              <SwitchShifts
+                day={day}
+                key={day}
+                shifts={shifts}
+                setShifts={setShifts}
+              ></SwitchShifts>
             ))}
           </div>
         </section>

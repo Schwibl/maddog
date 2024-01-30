@@ -12,11 +12,12 @@ export async function authorization() {
   const response = await fetch('http://62.113.113.183:8963/api/v1/login', {
     method: 'POST',
     headers: {
+      'Authorization': `Basic ${btoa('adm:123')}`,
       'Content-Type': 'application/json;charset=utf-8'
     },
     body: JSON.stringify(admin)
   });
 
   const result = await response.json();
-  alert(result.message);
+  console.log(result.message);
 }
