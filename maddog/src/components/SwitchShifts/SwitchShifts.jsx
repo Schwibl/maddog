@@ -1,10 +1,8 @@
-// import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import { LocalizationProvider } from '@mui/x-date-pickers';
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { ruRU } from '@mui/x-date-pickers/locales';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 import React, { useState, useMemo, useCallback } from 'react';
+import ModeNightIcon from '@mui/icons-material/ModeNight';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 import Icon from './../Icon/Icon';
 
@@ -95,13 +93,13 @@ const SwitchShifts = (props) => {
             className={dayShift ? styles.dayBtnActive : styles.dayBtnDisable}
             onClick={handleDayShift}
           >
-            <Icon iconId='dayUnable' />
+            <LightModeIcon />
           </button>
           <button
             className={nightShift ? styles.nightBtnActive : styles.nightBtnDisable}
             onClick={handleNightShift}
           >
-            <Icon iconId='nightUnable' />
+            <ModeNightIcon />
           </button>
         </div>
         <div className={styles.data}>{dayjs(day).locale('ru').format('DD MMM, dd')}</div>

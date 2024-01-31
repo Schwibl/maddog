@@ -18,9 +18,7 @@ function SectionPattern(props) {
         {tools.map((tool) => (
           <ToolRow
             key={tool.id}
-            id={tool.id}
-            name={tool.name}
-            quantity={tool.quantity}
+            tool={tool}
             sections={sections}
             setSections={setSections}
           ></ToolRow>

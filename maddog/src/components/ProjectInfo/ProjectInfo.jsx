@@ -1,4 +1,10 @@
+import { blueGrey } from '@mui/material/colors';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import Switch from '@mui/material/Switch';
+import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import React, { useState, useId } from 'react';
@@ -6,7 +12,6 @@ import React, { useState, useId } from 'react';
 import getDates from '../../utils/getDates';
 import Button from '../button/Button';
 import Icon from '../Icon/Icon';
-import Select from '../Select/Select';
 import SwitchShifts from '../SwitchShifts/SwitchShifts';
 
 import styles from './ProjectInfo.module.scss';
@@ -23,6 +28,7 @@ const classesLease = ['Разовый', 'Длинный', 'Субаренда', 
 const clientsNames = ['Клиент1', 'Клиент2', 'Клиент3', 'Клиент4'];
 
 export default function ProjectInfo(props) {
+  const darkColor = blueGrey[900];
   // Название проекта
   const [projectName, setProjectName] = useState('');
   const handleProjectName = (e) => {
@@ -76,77 +82,99 @@ export default function ProjectInfo(props) {
   return (
     <div className={styles.wrap}>
       <div className={styles.mainInfo}>
-        <label htmlFor='name'>
-          <input
-            className={styles.input}
-            autoFocus={true}
-            type='text'
-            name='name'
-            value={projectName}
-            placeholder='Название проекта'
-            onChange={handleProjectName}
-          />
-        </label>
-        <Select
-          name={'typeLease'}
-          items={typesLease}
-          placeholder={'Тип аренды'}
-          value={typeLease}
-          onChange={(e) => handleTypeLease(e)}
-        ></Select>
-        <Select
-          name={'classLease'}
-          items={classesLease}
-          placeholder={'Разновидность аренды'}
-          value={classLease}
-          onChange={(e) => handleClassLease(e)}
-        ></Select>
+        <TextField
+          sx={{ minWidth: '25%' }}
+          id='name'
+          value={projectName}
+          onChange={handleProjectName}
+          label='Название проекта'
+          variant='outlined'
+        />
+        <FormControl sx={{ minWidth: '25%' }}>
+          <InputLabel id='typeLease'>Тип аренды</InputLabel>
+          <Select
+            labelId='typeLease'
+            value={typeLease}
+            label='Тип аренды'
+            onChange={(e) => handleTypeLease(e)}
+          >
+            {typesLease.map((type) => (
+              <MenuItem value={type} key={type}>{type}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl sx={{ minWidth: '25%' }}>
+          <InputLabel id='classLease'>Разновидность аренды</InputLabel>
+          <Select
+            labelId='classLease'
+            value={classLease}
+            label='Разновидность аренды'
+            onChange={(e) => handleClassLease(e)}
+          >
+            {classesLease.map((type) => (
+              <MenuItem value={type} key={type}>{type}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
+
       <div className={styles.clientWrap}>
         {/* Здесь имя клиента */}
         <div className={styles.client}>
-          <Select
-            name={'clientName'}
-            className={styles.selectClientsName}
-            items={clientsNames}
-            placeholder={'Выберите клиента'}
-            value={clientName}
-            onChange={(e) => handleClientName(e)}
-          />
+          <FormControl sx={{ minWidth: '100%', backgroundColor: '#fcfcfd', borderRadius: '4px' }}>
+            <InputLabel id='clientName'>Выберите клиента</InputLabel>
+            <Select
+              labelId='clientName'
+              value={clientName}
+              label='Выберите клиента'
+              onChange={(e) => handleClientName(e)}
+            >
+              {clientsNames.map((client) => (
+                <MenuItem value={client} key={client}>{client}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <Button className={styles.btnAddClient} title={'Добавить клиента'}>
             <Icon iconId='addPlus' />{' '}
           </Button>
         </div>
         {/* Здесь примечание и ссылки */}
-        <textarea
-          className={styles.note}
-          name='note'
+        <TextField
+          sx={{ width: '25%', backgroundColor: '#fcfcfd', borderRadius: '4px' }}
+          id='note'
           value={note}
           onChange={handleNote}
-          placeholder={'Примечания по проекту'}
+          label='Примечания по проекту'
+          variant='outlined'
         />
-        <textarea
-          className={styles.links}
-          name='links'
+        <TextField
+          sx={{ width: '25%', backgroundColor: '#fcfcfd', borderRadius: '4px' }}
+          id='links'
           value={links}
           onChange={handleLinks}
-          placeholder={'Ссылки - через запятую'}
+          label='Ссылки - через запятую'
+          variant='outlined'
         />
       </div>
+
       <div className={styles.datasWrap}>
         <DatePicker
+          sx={{ borderRadius: '4px' }}
           label='Начало срока аренды'
           className={styles.dataPicker}
           value={startData}
           onChange={(newValue) => setStartData(newValue)}
         />
         <DatePicker
+          sx={{ borderRadius: '4px' }}
           label='Окончание срока аренды'
           className={styles.dataPicker}
           value={endData}
           onChange={(newValue) => setEndData(newValue)}
         />
         <DatePicker
+          sx={{ borderRadius: '4px' }}
           label='Создан'
           className={styles.dataPicker}
           value={projectCreatedData}
