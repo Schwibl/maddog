@@ -1,8 +1,8 @@
+import LightModeIcon from '@mui/icons-material/LightMode';
+import ModeNightIcon from '@mui/icons-material/ModeNight';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 import React, { useState, useMemo, useCallback } from 'react';
-import ModeNightIcon from '@mui/icons-material/ModeNight';
-import LightModeIcon from '@mui/icons-material/LightMode';
 
 import Icon from './../Icon/Icon';
 
@@ -34,13 +34,14 @@ const SwitchShifts = (props) => {
 
       setDayShiht(!dayShift);
     } else if (dayShift) {
-      const newShifts = shifts.map((shift) => {
-        if(shift.typeShift === 'DAY') {
-          if (shift. dateShift === dayjs(day).locale('ru').format('YYYY-MM-DD')) {
-            return null;
+      const newShifts = shifts
+        .map((shift) => {
+          if (shift.typeShift === 'DAY') {
+            if (shift.dateShift === dayjs(day).locale('ru').format('YYYY-MM-DD')) {
+              return null;
+            } else return shift;
           } else return shift;
-        } else return shift;
-      })
+        })
         .filter((newShift) => newShift !== null);
 
       setShifts(newShifts);
@@ -60,16 +61,15 @@ const SwitchShifts = (props) => {
         },
       ]);
       setNightShiht(!nightShift);
-
     } else if (nightShift) {
-
-      const newShifts = shifts.map((shift) => {
-        if(shift.typeShift === 'NIGHT') {
-          if (shift. dateShift === dayjs(day).locale('ru').format('YYYY-MM-DD')) {
-            return null;
+      const newShifts = shifts
+        .map((shift) => {
+          if (shift.typeShift === 'NIGHT') {
+            if (shift.dateShift === dayjs(day).locale('ru').format('YYYY-MM-DD')) {
+              return null;
+            } else return shift;
           } else return shift;
-        } else return shift;
-      })
+        })
         .filter((newShift) => newShift !== null);
 
       setShifts(newShifts);
