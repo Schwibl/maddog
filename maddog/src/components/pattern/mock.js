@@ -10,7 +10,7 @@ const mock = {
   "site": "maddogrental.pro",
   "sections": [
     {
-      "id": 0,
+      "id": 1,
       "name": "Камера",
       "tools": [
         {
@@ -104,7 +104,7 @@ const mock = {
       ]
     },
     {
-      "id": 0,
+      "id": 2,
       "name": "Комплект",
       "tools": [
         {
@@ -190,7 +190,7 @@ const mock = {
       ]
     },
     {
-      "id": 0,
+      "id": 3,
       "name": "Операторская техника",
       "tools": [
         {
@@ -300,7 +300,7 @@ const mock = {
       ]
     },
     {
-      "id": 0,
+      "id": 4,
       "name": "Видеоконтроль",
       "tools": [
         {
@@ -458,7 +458,7 @@ const mock = {
       ]
     },
     {
-      "id": 0,
+      "id": 5,
       "name": "Оптика",
       "tools": [
         {
@@ -872,7 +872,7 @@ const mock = {
       ]
     },
     {
-      "id": 0,
+      "id": 6,
       "name": "Фильтры",
       "tools": [
         {
@@ -990,7 +990,7 @@ const mock = {
       ]
     },
     {
-      "id": 0,
+      "id": 7,
       "name": "Дополнительное оборудование",
       "tools": [
         {
@@ -1212,7 +1212,7 @@ const mock = {
       ]
     },
     {
-      "id": 0,
+      "id": 8,
       "name": "ОБСЛУЖИВАНИЕ",
       "tools": [
         {

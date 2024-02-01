@@ -7,6 +7,7 @@ import styles from './Pattern.module.scss';
 
 function Pattern(props) {
   const [sections, setSections] = useState(props.sections);
+  console.log(sections);
 
   return (
     <div className={styles.table}>

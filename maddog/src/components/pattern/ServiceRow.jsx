@@ -1,3 +1,5 @@
+import CloseIcon from '@mui/icons-material/Close';
+
 import styles from './Pattern.module.scss';
 
 function ServiceRow(props) {
@@ -8,7 +10,7 @@ function ServiceRow(props) {
     <>
       <div className={styles.service} id={id}>
         <button className={styles.toolDelete} onClick={handleDeleteTool}>
-          X
+          <CloseIcon />
         </button>
         <input className={styles.toolName} name='name' type='text' value={name}></input>
         <input

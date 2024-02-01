@@ -17,6 +17,7 @@
     &>:nth-child(n) {
         background-color: $white-main;
         border-radius: 4px;
+        width: 25%;
     }
 }
 
@@ -88,7 +89,7 @@
 }
 
 .datasWrap {
-    margin-top: 8vh;
+    margin-top: 4vh;
     margin-right: auto;
     margin-left: auto;
     width: 100%;

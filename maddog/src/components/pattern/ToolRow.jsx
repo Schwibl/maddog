@@ -1,3 +1,4 @@
+import CloseIcon from '@mui/icons-material/Close';
 
 import ServiceRow from './ServiceRow';
 
@@ -6,12 +7,41 @@ import styles from './Pattern.module.scss';
 function ToolRow(props) {
   const { tool, sections, setSections } = props;
 
-  function handleDeleteTool() {}
+  // Изменение количества оборудования
+  function handleChangeToolQuantity(e) {
+    setSections(
+      sections.map((section) => {
+        if ((section.id = tool.section)) {
+          section.tools.map((sectionTool) => {
+            if (sectionTool.id === tool.id) {
+              sectionTool.quantity = e.target.value;
+            }
+          });
+        }
+        return section;
+      })
+    );
+  }
+
+  // Удаление строки оборудования
+  function handleDeleteTool(e) {
+    setSections(
+      sections.map((section) => {
+        if ((section.id = tool.section)) {
+          const newTools = section.tools.filter((sectionTool) => sectionTool.id !== tool.id); 
+          section.tools = newTools;
+          return section;
+        }
+        return section;
+      })
+    );
+  }
+
   return (
     <>
       <div className={styles.tool} id={tool.id}>
         <button className={styles.toolDelete} onClick={handleDeleteTool}>
-          X
+          <CloseIcon />
         </button>
         <input className={styles.toolName} name='name' type='text' value={tool.name}></input>
         <input
@@ -19,6 +49,7 @@ function ToolRow(props) {
           name='quantity'
           type='number'
           value={tool.quantity}
+          onChange={handleChangeToolQuantity}
         />
       </div>
       {tool.services ? (
