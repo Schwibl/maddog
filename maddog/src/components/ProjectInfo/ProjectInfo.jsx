@@ -30,7 +30,7 @@ const classesLease = ['Разовый', 'Длинный', 'Субаренда', 
 const clientsNames = ['Клиент1', 'Клиент2', 'Клиент3', 'Клиент4'];
 
 export default function ProjectInfo(props) {
-  const {isOpenModal, openModal, closeModal} = useModal(true);
+  const {isOpenModal, openModal, closeModal} = useModal(false);
 
   const darkColor = blueGrey[900];
   // Название проекта
