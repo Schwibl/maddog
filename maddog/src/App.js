@@ -9,10 +9,10 @@ import AuthorizePage from './Pages/authorizePage/AuthorizePage';
 
 function App({children}) {
   return (
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <AuthorizePage />
-        {children}
-      </LocalizationProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <AuthorizePage />
+      {children}
+    </LocalizationProvider>
   );
 }
 

@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
-import AuthProvider from './providers/AuthProvider/AuthProvider';
 
+import AuthProvider from './providers/AuthProvider/AuthProvider';
 import store from './redux/store';
 import { router } from './router';
 

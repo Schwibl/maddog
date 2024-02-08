@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import React, { useContext, useState } from 'react';
+import { Link , useNavigate } from 'react-router-dom';
 
-import { useNavigate } from 'react-router-dom';
 
 import { authorization } from '../../actions/authorization';
+import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 
 import logo from './logoBlackOnTransparent.png';
 
@@ -15,7 +15,6 @@ import logo from './logoBlackOnTransparent.png';
  */
 
 import styles from './AuthorizePage.module.scss';
-import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 
 function AuthorizePage() {
   //Забираем значения пользователя из контекста
@@ -53,9 +52,9 @@ function AuthorizePage() {
   }
 
   const inputsClass = classNames({
-		[styles.input]: true,
-		[styles.inputRejected]: !isValidData,
-	});
+    [styles.input]: true,
+    [styles.inputRejected]: !isValidData,
+  });
 
   return (
     <section className={styles.login}>
