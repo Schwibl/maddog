@@ -47,6 +47,9 @@ function AuthorizePage() {
     } else if (!authorizedUser) {
       console.log('Ты не пройдешь');
       setIsValidData(false);
+      setUserName('');
+      setUserPassword('');
+      setTimeout(()=> setIsValidData(true), 2000);
     }
   }
 
