@@ -67,7 +67,7 @@ function AuthorizePage() {
         <div className={styles.formSide}>
           <form className={styles.form}>
             <h1 className={styles.enter}>ВХОД В СИСТЕМУ</h1>
-            <div className={styles.input}>
+            <div className={styles.inputs}>
               <div className={styles.inputWrap}>
                 <input
                   className={inputsClass}
