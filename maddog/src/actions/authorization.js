@@ -1,23 +1,24 @@
-export async function authorization() {
+export async function authorization(name, password) {
 
-  const admin = {
-    id: 123,
-    username: "admin",
-    fullName: "Skelork",
-    phoneNumber: "89774770113",
-    roles: "ADMIN",
-    active: true,
-  };
+  const encriptedUserData = btoa(`${name}:${password}`)
 
-  const response = await fetch('http://62.113.113.183:8963/api/v1/login', {
+  try {
+    const response = await fetch('http://62.113.113.183:8963/api/v1/login', {
     method: 'POST',
     headers: {
-      'Authorization': `Basic ${btoa('adm:123')}`,
+      'Authorization': `Basic ${encriptedUserData}`,
       'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify(admin)
   });
 
   const result = await response.json();
-  console.log(result.message);
+  console.log(result);
+
+  return result;
+
+  }
+  catch (e) {
+    console.error("блок catch", e.message);
+    return null;
+  }
 }
