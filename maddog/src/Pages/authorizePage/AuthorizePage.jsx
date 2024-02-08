@@ -18,8 +18,7 @@ import styles from './AuthorizePage.module.scss';
 
 function AuthorizePage() {
   //Забираем значения пользователя из контекста
-  const { user, setUser } = useContext(AuthContext);
-  console.log(user);
+  const { setUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 

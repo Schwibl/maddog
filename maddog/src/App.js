@@ -3,7 +3,6 @@
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-import UserContext from './context/UserContext';
 import AuthorizePage from './Pages/authorizePage/AuthorizePage';
 // import CreateContactPage from './Pages/CreateContactPage/CreateContactPage';
 
