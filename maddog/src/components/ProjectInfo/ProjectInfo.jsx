@@ -1,4 +1,3 @@
-import {Button} from "@mui/material";
 import {blueGrey} from '@mui/material/colors';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -15,6 +14,8 @@ import getDates from '../../utils/getDates';
 import Icon from '../Icon/Icon';
 import Modal from "../Modal";
 import SwitchShifts from '../SwitchShifts/SwitchShifts';
+
+import ContactsForm from './ContactsForm';
 
 import styles from './ProjectInfo.module.scss';
 
@@ -86,7 +87,7 @@ export default function ProjectInfo(props) {
   const days = startData === null || endData === null ? null : getDates(startData, endData);
 
   // Собственно, смены
-  console.log(shifts);
+  // console.log(shifts);
 
   return (
     <div className={styles.wrap}>
@@ -208,10 +209,7 @@ export default function ProjectInfo(props) {
         </section>
       )}
       <Modal isOpen={isOpenModal} onClose={closeModal}>
-        <div className={styles.modal}>
-          <p className={styles.modalText}>Пользователь добавлен</p>
-          <Button variant="contained" onClick={closeModal} size="medium">Закрыть</Button>
-        </div>
+        <ContactsForm closeModal={closeModal}/>
       </Modal>
     </div>
   );

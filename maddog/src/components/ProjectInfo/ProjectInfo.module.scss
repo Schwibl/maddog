@@ -118,18 +118,3 @@
   flex-wrap: wrap;
   gap: 2%;
 }
-
-.modal {
-  width: auto;
-  height: auto;
-  background-color: $white-main;
-  padding: 24px;
-  border-radius: 15px;
-  font-size: 18px;
-  text-align: center;
-  box-shadow: #000 2px 2px 20px;
-
-  .modalText {
-    padding-bottom: 20px;
-  }
-}
