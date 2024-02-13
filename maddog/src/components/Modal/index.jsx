@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import styles from './Modal.module.scss';
 
+// Ищем элемент с id="modal" в DOM дереве, чтобы отображать в нем модальное окно
 const modalRoot = document.getElementById('modal');
 
 const Modal = ({ children, onClose, isOpen }) => {

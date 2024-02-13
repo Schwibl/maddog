@@ -15,10 +15,12 @@ const ContactsForm = ({closeModal}) => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    // ждем асинхронный ответ от сервера если промис был неуспешный
+    // обрабатываем ошибку в любом случае закрываем модальное окно
     try {
       await createContact(data);
     } catch (error) {
-      console.log(error);
+      throw new Error(error.message);
     }finally {
       closeModal();
     }

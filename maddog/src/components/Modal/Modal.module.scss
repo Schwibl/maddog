@@ -1,5 +1,6 @@
 @import '../../styles/variables';
 
+// Слой на котором отображается модальное окно
 .overlay {
   background-color: $modal-overlay-bg;
   backdrop-filter: blur(2px);
