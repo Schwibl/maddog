@@ -2,123 +2,119 @@
 @import '/src/styles/variables.scss';
 
 .mainInfo {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 10%;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10%;
+  justify-content: space-between;
+  align-items: center;
 
-    &>select {
-        height: 4vh;
-        width: 25%;
-        padding: 0;
-    }
+  & > select {
+    height: 4vh;
+    width: 25%;
+    padding: 0;
+  }
 
-    &>:nth-child(n) {
-        background-color: $white-main;
-        border-radius: 4px;
-        width: 25%;
-    }
+  & > :nth-child(n) {
+    background-color: $white-main;
+    border-radius: 4px;
+    width: 25%;
+  }
 }
 
 .input {
 
-    height: 4vh;
-    width: 25%;
-    background-color: $white-main;
+  height: 4vh;
+  width: 25%;
+  background-color: $white-main;
 }
 
 .clientWrap {
-    width: 100%;
-    max-height: 4vh;
-    margin-top: 4vh;
+  width: 100%;
+  max-height: 4vh;
+  margin-top: 4vh;
 }
 
 .clientWrap,
 .client {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .client {
-    position: relative;
-    width: 25%;
+  position: relative;
+  width: 25%;
 }
 
 .btnAddClient {
-    position: absolute;
-    right: -21%;
-    max-height: 100%;
-    margin-left: 1.5%;
-    margin-right: 1.5%;
-    border-radius: $border-radius-20;
-    background-color: transparent;
-    cursor: pointer;
+  position: absolute;
+  right: -15%;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+  }
+
+  & > svg {
+    width: 2.4vh;
+    height: 2.4vh;
+    fill: $text-and-icons;
+    overflow: visible;
 
     &:hover {
-        transform: scale(1.1);
-        transition: all 0.3s;
+      transform: scale(1.05);
+      transition: all 0.3s;
     }
-
-    &>svg {
-        width: 2.4vh;
-        height: 2.4vh;
-        fill: $text-and-icons;
-        overflow: visible;
-
-        &:hover {
-            transform: scale(1.05);
-            transition: all 0.3s;
-        }
-    }
+  }
 }
 
 .selectClientsName {
-    width: 100%;
-    height: 4vh;
-    padding: 0;
+  width: 100%;
+  height: 4vh;
+  padding: 0;
 }
 
 .note,
 .links {
-    @include inputField;
-    width: 25%;
-    height: 4vh;
-    padding: .4%;
+  @include inputField;
+  width: 25%;
+  height: 4vh;
+  padding: .4%;
 }
 
 .datasWrap {
-    margin-top: 4vh;
-    margin-right: auto;
-    margin-left: auto;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    font-weight: $font-size-14;
+  margin-top: 4vh;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-weight: $font-size-14;
 }
 
 .dataPicker {
-    width: 25%;
+  width: 25%;
 
-    &:nth-child(n) {
-        background-color: $white-main;
-    }
+  &:nth-child(n) {
+    background-color: $white-main;
+  }
 }
 
 .subtitle {
-    font-size: $font-size-18;
-    margin-bottom: 1rem;
+  font-size: $font-size-18;
+  margin-bottom: 1rem;
 }
 
 .shiftsWrap {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .shifts {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2%;
 }

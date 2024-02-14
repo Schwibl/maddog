@@ -1,0 +1,17 @@
+@import '../../styles/variables';
+
+// Слой на котором отображается модальное окно
+.overlay {
+  background-color: $modal-overlay-bg;
+  backdrop-filter: blur(2px);
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

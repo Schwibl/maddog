@@ -1,0 +1,31 @@
+@import '/src/styles/variables.scss';
+
+.modal {
+  width: auto;
+  height: auto;
+  background-color: $white-main;
+  padding: 2.5rem;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: #000 2px 2px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    align-items: end;
+    gap: 1.5rem;
+  }
+
+  .button {
+    width: 60%;
+  }
+}
