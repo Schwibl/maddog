@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router';
 
-import NavBar from '../components/navbar/NavBar';
+import NavBar from '../components/NavBar/NavBar';
 
 export const LayoutChild = () => {
   return (

@@ -1,18 +1,15 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import UserContext from '../../context/UserContext';
+import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
+import Icon from '../Icon/Icon';
 import LogoBlackOnTransparent from '../logo/LogoBlackOnTransparent/LogoBlackOnTransparent';
 import NavItem from '../NavItem/NavItem';
 
-import Icon from './../Icon/Icon';
 
 import styles from './NavBar.module.scss';
 
 export default function NavBar(props) {
-  // Забираем из контекста данные текущего юзера
-  const user = useContext(UserContext);
-  const { name } = user;
 
   return (
     <div className={styles.navigation}>
@@ -48,7 +45,6 @@ export default function NavBar(props) {
           <div className={styles.imgWrap}>
             <Icon iconId='admExit' />
           </div>
-          <p className={styles.admName}>{name}</p>
         </Link>
       </div>
     </div>

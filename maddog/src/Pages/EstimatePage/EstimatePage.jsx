@@ -1,10 +1,11 @@
-import { useState, useRef } from 'react';
+import { useState, useRef , useContext } from 'react';
 import { useDownloadExcel } from 'react-export-table-to-excel';
+import { useNavigate } from 'react-router';
 import { useReactToPrint } from 'react-to-print';
 
 import Button from '../../components/button/Button';
+import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 
-// import { funstions } from '../features/madDogSlice';
 
 import EstimateTable from './EstimateTable';
 
@@ -23,6 +24,15 @@ const FileTypes = {
 };
 
 export default function EstimatePage() {
+
+  // Проверка на пользователя. Если не авторизован пользователь, ведем на экран авторизации
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate('/');
+  }
+
   const tableRef = useRef(null);
   const [fileType, setFileType] = useState(FileTypes.EXCEL); // значение типа файла по умолчанию
 

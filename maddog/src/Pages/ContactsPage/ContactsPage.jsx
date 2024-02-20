@@ -1,10 +1,11 @@
+
 import { AgGridReact, gridRef } from 'ag-grid-react';
-import React, { useState, useMemo, useCallback, useRef, memo } from 'react';
+import React, { useState, useMemo, useCallback, useRef, memo , useContext } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
-import Button from '../../components/button/Button';
-import Icon from '../../components/Icon/Icon';
+import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 import { selectContact } from '../../redux/features/contactsSlice';
 import { openModalDeleteContact } from '../../redux/features/modalsSlice';
 import { AG_GRID_LOCALE_RU } from '../../utils/ag-grid-locale-ru';
@@ -13,9 +14,9 @@ import CheckboxFilter from './CheckBoxCustomFilter';
 import DeleteContactModal from './Modals/DeleteContactModal';
 import PhotoModal from './Modals/PhotoModal';
 
+
 import styles from './ContactsPage.module.scss';
 
-// eslint-disable-next-line import/order, import/no-unresolved
 import 'ag-grid-community/styles/ag-grid.css';
 
 /**
@@ -34,7 +35,10 @@ const ContactsPage = () => {
   const [isShowPhotoModal, setIsShowPhotoModal] = useState(false);
   const [modalUrl, setModalUrl] = useState('');
 
+  const { user } = useContext(AuthContext);
+
   const avatarFormatter = ({ value }) => {
+
     return (
       <img
         onMouseEnter={() => {
@@ -128,6 +132,13 @@ const ContactsPage = () => {
   });
 
   const [columnDefs, setColumnDefs] = useState(tableHeader);
+
+  // Проверка на пользователя. Если не авторизован пользователь, ведем на экран авторизации
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate('/');
+  }
 
   return (
     <main className={styles.main}>

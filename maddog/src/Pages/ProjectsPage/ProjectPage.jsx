@@ -1,10 +1,12 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState , useContext } from 'react';
+import { Link , useNavigate } from 'react-router-dom';
 
 import Button from '../../components/button/Button';
 import Icon from '../../components/Icon/Icon';
+import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 
 import ProjectTable from './ProjectTable';
+
 
 import styles from './ProjectPage.module.scss';
 
@@ -47,6 +49,15 @@ const testProjects = [
 ];
 
 function ProjectPage() {
+
+  // Проверка на пользователя. Если не авторизован пользователь, ведем на экран авторизации
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate('/');
+  }
+
   const [searchValue, setSearchValue] = useState('');
 
   const filters = ['Все', 'Разовые', 'Длинный', 'Субаренда', 'Тест'];
