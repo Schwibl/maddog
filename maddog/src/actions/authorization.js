@@ -1,3 +1,5 @@
+import { useCookies } from "react-cookie";
+
 export async function authorization(name, password) {
 
   const encriptedUserData = btoa(`${name}:${password}`);
@@ -11,14 +13,12 @@ export async function authorization(name, password) {
       },
     });
 
-    console.log(response);
-
     const result = await response.json();
-    console.log(result);
+    console.log(response.headers.get('x-authorization'));
 
     return result;
-
   }
+
   catch (e) {
     console.error("блок catch", e.message);
     return null;

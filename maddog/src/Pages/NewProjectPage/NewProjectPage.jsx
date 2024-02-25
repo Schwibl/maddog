@@ -4,10 +4,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ruRU } from '@mui/x-date-pickers/locales';
 import 'dayjs/locale/es';
 // import { AgGridReact } from 'ag-grid-react';
-import React, { useState, useMemo, useCallback , useEffect } from 'react';
+import React, { useState, useMemo, useCallback, useEffect, useContext } from 'react';
 // import { createPortal } from 'react-dom';
 
-import { useContext } from 'react';
 import { useNavigate } from 'react-router';
 
 import { authorization } from '../../actions/authorization';
@@ -18,15 +17,12 @@ import ProjectInfo from '../../components/ProjectInfo/ProjectInfo';
 // import Icon from '../../components/Icon/Icon';
 // import { AG_GRID_LOCALE_RU } from '../../utils/ag-grid-locale-ru';
 
-
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
-
 
 import styles from './NewProjectPage.module.scss';
 
 // eslint-disable-next-line import/order
 import 'ag-grid-community/styles/ag-grid.css';
-
 
 /**
  * @description Страница проекта
@@ -35,24 +31,28 @@ import 'ag-grid-community/styles/ag-grid.css';
  */
 
 const NewProjectPage = () => {
-
   // Проверка на пользователя. Если не авторизован пользователь, ведем на экран авторизации
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  if (!user) {
-    navigate('/');
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user]);
 
   console.log(mock.sections);
 
-  useEffect(()=>{
+  useEffect(() => {
     authorization();
   });
 
-
   return (
-    <LocalizationProvider locale='es' dateAdapter={AdapterDayjs} localeText={ruRU.components.MuiLocalizationProvider.defaultProps.localeText}>
+    <LocalizationProvider
+      locale='es'
+      dateAdapter={AdapterDayjs}
+      localeText={ruRU.components.MuiLocalizationProvider.defaultProps.localeText}
+    >
       <main className={styles.main}>
         <h1 className={styles.title}>Новый проект</h1>
         <section className={styles.projectInfo}>

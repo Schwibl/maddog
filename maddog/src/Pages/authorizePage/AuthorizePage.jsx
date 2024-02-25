@@ -1,9 +1,7 @@
 import classNames from 'classnames';
 import React, { useContext, useState } from 'react';
-import { Link , useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-
-import { authorization } from '../../actions/authorization';
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 
 import logo from './logoBlackOnTransparent.png';
@@ -18,9 +16,34 @@ import styles from './AuthorizePage.module.scss';
 
 function AuthorizePage() {
   //Забираем значения пользователя из контекста
-  const { setUser } = useContext(AuthContext);
+  const { setUser, setAuthCode } = useContext(AuthContext);
 
   const navigate = useNavigate();
+
+  // функция авторизации
+  async function authorization(name, password) {
+    const encriptedUserData = btoa(`${name}:${password}`);
+
+    try {
+      const response = await fetch('http://62.113.113.183:8963/api/v1/login', {
+        method: 'POST',
+        headers: {
+          Authorization: `Basic ${encriptedUserData}`,
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      });
+
+      const result = await response.json();
+
+      // устанавливаем код доступа для всех fetch-запросов в глобальный контекст
+      setAuthCode(response.headers.get('x-authorization'));
+
+      return result;
+    } catch (e) {
+      console.error('блок catch', e.message);
+      return null;
+    }
+  }
 
   // Делаем инпуты контролируемыми
   const [userName, setUserName] = useState('');
@@ -49,7 +72,7 @@ function AuthorizePage() {
       setIsValidData(false);
       setUserName('');
       setUserPassword('');
-      setTimeout(()=> setIsValidData(true), 2000);
+      setTimeout(() => setIsValidData(true), 2000);
     }
   }
 

@@ -1,6 +1,6 @@
 
 import { AgGridReact, gridRef } from 'ag-grid-react';
-import React, { useState, useMemo, useCallback, useRef, memo , useContext } from 'react';
+import React, { useState, useMemo, useCallback, useRef, memo , useContext, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -35,7 +35,7 @@ const ContactsPage = () => {
   const [isShowPhotoModal, setIsShowPhotoModal] = useState(false);
   const [modalUrl, setModalUrl] = useState('');
 
-  const { user } = useContext(AuthContext);
+  const { user, authCode } = useContext(AuthContext);
 
   const avatarFormatter = ({ value }) => {
 
@@ -136,11 +136,14 @@ const ContactsPage = () => {
   // Проверка на пользователя. Если не авторизован пользователь, ведем на экран авторизации
   const navigate = useNavigate();
 
-  if (!user) {
-    navigate('/');
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user])
 
   return (
+    // { user ? <></> : {() => navigate('/', { replace: false })}}
     <main className={styles.main}>
       {isShowPhotoModal && createPortal(<PhotoModal url={modalUrl} />, document.body)}
       {isShowDeleteModal && createPortal(<DeleteContactModal />, document.body)}

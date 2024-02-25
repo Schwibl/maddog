@@ -1,12 +1,11 @@
-import { useState , useContext } from 'react';
-import { Link , useNavigate } from 'react-router-dom';
+import { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '../../components/button/Button';
 import Icon from '../../components/Icon/Icon';
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 
 import ProjectTable from './ProjectTable';
-
 
 import styles from './ProjectPage.module.scss';
 
@@ -49,14 +48,15 @@ const testProjects = [
 ];
 
 function ProjectPage() {
-
   // Проверка на пользователя. Если не авторизован пользователь, ведем на экран авторизации
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  if (!user) {
-    navigate('/');
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user]);
 
   const [searchValue, setSearchValue] = useState('');
 
@@ -67,20 +67,44 @@ function ProjectPage() {
       <section className={styles.projectPage}>
         <div className={styles.buttonContainer}>
           <Link to='/newProjectPage'>
-            <Button className={styles.create} type='button' name='create' value='Создать' children='Создать' />
+            <Button
+              className={styles.create}
+              type='button'
+              name='create'
+              value='Создать'
+              children='Создать'
+            />
           </Link>
-          <Button className={styles.delete} type='button' name='delete' value='Удалить' children='Удалить' />
+          <Button
+            className={styles.delete}
+            type='button'
+            name='delete'
+            value='Удалить'
+            children='Удалить'
+          />
         </div>
         <div className={styles.search}>
-          <input type='text' placeholder='Поиск' value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+          <input
+            type='text'
+            placeholder='Поиск'
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
         </div>
         <div className={styles.filterContainer}>
           {filters.map((filter, index) => (
-            <Button className={styles.filter} key={index} type='button' name={filter} value={filter} children={filter} />
+            <Button
+              className={styles.filter}
+              key={index}
+              type='button'
+              name={filter}
+              value={filter}
+              children={filter}
+            />
           ))}
           <div className={styles.calendar}>
             <input type='date' name='date' />
-            <Button className={styles.searchBtn} type='button' name='search' value='search' >
+            <Button className={styles.searchBtn} type='button' name='search' value='search'>
               <Icon iconId='search' />
             </Button>
           </div>
