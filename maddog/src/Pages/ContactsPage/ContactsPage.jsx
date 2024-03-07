@@ -1,6 +1,5 @@
-
 import { AgGridReact, gridRef } from 'ag-grid-react';
-import React, { useState, useMemo, useCallback, useRef, memo , useContext, useEffect } from 'react';
+import React, { useState, useMemo, useCallback, useRef, memo, useContext, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -14,9 +13,10 @@ import CheckboxFilter from './CheckBoxCustomFilter';
 import DeleteContactModal from './Modals/DeleteContactModal';
 import PhotoModal from './Modals/PhotoModal';
 
-
+// eslint-disable-next-line import/order
 import styles from './ContactsPage.module.scss';
 
+// eslint-disable-next-line import/order
 import 'ag-grid-community/styles/ag-grid.css';
 
 /**
@@ -38,7 +38,6 @@ const ContactsPage = () => {
   const { user, authCode } = useContext(AuthContext);
 
   const avatarFormatter = ({ value }) => {
-
     return (
       <img
         onMouseEnter={() => {
@@ -140,7 +139,7 @@ const ContactsPage = () => {
     if (!user) {
       navigate('/');
     }
-  }, [user])
+  }, [user]);
 
   return (
     // { user ? <></> : {() => navigate('/', { replace: false })}}
