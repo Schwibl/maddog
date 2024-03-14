@@ -1,4 +1,3 @@
-import { useCookies } from "react-cookie";
 
 export async function authorization(name, password) {
 

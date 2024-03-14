@@ -5,6 +5,7 @@ import AdminEditor from '../../components/admin/AdminEditor';
 import AdminTable from '../../components/admin/AdminTable';
 import AdminsContext from '../../context/AdminsContext';
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
+import { getContacts } from '../../actions/contactsApi';
 
 import styles from './AdminPage.module.scss';
 
@@ -43,14 +44,20 @@ export default function AdminPage(props) {
   const [isNewAdmin, setisNewAdmin] = useState(false);
 
   // Проверка на пользователя. Если не авторизован пользователь, ведем на экран авторизации
-  const { user } = useContext(AuthContext);
+  const { user, authCode } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  console.log(authCode);
 
   useEffect(() => {
     if (!user) {
       navigate('/');
     }
   }, [user]);
+
+  useEffect(() => {
+    console.log(getContacts(authCode));
+  })
 
   return (
     <AdminsContext.Provider value={admins}>
