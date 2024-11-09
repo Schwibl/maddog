@@ -1,32 +1,34 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../redux/features/modalsSlice';
-
 import styles from './../ContactsPage.module.scss';
-import { deleteContact } from '../../../actions/contactsApi';
+import { createContactRole } from '../../../actions/contactsApi';
 
-const DeleteContactModal = () => {
+
+const CreateContactRoleModal = () => {
   const dispatch = useDispatch();
-  const contact = useSelector((state) => state.contacts.selectedContact);
+  const [name, setName] = useState('');
 
-  console.log('contact', contact);
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.containerModal}>
-          <h2 className={styles.titleModal}>Удалить следующий контакт?</h2>
-          <p className={styles.textModal}>{`${contact.name} (${contact.role})`}</p>
+          <h2 className={styles.titleModal}>Создать тип контакта</h2>
+          <div className={styles.inputBlock}>
+            <input className={styles.input} type='text' placeholder='Название' value={name} onChange={(e) => setName(e.target.value)} />
+          </div>
           <div className={styles.buttonBlock}>
-            <button
+            <button 
               type='button'
               className={styles.button}
               onClick={() => {
-                dispatch(deleteContact({id: contact.id}));
-                dispatch(closeModal());
+                if (name) {   
+                  dispatch(createContactRole({name}));
+                  dispatch(closeModal());
+                }
               }}
             >
-              Удалить
+              Создать
             </button>
             <button
               type='button'
@@ -44,4 +46,4 @@ const DeleteContactModal = () => {
   );
 };
 
-export default DeleteContactModal;
+export default CreateContactRoleModal;

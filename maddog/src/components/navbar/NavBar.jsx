@@ -6,10 +6,11 @@ import Icon from '../Icon/Icon';
 import LogoBlackOnTransparent from '../logo/LogoBlackOnTransparent/LogoBlackOnTransparent';
 import NavItem from '../NavItem/NavItem';
 
-
 import styles from './NavBar.module.scss';
 
 export default function NavBar(props) {
+  // const { role } = useContext(AuthContext); // Получаем роль пользователя из контекста
+  // console.log('User role:', role); // Добавьте это для проверки
 
   return (
     <div className={styles.navigation}>
@@ -17,33 +18,33 @@ export default function NavBar(props) {
         <LogoBlackOnTransparent />
         <div className={styles.items}>
           <NavItem text={'Проекты'} href={'/projects'}>
-            <Icon iconId='projects'/> 
+            <img src='/images/project.svg' alt='Проекты' />
           </NavItem>
           <NavItem text={'Календарь'}>
-            <Icon iconId='calendar' />
+            <img src='/images/calendar.svg' alt='Проекты' />
           </NavItem>
-          <NavItem text={'Оборудование'}>
-            <Icon iconId='tools' />
+          <NavItem text={'Оборудование'} href={'/equipment'}>
+            <img src='/images/equipment.svg' alt='Проекты' />
           </NavItem>
           <NavItem text={'Контакты'} href={'/contacts'}>
-            <Icon iconId='contacts' />
+            <img src='/images/contacts.svg' alt='Проекты' />
           </NavItem>
-          <NavItem text={'Ремонт'}>
-            <Icon iconId='repair' />
+          <NavItem text={'Ремонт'} href={'/repair'}>
+            <img src='/images/repair.svg' alt='Проекты' />
           </NavItem>
-          <NavItem text={'Списание'}>
-            <Icon iconId='writeOff' />
+          <NavItem text={'Расходы'}>
+            <img src='/images/cost.svg' alt='Проекты' />
           </NavItem>
           <NavItem text={'Продажа'}>
-            <Icon iconId='sales' />
+            <img src='/images/sell.svg' alt='Проекты' />
           </NavItem>
           <NavItem text={'Панель администратора'} href={'/admin'}>
-            <Icon iconId='admin' />
+            <img src='/images/admin.svg' alt='Проекты' />
           </NavItem>
         </div>
         <Link to='/' className={styles.admExit}>
           <div className={styles.imgWrap}>
-            <Icon iconId='admExit' />
+            <img src='/images/logout.svg' alt='Проекты' />
           </div>
         </Link>
       </div>

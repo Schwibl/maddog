@@ -1,0 +1,227 @@
+.headingRepair {
+  color: white;
+  font-size: 26px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.headingStoryRepair {
+  color: white;
+  font-size: 26px;
+  text-align: center;
+}
+
+.tableContainer {
+  margin: 25px auto;
+  overflow-x: auto;
+  max-width: 100%;
+  width: 1600px;
+  margin-left: 20px;
+  border-radius: 8px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.table th, .table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.buttonContainer {
+  max-width: 300px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.createButton, .returnButton {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px; 
+}
+
+.createButton:hover {
+    background-color: #45a049;
+}
+
+.statusSelect {
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 100%;
+    max-width: 200px;
+    min-width: 120px;
+    box-sizing: border-box;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.photo {
+    width: 100px;
+    height: auto;
+    margin-right: 5px;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+.formGroup select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.formGroup select:focus {
+  overflow: visible;
+  white-space: normal;
+}
+
+.formGroup option {
+  white-space: normal;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.saveButton {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.saveButton:hover {
+  background-color: #218838;
+}
+
+.closeButton {
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.closeButton:hover {
+  background-color: #c82333;
+}
+
+//очень большие экраны
+@media (min-width: 2560px) {
+  .tableContainer {
+    width: 2050px;
+    margin: 20px auto;
+    margin-left: 0;
+  }
+  .table {
+    width: 2200px;
+  }
+  .buttonContainer {
+    max-width: 500px;
+  }
+}
+
+//большие экраны и мониторы
+@media (min-width: 1440px) {
+  .tableContainer {
+    width: 90%;
+    margin-left: 40px;
+    margin: 20px auto;
+  }
+  .buttonContainer {
+    margin-left: 40px;
+  }
+}
+
+//планшеты в горизонтальном режиме и нотбуки
+@media (max-width: 1440px) {
+  .tableContainer {
+    width: 90%;
+    margin: 20px auto;
+  }
+  .buttonContainer {
+    margin-left: 40px;
+  }
+}
+
+//планшеты в вертикальном режиме
+@media (max-width: 1024px) {
+  .tableContainer {
+    width: 90%;
+    margin: 20px auto;
+  }
+}
+
+//мобильные устройства в горизонтальном режиме,для экранов до 768px
+@media (max-width: 768px) {
+
+}
+
+// Мобильные устройства в горизонтальном режиме 
+@media (min-width: 600px) and (max-width: 932px) {
+
+}
+
+//мобильные устройства в вертикальном положении,для экранов до 480px
+@media (max-width: 468px) {
+
+}
+
+

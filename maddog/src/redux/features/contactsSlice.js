@@ -1,33 +1,46 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { contacts, types } from '../../Pages/ContactsPage/mock';
-
 const initialState = {
-  contacts: contacts,
+  contacts: [],
   selectedContact: null,
   isEnabledButtons: false,
-  types: types,
+  possibleRoles: [],
+  contactToEdit: null,
+  page: 0,
+  size: 10,
 };
 
 const ContactsSlice = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
-    deleteContact: (state, action) => {
-      state.contacts = state.contacts.filter(item=>item.id !== action.payload);
-      state.selectedContact = null;
-      state.isEnabled = false;
+    fillContacts: (state, action) => {
+      state.contacts = action.payload;
     },
-    editContact: (state, action) => {},
-    addContact: (state, action) => {},
-    addType: (state, action) => {},
+    setContactToEdit: (state, action) => {
+      state.contactToEdit = action.payload;
+    },
     selectContact: (state, action) => {
       state.selectedContact = action.payload;
-      state.isEnabled=true;
+      state.isEnabled = true;
+    },
+    setPossibleRoles: (state, action) => {
+      state.possibleRoles = action.payload;
+    },
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
+    setSize: (state, action) => {
+      state.size = action.payload;
     },
   },
 });
 
-export const { deleteContact, editContact, addContact, addType, selectContact } =
-  ContactsSlice.actions;
+export const {
+  fillContacts,
+  selectContact,
+  setPossibleRoles,
+  setPage,
+  setSize,
+} = ContactsSlice.actions;
 export const ContactsReducer = ContactsSlice.reducer;

@@ -1,18 +1,18 @@
 @import '/src/styles/variables.scss';
 
 .navigation {
-    position: relative;
+    //position: relative;
     height: 100%;
-    width: 16% !important;
-    min-width: 16%;
+    //width: 10%;
+    min-width: 15%;
     display: flex;
     flex-direction: column;
     background-color: #2a2a2a;
-    border-right: .8rem solid rgba(0, 0, 0, 0.322);
+    //border-right: .8rem solid rgba(0, 0, 0, 0.322);
 }
 
 .container {
-    position: fixed;
+    //position: fixed;
     top: 0;
     left: 0;
     display: flex;
@@ -20,15 +20,16 @@
     justify-content: flex-start;
     background-color: #2a2a2a;
     border-right: .5vw solid rgba(0, 0, 0, 0.322);
-    width: 16% !important;
-    min-width: 16%;
+    //width: 10%;
+    min-width: 15%;
     height: 100vh;
     min-height: fit-content;
 }
 
 .items {
-    &>svg {
+    img {
         width: 3vw;
+        color: white;
         // height: 40px;
         padding-left: 1.5rem;
     }
@@ -65,4 +66,83 @@
 .admName {
     font-size: $font-size-18;
     text-decoration: none;
+}
+
+//очень большие экраны
+@media (min-width: 2560px) {
+.navigation {
+    border-right: none;
+    height: auto;
+    min-width: 15%;
+}
+
+.container {
+    //position: static;
+    height: auto;
+    border-right: .3vw solid rgba(0, 0, 0, 0.322);
+    min-width: 15%;
+}
+}
+
+//большие экраны и мониторы
+@media (min-width: 1440px) {
+    .navigation {
+        border-right: none;
+        height: auto;
+        min-width: 15%;
+    }
+    .container {
+        height: auto;
+        position: absolute;
+        width: 250px;
+        border-right: .2vw solid rgba(0, 0, 0, 0.322);
+    }
+}
+
+//планшеты в горизонтальном режиме и нотбуки
+@media (max-width: 1440px) {
+    .navigation {
+        border-right: none;
+        height: auto;
+        min-width: 15%;
+    }
+}
+
+  //планшеты в вертикальном режиме
+@media (max-width: 1024px) {
+    .navigation {
+        border-right: none;
+        height: auto;
+        min-width: 15%;
+    }
+    .container {
+        height: auto;
+        position: absolute;
+        width: 200px;
+        border-right: .2vw solid rgba(0, 0, 0, 0.322);
+    }
+}
+
+//мобильные устройства в горизонтальном режиме,для экранов до 768px
+@media (max-width: 768px) {
+    .navigation {
+        border-right: none;
+        height: auto;
+    }
+}
+
+// Мобильные устройства в горизонтальном режиме 
+@media (min-width: 600px) and (max-width: 932px) {
+    .navigation {
+        border-right: none;
+        height: auto;
+    }
+}
+
+//мобильные устройства в вертикальном положении,для экранов до 480px
+@media (max-width: 468px) {
+    .navigation {
+        border-right: none;
+        height: auto;
+    }
 }

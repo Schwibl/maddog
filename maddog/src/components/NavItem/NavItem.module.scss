@@ -43,7 +43,20 @@
 }
 
 .text {
-    // color: $white-main;
     font-size: $font-size-18;
     text-decoration: none;
 }
+
+//очень большие экраны
+@media (min-width: 2560px) {
+    .text {
+        font-size: 24px;
+    }
+    }
+    
+    //большие экраны и мониторы
+    @media (min-width: 1440px) {
+    .text {
+        font-size: 18px;
+    }
+    }

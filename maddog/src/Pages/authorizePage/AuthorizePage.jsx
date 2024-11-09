@@ -1,10 +1,12 @@
 import classNames from 'classnames';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
-
 import logo from './logoBlackOnTransparent.png';
+import styles from './AuthorizePage.module.scss';
+import { authorization } from '../../actions/authorization';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 /**
  * @description Страница fавторизации
@@ -12,74 +14,64 @@ import logo from './logoBlackOnTransparent.png';
  * @returns {JSX.Element}
  */
 
-import styles from './AuthorizePage.module.scss';
+
+function handleUserName(e, setUserName) {
+  setUserName(e.target.value);
+}
+function handleUserPassword(e, setUserPassword) {
+  setUserPassword(e.target.value);
+}
+function authorize({ name: userName, password: userPassword }, dispatch) {
+  dispatch(authorization({ name: userName, password: userPassword },));
+}
+
 
 function AuthorizePage() {
-  //Забираем значения пользователя из контекста
-  const { setUser, setAuthCode } = useContext(AuthContext);
+  
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  // функция авторизации
-  async function authorization(name, password) {
-    const encriptedUserData = btoa(`${name}:${password}`);
-
-    try {
-      const response = await fetch('http://62.113.113.183:8963/api/v1/login', {
-        method: 'POST',
-        headers: {
-          Authorization: `Basic ${encriptedUserData}`,
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-      });
-
-      const result = await response.json();
-
-      // устанавливаем код доступа для всех fetch-запросов в глобальный контекст
-      setAuthCode(response.headers.get('x-authorization'));
-
-      return result;
-    } catch (e) {
-      console.error('блок catch', e.message);
-      return null;
-    }
-  }
-
-  // Делаем инпуты контролируемыми
+  //Инпуты
   const [userName, setUserName] = useState('');
-  function handleUserName(e) {
-    setUserName(e.target.value);
-  }
-
   const [userPassword, setUserPassword] = useState('');
-  function handleUserPassword(e) {
-    setUserPassword(e.target.value);
-  }
-
   // Если данные хотя бы один раз введут неправильно, инпуты подсветятся красным
   const [isValidData, setIsValidData] = useState(true);
 
-  // Cама функция авторизации
-  async function authorize() {
-    const authorizedUser = await authorization(userName, userPassword);
+  // Получение данных из Redux
+  const session = useSelector((state) => state.session);
 
-    if (authorizedUser) {
-      setUser(authorizedUser);
-      setIsValidData(true);
-      navigate('projects', { replace: false });
-    } else if (!authorizedUser) {
-      console.log('Ты не пройдешь');
-      setIsValidData(false);
-      setUserName('');
-      setUserPassword('');
-      setTimeout(() => setIsValidData(true), 2000);
-    }
-  }
+
+  // Cама функция авторизации
+  // async function authorize() {
+  //   const authorizedUser = await authorization(
+  //     userName,
+  //     userPassword,
+  //     setAuthCode
+  //   );
+  //   if (authorizedUser) {
+  //     setUser(authorizedUser);
+  //     setIsValidData(true);
+  //     navigate('projects', { replace: false });
+  //   } else if (!authorizedUser) {
+  //     console.log('Ты не пройдешь');
+  //     setIsValidData(false);
+  //     setUserName('');
+  //     setUserPassword('');
+  //     setTimeout(() => setIsValidData(true), 2000);
+  //   }
+  // }
 
   const inputsClass = classNames({
     [styles.input]: true,
     [styles.inputRejected]: !isValidData,
   });
+
+  useEffect(() => {
+    if (session.id) {
+      navigate('/projects', { replace: false });
+    }
+  }, [session.id]);
 
   return (
     <section className={styles.login}>
@@ -97,7 +89,9 @@ function AuthorizePage() {
                   type='text'
                   name='username'
                   value={userName}
-                  onChange={handleUserName}
+                  onChange={(e) => {
+                    handleUserName(e, setUserName);
+                  }}
                   placeholder='Можете ввести свой логин, телефон или почту...'
                   autoComplete='on'
                   autoFocus
@@ -109,7 +103,9 @@ function AuthorizePage() {
                   type='password'
                   name='password'
                   value={userPassword}
-                  onChange={handleUserPassword}
+                  onChange={(e) => {
+                    handleUserPassword(e, setUserPassword);
+                  }}
                   placeholder='Введите свой пароль...'
                   autoComplete='on'
                 />
@@ -117,7 +113,10 @@ function AuthorizePage() {
             </div>
             <div
               className={styles.submit}
-              onClick={authorize}
+              onClick={(e) => {
+                e.preventDefault();
+                authorize({ name: userName, password: userPassword }, dispatch);
+              }}
               name='submit'
               type='submit'
               value='ВХОД'

@@ -5,7 +5,8 @@ const initialState = {
   selectedEquipment: null,
   listPage: {
     page: 0,
-    size: 20
+    size: 20,
+    totalPages: 0
   },
   statusesList: [],
   estimateSections: []
@@ -27,6 +28,9 @@ const EquipmentSlice = createSlice({
     setListPage: (state, action) => {
       state.listPage = action.payload;
     },
+    setTotalPages: (state, action) => {
+      state.listPage.totalPages = action.payload;
+    },
     setStatusesList: (state, action) => {
       state.statusesList = action.payload;
     },
@@ -41,7 +45,8 @@ export const {
   setSelectedEquipment,
   setListPage,
   setStatusesList,
-  setEstimateSections
+  setEstimateSections,
+  setTotalPages
 } = EquipmentSlice.actions;
 
 export const EquipmentReducer = EquipmentSlice.reducer;

@@ -1,102 +1,252 @@
-@import '/src/styles/mixins.scss';
-@import '/src/styles/variables.scss';
+@import '/src/styles/mixins.scss'; 
+@import '/src/styles/variables.scss'; 
 
+.sectionWrap { 
+  border: 1px solid #ccc; 
+  border-radius: 10px; 
+  padding: 20px; 
+  margin-bottom: 20px; 
+} 
 
-.sectionWrap {
-    padding: .5rem;
-    margin-bottom: 2rem;
+.sectionName { 
+  font-size: 1.5em; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 10px; 
+
+  .deleteSection { 
+    display: flex; 
+    align-items: center; 
+    color: #d32f2f; 
+    cursor: pointer; 
+    font-size: 0.9em; 
+
+    svg { 
+      margin-right: 5px; 
+    } 
+  } 
+} 
+
+.photos { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 10px; 
+  margin-bottom: 20px; 
+
+  .photo { 
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+  } 
+} 
+
+.toolsWrap { 
+  margin-top: 20px; 
+} 
+
+.toolRow { 
+  display: flex; 
+  align-items: center; 
+  margin-bottom: 10px; 
+
+  .toolDelete { 
+    margin-right: 10px; 
+    color: #d32f2f; 
+    cursor: pointer; 
+
+  } 
+
+  .toolName, .toolQuantity { 
+    margin-right: 10px; 
+  } 
+} 
+
+.addToolWrap { 
+  margin-top: 20px; 
+  display: flex; 
+  justify-content: center; 
+
+  .addTool { 
+    display: flex; 
+    align-items: center; 
+    background-color: #4caf50; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 0.9em; 
+
+    svg { 
+      margin-right: 5px; 
+    } 
+
+  } 
 }
 
-.sectionName {
-    position: relative;
-    text-align: center;
-    font-size: 1.8rem;
+.patternContainer {
+  display: flex;
+  flex-direction: column;
 }
 
-.deleteSection {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    right: 1rem;
-    font-size: 1rem;
-    color: #00000059;
-    cursor: pointer;
+.heading {
+  text-align:left;
+  margin-top: 15px;
+  color: white;
+  font-size: 26px;
+  font-weight: 800;
+  margin: 20px 45px;
 }
 
-.deleteSection:hover {
-    color: #000;
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 50px;
+  background-color: white;
+  border-radius: 8px;
 }
 
-.sectionHeader, .tool, .service {
-    display: grid;
-    grid-template-columns: 10% 60% 30%;
-    grid-template-rows: 1fr;
-    align-items: center
-    
+.table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.sectionHeader {
-    font-size: 1rem;
-    color: #00000059;
-    margin-bottom: 0.3rem;
+th, td {
+  font-size: 14px;
+  color: black;
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
 }
 
-.headerDelete {
-    padding-left: .5rem;
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный фон */
+  z-index: 1000;
+  cursor: pointer;
 }
 
-.tool, .service {
-    font-size: 1.2rem;
-    height: 1.6rem;
-    border-bottom: 1px dotted rgba(128, 128, 128, 0.26);
+.modalContent {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
 }
 
-.service {
-    width: 95%;
-    margin-left: auto;
+.modalImage {
+  width: 100%;
+  height: auto;
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 10px;
 }
 
-.tool > input {
-    border: none;
-    height: 70%;
-    width: 80%;
-    font-family: inherit;
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
 }
 
-.toolDelete {
-    width: 70%;
-    height: 95%;
-    color: #00000059;
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.25;
-    background-color: transparent;
-    border: none;
+.paginator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-.toolDelete:hover {
-    color: #000;
+.pageNumber {
+  font-size: 24px;
+  color: #fff;
 }
 
-.addToolWrap {
-    margin-top: 2rem;
+//очень большие экраны
+@media (min-width: 2560px) {
+  .tableContainer {
+    max-width: 100%;
+    width: 2500px;
+    margin-left: 20px;
+  }
+  
+  .table {
+    width: 100%;
+  }
+
+  th, td {
+    font-size: 16px;
+    color: black;
+    padding: 10px;
+  }
+}
+  
+//большие экраны и мониторы
+@media (min-width: 1440px) {
+  .tableContainer {
+    width: 100%;
+    margin-left: 45px;
+  }
+  
+  .table {
+    width: 100%;
+  }
+
+  th, td {
+    font-size: 16px;
+    color: black;
+    padding: 10px;
+  }
+}
+  
+//планшеты в горизонтальном режиме и нотбуки
+@media (max-width: 1440px) {
+  .tableContainer {
+    width: 100%;
+    margin-left: 45px;
+    overflow-x: auto;
+  }
+  
+  .table {
+    max-width: 1200px;
+    overflow-x: auto;
+    //width: 100%;
+  }
+
+  th, td {
+    font-size: 12px;
+    color: black;
+    padding: 5px;
+  }
+}
+  
+//планшеты в вертикальном режиме
+@media (max-width: 1024px) {
+
+}
+  
+//мобильные устройства в горизонтальном режиме,для экранов до 768px
+@media (max-width: 768px) {
+
+}
+  
+// Мобильные устройства в горизонтальном режиме 
+@media (min-width: 600px) and (max-width: 932px) {
+
+}
+  
+//мобильные устройства в вертикальном положении,для экранов до 480px
+@media (max-width: 468px) {
+
 }
 
-.addTool {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: .2rem 1rem;
-    border: white;
-    font-size: 1rem;
-    color: #00000059;
-    cursor: pointer;
-    background-color: transparent;
-    font-weight: 700;
-}
 
-.addTool:hover {
-    color: #000;
-}

@@ -5,9 +5,8 @@ import {
 
 import styles from './NavItem.module.scss';
 
-export default function NavItem (props) {
+export default function NavItem ({text, href, children}) {
 
-  const { text, href, children } = props;
   return (
     <Link className={styles.wrap} to={href}>
       <div className={styles.imgWrap}>

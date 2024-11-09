@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 import { selectContact } from '../../redux/features/contactsSlice';
-import { openModalDeleteContact } from '../../redux/features/modalsSlice';
+import { openModalCreateContact, openModalCreateContactRole, openModalDeleteContact, openModalEditContact } from '../../redux/features/modalsSlice';
 import { AG_GRID_LOCALE_RU } from '../../utils/ag-grid-locale-ru';
 
 import CheckboxFilter from './CheckBoxCustomFilter';
@@ -18,6 +18,11 @@ import styles from './ContactsPage.module.scss';
 
 // eslint-disable-next-line import/order
 import 'ag-grid-community/styles/ag-grid.css';
+import CreateContactModal from './Modals/CreateContactModal';
+import { getAllContacts, getPossibleRoles } from '../../actions/contactsApi';
+import { getCompanies } from '../../actions/companiesApi';
+import EditContactModal from './Modals/EditContactModal';
+import CreateContactRoleModal from './Modals/CreateContactRoleModal';
 
 /**
  * @description Страница для отображения всех контактов
@@ -29,13 +34,22 @@ const ContactsPage = () => {
   const dispatch = useDispatch();
   const contacts = useSelector((state) => state.contacts.contacts);
   const isEnabledButtons = useSelector((state) => state.contacts.isEnabled);
-  const types = useSelector((state) => state.contacts.types);
   const isShowDeleteModal = useSelector((state) => state.modals.modalDeleteContact);
-
+  const isShowCreateContactModal = useSelector((state) => state.modals.modalCreateContact);
+  const isShowEditContactModal = useSelector((state) => state.modals.modalEditContact);
+  const isShowCreateContactRoleModal = useSelector((state) => state.modals.modalCreateContactRole);
+  const possibleRoles = useSelector((state) => state.contacts.possibleRoles);
+  const session = useSelector((state) => state.session);
+  const [page, setPage] = useState(0);
+  const [size, setSize] = useState(10);
   const [isShowPhotoModal, setIsShowPhotoModal] = useState(false);
   const [modalUrl, setModalUrl] = useState('');
 
-  const { user, authCode } = useContext(AuthContext);
+  useEffect(() => {
+    if (!session.id) {
+      navigate('/');
+    }
+  }, [session.id]);
 
   const avatarFormatter = ({ value }) => {
     return (
@@ -65,7 +79,6 @@ const ContactsPage = () => {
 
   const gridRef = useRef();
 
-  const [typesList, setTypesList] = useState(types);
 
   // const [rowData, setRowData] = useState(
   //   contacts.map(({ id, name, role, photoUrl }) => ({
@@ -76,10 +89,10 @@ const ContactsPage = () => {
   //   }))
   // );
 
-  const rowData = contacts.map(({ id, name, role, photoUrl }) => ({
+  const rowData = contacts.map(({ id, name, roleContact, photoUrl }) => ({
     id,
     name,
-    role: types.find((type) => type.id === role).role,
+    role: roleContact,
     photoUrl,
   }));
 
@@ -111,7 +124,7 @@ const ContactsPage = () => {
           gridApi.setRowData(filteredData);
           // gridApi.isFilterActive(true);
         },
-        typesValues: ['Все типы', ...types.map((item) => item.role)],
+        typesValues: ['Все типы', ...possibleRoles.map((item) => item.role)],
       },
       cellClass: 'all-middle',
     },
@@ -136,16 +149,18 @@ const ContactsPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
-      navigate('/');
-    }
-  }, [user]);
+    dispatch(getPossibleRoles());
+    dispatch(getAllContacts({ page, size }));
+    dispatch(getCompanies());
+  }, []);
 
   return (
-    // { user ? <></> : {() => navigate('/', { replace: false })}}
     <main className={styles.main}>
       {isShowPhotoModal && createPortal(<PhotoModal url={modalUrl} />, document.body)}
       {isShowDeleteModal && createPortal(<DeleteContactModal />, document.body)}
+      {isShowCreateContactModal && createPortal(<CreateContactModal />, document.body)}
+      {isShowEditContactModal && createPortal(<EditContactModal/>, document.body)}
+      {isShowCreateContactRoleModal && createPortal(<CreateContactRoleModal />, document.body)}
       <section className={styles.contactsPage}>
         <h1 className={styles.title}>Контакты</h1>
 
@@ -159,13 +174,13 @@ const ContactsPage = () => {
             >
               Удалить контакт
             </button>
-            <button className={styles.button} type='button' disabled={!isEnabledButtons}>
+            <button className={styles.button} type='button' disabled={!isEnabledButtons} onClick={() => dispatch(openModalEditContact())}>
               Редактировать контакт
             </button>
-            <button className={styles.button} type='button'>
+            <button className={styles.button} type='button' onClick={() => dispatch(openModalCreateContact())}>
               Добавить контакт
             </button>
-            <button className={styles.button} type='button'>
+            <button className={styles.button} type='button' onClick={() => dispatch(openModalCreateContactRole())}>
               Добавить тип контакта
             </button>
           </div>

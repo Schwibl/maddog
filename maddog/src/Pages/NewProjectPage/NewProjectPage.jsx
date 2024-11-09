@@ -6,9 +6,7 @@ import 'dayjs/locale/es';
 // import { AgGridReact } from 'ag-grid-react';
 import React, { useState, useMemo, useCallback, useEffect, useContext } from 'react';
 // import { createPortal } from 'react-dom';
-
 import { useNavigate } from 'react-router';
-
 import { authorization } from '../../actions/authorization';
 import mock from '../../components/pattern/mock';
 import Pattern from '../../components/pattern/Pattern';
@@ -16,11 +14,8 @@ import ProjectInfo from '../../components/ProjectInfo/ProjectInfo';
 // import Button from '../../components/button/Button';
 // import Icon from '../../components/Icon/Icon';
 // import { AG_GRID_LOCALE_RU } from '../../utils/ag-grid-locale-ru';
-
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
-
 import styles from './NewProjectPage.module.scss';
-
 // eslint-disable-next-line import/order
 import 'ag-grid-community/styles/ag-grid.css';
 

@@ -9,6 +9,8 @@ import ContactsPage from './Pages/ContactsPage/ContactsPage';
 import EstimatePage from './Pages/EstimatePage/EstimatePage';
 import NewProjectPage from './Pages/NewProjectPage/NewProjectPage';
 import ProjectPage from './Pages/ProjectsPage/ProjectPage';
+import RepairPage from './Pages/RepairPage/RepairPage';
+import EquipmentPage from './Pages/EquipmentPage/EquipmentPage';
 
 //создаем массив роутов, которые будут рендериться внутри компонента Layout, в зависимости от указанного пути
 export const router = createBrowserRouter(
@@ -77,17 +79,28 @@ export const router = createBrowserRouter(
             },
           ],
         },
-        // {
-        //   path: '/create',
-        //   element: <LayoutChild />,
-        //   errorElement: <NotFound />,
-        //   children: [
-        //     {
-        //       path: '/create',
-        //       element: <CreateContactPage />
-        //     },
-        //   ],
-        // },
+        {
+          path: '/equipment', // Добавляем маршрут для страницы оборудования
+          element: <LayoutChild />,
+          errorElement: <NotFound />,
+          children: [
+            {
+              path: '/equipment',
+              element: <EquipmentPage />, // Компонент для страницы оборудования
+            },
+          ],
+        },
+        {
+          path: '/repair',
+          element: <LayoutChild />,
+          errorElement: <NotFound />,
+          children: [
+            {
+              path: '/repair',
+              element: <RepairPage />,
+            },
+          ],
+        },
       ],
     },
     {
@@ -96,3 +109,14 @@ export const router = createBrowserRouter(
     },
   ]
 );
+// {
+//   path: '/create',
+//   element: <LayoutChild />,
+//   errorElement: <NotFound />,
+//   children: [
+//     {
+//       path: '/create',
+//       element: <CreateContactPage />
+//     },
+//   ],
+// },

@@ -5,18 +5,11 @@ import AdminEditor from '../../components/admin/AdminEditor';
 import AdminTable from '../../components/admin/AdminTable';
 import AdminsContext from '../../context/AdminsContext';
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
-import { getContacts } from '../../actions/contactsApi';
+
 
 import styles from './AdminPage.module.scss';
 
-/**
- * @description Панель администратора
- *
- * @returns {JSX.Element}
- */
-
-// Тестовые данные
-const admins = [
+const initialAdmins = [
   {
     id: 0,
     login: 'skelorc',
@@ -40,31 +33,48 @@ const admins = [
   },
 ];
 
-export default function AdminPage(props) {
-  const [isNewAdmin, setisNewAdmin] = useState(false);
-
-  // Проверка на пользователя. Если не авторизован пользователь, ведем на экран авторизации
-  const { user, authCode } = useContext(AuthContext);
+export default function AdminPage() {
+  const [isNewAdmin, setIsNewAdmin] = useState(false);
+  const [adminsList, setAdminsList] = useState(initialAdmins);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { user, role } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  console.log(authCode);
 
   useEffect(() => {
     if (!user) {
       navigate('/');
     }
-  }, [user]);
+  }, [user, role, navigate]);
 
-  useEffect(() => {
-    console.log(getContacts(authCode));
-  })
+  // Обработчик для обновления администратора
+  const updateAdmin = (id, updatedAdmin) => {
+    setAdminsList(prevList =>
+      prevList.map(admin => admin.id === id ? { ...admin, ...updatedAdmin } : admin)
+    );
+  };
+
+  // Обработчик для удаления администратора
+  const deleteAdmin = (id) => {
+    setAdminsList(prevList => prevList.filter(admin => admin.id !== id));
+  };
+
+  // Обработчик для добавления нового администратора
+  const addNewAdmin = (newAdmin) => {
+    const newAdminWithId = { ...newAdmin, id: adminsList.length }; // Генерация ID
+    setAdminsList(prevList => [...prevList, newAdminWithId]);
+    setIsNewAdmin(false); // Закрываем редактор
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
-    <AdminsContext.Provider value={admins}>
+    <AdminsContext.Provider value={{ admins: adminsList, updateAdmin, deleteAdmin }}>
       <section className={styles.adminPage}>
         <h1 className={styles.title}>Администраторы</h1>
         <div className={styles.currentAdmins}>
-          <div className={styles.anminsHeader}>
+          <div className={styles.adminsHeader}>
             <p>Логин</p>
             <p>ФИО</p>
             <p>Роль</p>
@@ -72,9 +82,11 @@ export default function AdminPage(props) {
             <div></div>
           </div>
           <AdminTable />
-          {!isNewAdmin || <AdminEditor handleClick={setisNewAdmin} />}
+          {isNewAdmin && (
+            <AdminEditor onSave={addNewAdmin} handleClick={setIsNewAdmin} />
+          )}
           <div className={styles.btnWrap}>
-            <button className={styles.btnNew} onClick={() => setisNewAdmin(!isNewAdmin)}>
+            <button className={styles.btnNew} onClick={() => setIsNewAdmin(true)}>
               Новый админ
             </button>
           </div>

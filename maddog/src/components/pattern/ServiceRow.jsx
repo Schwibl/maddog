@@ -1,26 +1,40 @@
 import CloseIcon from '@mui/icons-material/Close';
 
+
 import styles from './Pattern.module.scss';
 
 function ServiceRow(props) {
-  const { id, name, quantity, tool } = props;
+  const { id, name, quantity, tool, sections, setSections } = props;
 
-  function handleDeleteTool() {}
+  function handleDeleteTool() {
+    // Implement delete logic if needed
+  }
+
   return (
-    <>
-      <div className={styles.service} id={id}>
-        <button className={styles.toolDelete} onClick={handleDeleteTool}>
+    <tr className={styles.serviceRow}>
+      <td>
+        <button className={styles.serviceDelete} onClick={handleDeleteTool}>
           <CloseIcon />
         </button>
-        <input className={styles.toolName} name='name' type='text' value={name}></input>
+      </td>
+      <td>
         <input
-          className={styles.toolQuantity}
+          className={styles.serviceName}
+          name='name'
+          type='text'
+          value={name}
+          readOnly
+        />
+      </td>
+      <td>
+        <input
+          className={styles.serviceQuantity}
           name='quantity'
           type='number'
           value={quantity}
         />
-      </div>
-    </>
+      </td>
+    </tr>
   );
 }
 
