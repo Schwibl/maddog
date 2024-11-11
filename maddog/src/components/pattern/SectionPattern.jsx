@@ -1,6 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import ToolRow from './ToolRow';
 
@@ -13,10 +13,17 @@ function SectionPattern({
 }) {
 
   const { id, name, barcode, model, amount, state, photos, tools = [], sections, setSections, description } = section;
+
+
+  useEffect(() => {
+    console.log('section', section);
+  }, [section]);
+
   // Если нет инструментов и фотографий, не отображаем секцию
   if (!tools.length && !photos.length) {
     return null;
   }
+
 
   return (
     <div className={styles.sectionWrap} id={id}>

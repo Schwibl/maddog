@@ -3,8 +3,9 @@ import RepairFormModal from '../../Pages/RepairPage/RepairFormModal';
 import styles from './Pattern.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllEquipment } from '../../actions/equipmentApi';
-import { setListPage } from '../../redux/features/equipmentSlice';
+import { setListPage, setSelectedEquipment } from '../../redux/features/equipmentSlice';
 import SectionPattern from './SectionPattern';
+import { openModalEquipment } from '../../redux/features/modalsSlice';
 
 function applyFilter(equipmentList, filterState) {
   
@@ -40,7 +41,7 @@ function EquipmentPattern() {
 
   return ( 
     <div className={styles.patternContainer}>
-      <h1 className={styles.heading}>Оорудование</h1>
+      <h1 className={styles.heading}>Оборудование</h1>
       <div className={styles.filterContainer}>
         {/* <input type="text" placeholder="Поиск" value={filterState.search} onChange={(e) => setFilterState({ ...filterState, search: e.target.value })} /> */}
       </div>
@@ -60,7 +61,10 @@ function EquipmentPattern() {
               <tr key={section.id}>
                 <td>{section.menu}</td>
                 <td>
-                  {section.name} 
+                  <span onClick={() => {
+                    dispatch(setSelectedEquipment(section));
+                    dispatch(openModalEquipment());
+                  }}>{section.name}</span> 
                 </td>
                 <td>{section.barcode}</td>
                 <td>{section.serialNumber}</td>

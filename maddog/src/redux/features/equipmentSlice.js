@@ -20,10 +20,7 @@ const EquipmentSlice = createSlice({
       state.equipmentList = action.payload;
     },
     setSelectedEquipment: (state, action) => {
-      const equipmentId = action.payload;
-      state.selectedEquipment = state.equipmentList.find(
-        equipment => equipment.id === equipmentId
-      );
+      state.selectedEquipment = action.payload;
     },
     setListPage: (state, action) => {
       state.listPage = action.payload;

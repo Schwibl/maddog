@@ -6,6 +6,8 @@ const initialState = {
   modalCreateContact: false,
   modalEditContact: false,
   modalCreateContactRole: false,
+  modalEquipment: false,
+  photoModal: false,
 };
 
 const modalSlice = createSlice({
@@ -27,12 +29,20 @@ const modalSlice = createSlice({
     openModalCreateContactRole: (state) => {
       state.modalCreateContactRole = true;
     },
+    openModalEquipment: (state) => {
+      state.modalEquipment = true;
+    },
+    openPhotoModal: (state) => {
+      state.photoModal = true;
+    },
     closeModal: (state) => {
       state.modalImage = false;
       state.modalDeleteContact = false;
       state.modalCreateContact = false;
       state.modalEditContact = false;
       state.modalCreateContactRole = false;
+      state.modalEquipment = false;
+      state.photoModal = false;
     },
   },
 });
@@ -44,6 +54,8 @@ export const {
   openModalCreateContact,
   openModalEditContact,
   openModalCreateContactRole,
+  openModalEquipment,
+  openPhotoModal,
 } = modalSlice.actions;
 
 export const ModalReducer = modalSlice.reducer;
