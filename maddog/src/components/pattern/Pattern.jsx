@@ -6,6 +6,8 @@ import { getAllEquipment } from '../../actions/equipmentApi';
 import { setListPage, setSelectedEquipment } from '../../redux/features/equipmentSlice';
 import SectionPattern from './SectionPattern';
 import { openModalEquipment } from '../../redux/features/modalsSlice';
+import EquipmentMenuDropdown from './EquipmentMenuDropdown';
+import EquipmentEditModal from './EquipmentEditModal';
 
 function applyFilter(equipmentList, filterState) {
   
@@ -22,6 +24,7 @@ function EquipmentPattern() {
     search: '',
     status: ''
   });
+  const [showEditModal, setShowEditModal] = useState(false);
 
   useEffect(() => { 
     dispatch(getAllEquipment());
@@ -43,7 +46,6 @@ function EquipmentPattern() {
     <div className={styles.patternContainer}>
       <h1 className={styles.heading}>Оборудование</h1>
       <div className={styles.filterContainer}>
-        {/* <input type="text" placeholder="Поиск" value={filterState.search} onChange={(e) => setFilterState({ ...filterState, search: e.target.value })} /> */}
       </div>
       <div className={styles.tableContainer}>
         <table className={styles.table}>
@@ -59,7 +61,9 @@ function EquipmentPattern() {
           <tbody>
             {equipmentList.map(section => (
               <tr key={section.id}>
-                <td>{section.menu}</td>
+                <td>
+                  <EquipmentMenuDropdown equipmentId={section.id} setShowEditModal={setShowEditModal} />
+                </td>
                 <td>
                   <span onClick={() => {
                     dispatch(setSelectedEquipment(section));
@@ -118,6 +122,7 @@ function EquipmentPattern() {
         onClose={handleCloseModal}
         onSave={handleRepairSave} // Передаем функцию сохранения
       /> */}
+      {showEditModal && <EquipmentEditModal equipment={selectedEquipment} setShowEditModal={setShowEditModal} />}
     </div>
   );
 }
