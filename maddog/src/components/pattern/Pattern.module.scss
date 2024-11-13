@@ -287,6 +287,7 @@ th, td {
 .titleModal {
   @include modal-title;
 }
+
 .buttons {
   display: flex;
   gap: 1%;
@@ -312,6 +313,57 @@ th, td {
     background-color: $grey-dark;
     cursor: default;
   }
+}
+
+.dropdown {
+  position: relative;
+  font-size: 14px;
+  width: max-content;
+  &__head {
+    width: max-content;
+    font-weight: 600;
+    color: #000;
+    padding: 5px 10px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    background-color: #ccc;
+    cursor: pointer;
+  }
+  &__body {
+    border: 1px solid #000;
+    border-radius: 10px;
+    background-color: #ccc;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 2;
+  }
+  &__item {
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+      background-color: #fff;
+    }
+    &_active {
+      background-color: #79a6ff;
+    }
+  }
+}
+
+.filterContainer {
+  display: flex;
+  gap: 10px;
+  padding: 0 45px;
+  button {
+    width: max-content;
+    flex-grow: 0;
+    white-space: nowrap;
+  }
+}
+
+.invalid {
+  border-color: red;
 }
 
 //очень большие экраны

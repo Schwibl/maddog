@@ -99,9 +99,9 @@ export const getEquipmentWithFilter = createAsyncThunk(
   'equipment/getEquipmentWithFilter',
   async ({ activeFilters, page, size }, thunkAPI) => {
     try {
-      const response = await fetchWithAuth(`${BASE_URL}tools`, {
+      const response = await fetchWithAuth(`${BASE_URL}tools/filter?page=${page}&size=${size}`, {
         method: 'POST',
-        body: JSON.stringify({ ...activeFilters, page, size }),
+        body: JSON.stringify({ ...activeFilters }),
       });
       const data = await checkRequest(response);
       thunkAPI.dispatch(setEquipmentList(data.content));

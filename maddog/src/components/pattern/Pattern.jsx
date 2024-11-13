@@ -2,15 +2,20 @@ import { useState, useEffect, useMemo } from 'react';
 import RepairFormModal from '../../Pages/RepairPage/RepairFormModal';
 import styles from './Pattern.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllEquipment } from '../../actions/equipmentApi';
+import { getAllEquipment, getAllTypesOfStatuses, getEquipmentWithFilter } from '../../actions/equipmentApi';
 import { setListPage, setSelectedEquipment } from '../../redux/features/equipmentSlice';
 import SectionPattern from './SectionPattern';
 import { openModalEquipment } from '../../redux/features/modalsSlice';
 import EquipmentMenuDropdown from './EquipmentMenuDropdown';
 import EquipmentEditModal from './EquipmentEditModal';
+import EquipmentCreateModal from './EquipmentCreateModal';
 
-function applyFilter(equipmentList, filterState) {
-  
+function handleStatusClick(status, selectedStatuses, setSelectedStatuses) {
+  if (selectedStatuses.includes(status)) {  
+    setSelectedStatuses(selectedStatuses.filter(s => s !== status));
+  } else {
+    setSelectedStatuses([...selectedStatuses, status]);
+  }
 }
 
 function EquipmentPattern() { 
@@ -20,19 +25,27 @@ function EquipmentPattern() {
 
   const [loading, setLoading] = useState(false); 
   const [searchTerm, setSearchTerm] = useState(''); 
-  const [filterState, setFilterState] = useState({
-    search: '',
-    status: ''
-  });
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showStatusDropdown, setShowStatusDropdown] = useState(false);
+  const [selectedStatuses, setSelectedStatuses] = useState([]);
 
   useEffect(() => { 
     dispatch(getAllEquipment());
+    dispatch(getAllTypesOfStatuses());
   }, []); 
 
   useEffect(() => {
     dispatch(getAllEquipment());
   }, [listPage]);
+
+  useEffect(() => {
+    if (selectedStatuses.length > 0) {
+      dispatch(getEquipmentWithFilter({ activeFilters: { statusesTools: selectedStatuses }, page: 0, size: listPage.size }));
+    } else {
+      dispatch(getAllEquipment());
+    }
+  }, [selectedStatuses]);
 
   if (loading) { 
     return <div>Загрузка...</div>; 
@@ -46,6 +59,22 @@ function EquipmentPattern() {
     <div className={styles.patternContainer}>
       <h1 className={styles.heading}>Оборудование</h1>
       <div className={styles.filterContainer}>
+        <div className={styles.dropdown}>
+          <div className={styles.dropdown__head} onClick={() => setShowStatusDropdown(!showStatusDropdown)}>Статус</div>
+          {showStatusDropdown && (
+            <div className={styles.dropdown__body}>
+              <div className={styles.dropdown__item} onClick={() => setSelectedStatuses([])}>
+                <span>Все</span>
+              </div>
+              {statusesList.map(status => (
+                <div className={styles.dropdown__item + ' ' + (selectedStatuses.includes(status) ? styles.dropdown__item_active : '') } onClick={() => handleStatusClick(status, selectedStatuses, setSelectedStatuses)}>
+                  <span>{status}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <button type="button" className={styles.button} onClick={() => setShowCreateModal(true)}>Создать оборудование</button>
       </div>
       <div className={styles.tableContainer}>
         <table className={styles.table}>
@@ -87,7 +116,11 @@ function EquipmentPattern() {
             <button type="button" 
               onClick={() => {
                 if (listPage.page > 0) {
-                  dispatch(setListPage({ ...listPage, page: listPage.page - 1 }));
+                  if(selectedStatuses.length > 0) { 
+                    dispatch(getEquipmentWithFilter({ activeFilters: { statusesTools: selectedStatuses }, page: listPage.page - 1, size: listPage.size }));
+                  } else {
+                    dispatch(setListPage({ ...listPage, page: listPage.page - 1 }));
+                  }
                 }
               }}
             >
@@ -100,7 +133,11 @@ function EquipmentPattern() {
           listPage.page < listPage.totalPages - 1 && (
             <button type="button" 
               onClick={() => {
-                dispatch(setListPage({ ...listPage, page: listPage.page + 1 }));
+                if(selectedStatuses.length > 0) {
+                  dispatch(getEquipmentWithFilter({ activeFilters: { statusesTools: selectedStatuses }, page: listPage.page + 1, size: listPage.size }));
+                } else {
+                  dispatch(setListPage({ ...listPage, page: listPage.page + 1 }));
+                }
               }}
             >
               Следующая
@@ -123,6 +160,7 @@ function EquipmentPattern() {
         onSave={handleRepairSave} // Передаем функцию сохранения
       /> */}
       {showEditModal && <EquipmentEditModal equipment={selectedEquipment} setShowEditModal={setShowEditModal} />}
+      {showCreateModal && <EquipmentCreateModal setShowCreateModal={setShowCreateModal} />}
     </div>
   );
 }

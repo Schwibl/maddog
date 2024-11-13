@@ -17,7 +17,7 @@ export default function EquipmentPage() {
     <div>
       <h1>Оборудование</h1>
       {/* {isShowPhotoModal && createPortal(<PhotoModal url={modalUrl} />, document.body)} */}
-      {isShowModalEquipment && createPortal(<EquipmentModal section={selectedEquipment} />, document.body)}
+      {/* {isShowModalEquipment && createPortal(<EquipmentModal section={selectedEquipment} />, document.body)} */}
       <EquipmentPattern equipmentList={equipmentList} />  {/* Отображаем оборудование */}
 
     </div>
