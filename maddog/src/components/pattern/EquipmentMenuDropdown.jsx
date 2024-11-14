@@ -3,6 +3,7 @@ import styles from './EquipmentMenuDropdown.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModalEquipment } from '../../redux/features/modalsSlice';
 import { setSelectedEquipment } from '../../redux/features/equipmentSlice';
+import { updateEquipmentOrStatusById } from '../../actions/equipmentApi';
 
 const EquipmentMenuDropdown = ({equipmentId, setShowEditModal}) => {
   const dispatch = useDispatch();
@@ -21,6 +22,10 @@ const EquipmentMenuDropdown = ({equipmentId, setShowEditModal}) => {
         const selectedEquipment = equipmentList.find(equipment => equipment.id === equipmentId);  
         dispatch(setSelectedEquipment(selectedEquipment));
         setShowEditModal(true);
+      } else {
+        if(window.confirm('Вы уверены, что хотите сменить статус оборудования?')) {
+          dispatch(updateEquipmentOrStatusById({id: equipmentId, status: {stateTools: selectedAction}}));
+        }
       }
     }
     setSelectedAction(null);
@@ -34,13 +39,13 @@ const EquipmentMenuDropdown = ({equipmentId, setShowEditModal}) => {
       <div className={styles.equipmentMenuDropdown__menuItem} onClick={() => handleAction('edit')}>
         <span>Редактировать</span>
       </div>
-      <div className={styles.equipmentMenuDropdown__menuItem} onClick={() => handleAction('repair')}>
+      <div className={styles.equipmentMenuDropdown__menuItem} onClick={() => handleAction('REPAIR')}>
         <span>В ремонт</span>
       </div>
-      <div className={styles.equipmentMenuDropdown__menuItem} onClick={() => handleAction('writeOff')}>
+      <div className={styles.equipmentMenuDropdown__menuItem} onClick={() => handleAction('WRITEOFF')}>
         <span>Списано (продано)</span>
       </div>
-      <div className={styles.equipmentMenuDropdown__menuItem} onClick={() => handleAction('returnToStock')}>
+      <div className={styles.equipmentMenuDropdown__menuItem} onClick={() => handleAction('INSTOCK')}>
         <span>Вернуть на склад</span>
       </div>
     </div>}

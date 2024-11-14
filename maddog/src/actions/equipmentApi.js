@@ -6,7 +6,8 @@ import {
   setSelectedEquipment,
   setStatusesList,
   setEstimateSections,
-  setTotalPages
+  setTotalPages,
+  setEquipmentTypes
 } from '../redux/features/equipmentSlice';
 
 const BASE_URL = 'http://62.113.113.183:8963/api/v1/';
@@ -137,6 +138,23 @@ export const getAllEstimateSections = createAsyncThunk(
       });
       const data = await checkRequest(response);
       thunkAPI.dispatch(setEstimateSections(data));
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getAllEquipmentTypes = createAsyncThunk(
+  'equipment/getAllEquipmentTypes',
+  async (_, thunkAPI) => {
+    try {
+      const response = await fetchWithAuth(`${BASE_URL}category`, {
+        method: 'GET',
+      });
+      const data = await checkRequest(response);
+      console.log(data);
+      thunkAPI.dispatch(setEquipmentTypes(data));
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

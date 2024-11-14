@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import RepairFormModal from '../../Pages/RepairPage/RepairFormModal';
 import styles from './Pattern.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllEquipment, getAllTypesOfStatuses, getEquipmentWithFilter } from '../../actions/equipmentApi';
+import { getAllEquipment, getAllEquipmentTypes, getAllTypesOfStatuses, getEquipmentWithFilter } from '../../actions/equipmentApi';
 import { setListPage, setSelectedEquipment } from '../../redux/features/equipmentSlice';
 import SectionPattern from './SectionPattern';
 import { openModalEquipment } from '../../redux/features/modalsSlice';
@@ -33,6 +33,7 @@ function EquipmentPattern() {
   useEffect(() => { 
     dispatch(getAllEquipment());
     dispatch(getAllTypesOfStatuses());
+    dispatch(getAllEquipmentTypes());
   }, []); 
 
   useEffect(() => {

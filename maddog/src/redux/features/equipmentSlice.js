@@ -9,7 +9,8 @@ const initialState = {
     totalPages: 0
   },
   statusesList: [],
-  estimateSections: []
+  estimateSections: [],
+  equipmentTypes: [],
 };
 
 const EquipmentSlice = createSlice({
@@ -33,6 +34,9 @@ const EquipmentSlice = createSlice({
     },
     setEstimateSections: (state, action) => {
       state.estimateSections = action.payload;
+    },
+    setEquipmentTypes: (state, action) => {
+      state.equipmentTypes = action.payload;
     }
   }
 });
@@ -43,6 +47,7 @@ export const {
   setListPage,
   setStatusesList,
   setEstimateSections,
+  setEquipmentTypes,
   setTotalPages
 } = EquipmentSlice.actions;
 
