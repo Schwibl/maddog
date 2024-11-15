@@ -12,50 +12,14 @@ import ProjectTable from './ProjectTable';
 
 
 import styles from './ProjectPage.module.scss';
-import { useSelector } from 'react-redux';
-
-const testProjects = [
-  {
-    projectHref: '/project1',
-    projectName: 'Проект 1',
-    status: 'Создан',
-    contact: 'Иванов Сергей',
-    phone: '+79887555454',
-    startDate: '02-10-2023 16:00',
-    endDate: '19-10-2023 04:00',
-    createdDate: '31-10-2023 23:29',
-    creator: 'Petrov Ivan',
-    note: 'Примечание 1',
-    type: 'Разовый',
-    estimateHref: 'estimate1',
-  },
-  {
-    projectHref: '/project2',
-    projectName: 'Проект 2',
-    status: 'Создан',
-    contact: 'Сергеев Иван',
-    phone: '+79887552211',
-    startDate: '12-10-2023 10:00',
-    endDate: '18-10-2023 18:00',
-    createdDate: '11-10-2023 11:00',
-    creator: 'Petrov Ivan',
-    note: 'Примечание 2',
-    type: 'Субаренда',
-    estimateHref: 'estimate2',
-  },
-];
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllProjects } from '../../actions/projectsApi';
 
 function ProjectPage() {
-  const session = useSelector((state) => state.session);
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!session.id) {
-      navigate('/');
-    }
-  }, [session.id]);
+  const {projectsList} = useSelector(state => state.projects.projectsList);
 
-  const [projects, setProjects] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -64,25 +28,8 @@ function ProjectPage() {
     setIsMenuOpen(prevState => !prevState);
   };
 
-  const addProject = (newProject) => {
-    setProjects((prevProjects) => [...prevProjects, newProject]);
-  };
-
-  const fetchProjects = async () => {
-    try {
-      const response = await fetch('/api/v1/projects');
-      if (!response.ok) {
-        throw new Error('Не удалось загрузить проекты');
-      }
-      const data = await response.json();
-      setProjects(data);
-    } catch (error) {
-      console.error('Ошибка:', error);
-    }
-  };
-
   useEffect(() => {
-    fetchProjects();
+    dispatch(getAllProjects({}));
   }, []);
 
   const filters = ['Все', 'Разовые', 'Длинный', 'Субаренда', 'Тест'];
@@ -137,10 +84,11 @@ function ProjectPage() {
             </Button>
           </div>
         </div>
-        <ProjectTable projects={testProjects} searchValue={searchValue} />
+        <ProjectTable searchValue={searchValue} />
 
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <ProjectInfo addProject={addProject} />
+          <h2>Создание проекта</h2>
+          {/* <ProjectInfo addProject={addProject} /> */}
         </Modal>
       </section>
     </div>

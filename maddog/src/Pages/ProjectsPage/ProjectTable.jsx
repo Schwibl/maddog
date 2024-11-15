@@ -1,8 +1,12 @@
 import ProjectRow from './ProjectRow';
 
 import styles from './ProjectPage.module.scss';
+import { useSelector } from 'react-redux';
 
-function ProjectTable({ projects, searchValue }) {
+function ProjectTable({ searchValue }) {
+
+  const {projectsList} = useSelector(state => state.projects);
+
   const headers = [
     'Проект',
     'Статус',
@@ -26,9 +30,9 @@ function ProjectTable({ projects, searchValue }) {
           </div>
         ))}
       </div>
-      {projects
+      {projectsList
         .filter((project) =>
-          project.projectName.toLowerCase().includes(searchValue.toLowerCase())
+          project.name?.toLowerCase().includes(searchValue.toLowerCase())
         )
         .map((project, index) => (
           <ProjectRow key={index} {...project} />

@@ -7,7 +7,7 @@ import styles from './ProjectPage.module.scss';
 function ProjectRow(props) {
   const {
     projectHref,
-    projectName,
+    name,
     status,
     contact,
     phone,
@@ -23,7 +23,7 @@ function ProjectRow(props) {
   return (
     <div className={styles.gridRow}>
       <p className={styles.gridCell}>
-        <Link to={projectHref}>{projectName}</Link>
+        <Link to={projectHref}>{name}</Link>
       </p>
       <p className={styles.gridCell}>{status}</p>
       <p className={styles.gridCell}>{contact}</p>

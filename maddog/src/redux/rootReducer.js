@@ -6,6 +6,7 @@ import { ModalReducer } from './features/modalsSlice';
 import sessionReducer from './features/sessionSlice';
 import companiesReducer from './features/companiesSlice';
 import { EquipmentReducer } from './features/equipmentSlice';
+import { ProjectsReducer } from './features/projectsSlice';
 //корневой редьюсер вмещает в себя все редьюсеры хранилища
 export const rootReducer = combineReducers({
   estimate: estimateReducer,
@@ -14,4 +15,5 @@ export const rootReducer = combineReducers({
   session: sessionReducer,
   companies: companiesReducer,
   equipment: EquipmentReducer,
+  projects: ProjectsReducer,
 });
