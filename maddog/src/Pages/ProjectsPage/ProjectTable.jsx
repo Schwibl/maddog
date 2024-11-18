@@ -1,7 +1,8 @@
+import { useSelector } from 'react-redux';
+
 import ProjectRow from './ProjectRow';
 
 import styles from './ProjectPage.module.scss';
-import { useSelector } from 'react-redux';
 
 function ProjectTable({ searchValue }) {
 

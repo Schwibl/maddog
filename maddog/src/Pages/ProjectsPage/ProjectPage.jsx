@@ -1,24 +1,22 @@
 import { useState, useContext, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { getAllProjects } from '../../actions/projectsApi';
 import Button from '../../components/button/Button';
 import Icon from '../../components/Icon/Icon';
 import Modal from '../../components/Modal/index';
 import NavBar from '../../components/Navbar/NavBar';
-import ProjectInfo from '../../components/ProjectInfo/ProjectInfo';
-import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
+import { setListPage } from '../../redux/features/projectsSlice';
 
 import ProjectTable from './ProjectTable';
 
-
 import styles from './ProjectPage.module.scss';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllProjects } from '../../actions/projectsApi';
 
 function ProjectPage() {
   const dispatch = useDispatch();
 
-  const {projectsList} = useSelector(state => state.projects.projectsList);
+  const {projectsList, listPage} = useSelector(state => state.projects);
 
   const [searchValue, setSearchValue] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -85,7 +83,43 @@ function ProjectPage() {
           </div>
         </div>
         <ProjectTable searchValue={searchValue} />
-
+        <div className={styles.paginator}>
+          {
+            listPage.page > 0 && (
+              <button type="button" 
+                onClick={() => {
+                  if (listPage.page > 0) {
+                    // if(selectedStatuses.length > 0) { 
+                    //   dispatch(getEquipmentWithFilter({ activeFilters: { statusesTools: selectedStatuses }, page: listPage.page - 1, size: listPage.size }));
+                    // } else {
+                    //   dispatch(setListPage({ ...listPage, page: listPage.page - 1 }));
+                    // }
+                    dispatch(setListPage({ ...listPage, page: listPage.page - 1 }));
+                  }
+                }}
+              >
+                Предыдущая
+              </button>
+            )
+          }
+          <span className={styles.pageNumber}>Страница {listPage.page + 1} из {listPage.totalPages}</span>
+          {
+            listPage.page < listPage.totalPages - 1 && (
+              <button type="button" 
+                onClick={() => {
+                  // if(selectedStatuses.length > 0) {
+                  //   dispatch(getEquipmentWithFilter({ activeFilters: { statusesTools: selectedStatuses }, page: listPage.page + 1, size: listPage.size }));
+                  // } else {
+                  //   dispatch(setListPage({ ...listPage, page: listPage.page + 1 }));
+                  // }
+                  dispatch(setListPage({ ...listPage, page: listPage.page + 1 }));
+                }}
+              >
+                Следующая
+              </button>
+            )
+          }
+        </div>
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
           <h2>Создание проекта</h2>
           {/* <ProjectInfo addProject={addProject} /> */}
