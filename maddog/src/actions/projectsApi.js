@@ -85,7 +85,7 @@ export const deleteProjectById = createAsyncThunk(
       const response = await fetchWithAuth(`${BASE_URL}projects/${id}`, {
         method: 'DELETE',
       });
-      await checkRequest(response);
+      // await checkRequest(response);
       const { page, size } = thunkAPI.getState().projects.listPage;
       thunkAPI.dispatch(getAllProjects({ page, size }));
     } catch (error) {

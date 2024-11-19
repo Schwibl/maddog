@@ -65,7 +65,7 @@
 
 .filterContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   gap: 5px;
 }
@@ -132,6 +132,10 @@
 
 .gridRow {
   background-color: $white-main;
+  cursor: pointer;
+  &_selected {
+    background-color: $grey-medium-light;
+  }
 }
 
 .gridHeader,
@@ -214,6 +218,183 @@
   font-size: 24px;
   color: #fff;
 }
+
+
+.modalContent {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.modalImage {
+  width: 100%;
+  height: auto;
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 10px;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  span {
+    font-size: 14px;
+    color: #fff;
+  }
+}
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный фон */
+  z-index: 1000;
+  cursor: pointer;
+  min-width: 30%;
+  max-height: 90vh;
+  overflow: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-40%, -50%);
+  border: $solid-grey-border;
+  border-radius: $border-radius-16;
+  z-index: 2;
+  background-color: $black;
+  & img {
+    height: 60%;
+    object-fit: contain;
+    border-radius: $border-radius-8;
+  }
+}
+
+.overlay {
+  background-color: rgba($black, 0.7);
+  position: absolute;
+  display: flex;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.containerModal {
+  margin: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3vh;
+  min-width: 20vw;
+  max-height: 60vh;
+  overflow: auto;
+}
+
+.inputBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+
+.input {
+  width: 100%;
+  height: 4vh;
+  border: $solid-grey-border;
+  border-radius: $border-radius-8;
+  border-width: 3px;
+  padding: 0 1vw;
+  background-color: #fff;
+  font-size: $font-size-10;
+
+  &::placeholder {
+    color: $grey-tab-bar;
+    font-size: $font-size-10;
+  }
+}
+.inputLabel {
+  font-size: $font-size-10;
+  color: $text-and-icons;
+  line-height: 1;
+}
+
+.buttonBlock {
+  display: flex;
+  height: 4vh;
+  gap: 5%;
+  width: 80%;
+}
+
+.titleModal {
+  @include modal-title;
+}
+
+.buttons {
+  display: flex;
+  gap: 1%;
+  padding-bottom: 0.5%;
+}
+
+.button {
+  height: 100%;
+  font-size: $font-size-12;
+  line-height: 100%;
+  font-weight: bold;
+  background-color: $btn-color;
+  color: $text-and-icons;
+  border: none;
+  border-radius: $border-radius-10;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex: 1;
+  &:disabled {
+    background-color: $grey-dark;
+    cursor: default;
+  }
+}
+
+.dropdown {
+  position: relative;
+  font-size: 14px;
+  width: max-content;
+  &__head {
+    width: max-content;
+    font-weight: 600;
+    color: #000;
+    padding: 5px 10px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    background-color: #ccc;
+    cursor: pointer;
+  }
+  &__body {
+    border: 1px solid #000;
+    border-radius: 10px;
+    background-color: #ccc;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 2;
+  }
+  &__item {
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+      background-color: #fff;
+    }
+    &_active {
+      background-color: #79a6ff;
+    }
+  }
+}
+
 
 
 // Ноутбуки и большие экраны

@@ -2,13 +2,13 @@ import { useState, useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { getAllProjects } from '../../actions/projectsApi';
+import { getAllTypesOfStatuses } from '../../actions/equipmentApi';
+import { deleteProjectById, getAllProjects } from '../../actions/projectsApi';
 import Button from '../../components/button/Button';
 import Icon from '../../components/Icon/Icon';
-import Modal from '../../components/Modal/index';
-import NavBar from '../../components/Navbar/NavBar';
 import { setListPage } from '../../redux/features/projectsSlice';
 
+import CreateProjectModal from './CreateProjectModal';
 import ProjectTable from './ProjectTable';
 
 import styles from './ProjectPage.module.scss';
@@ -16,41 +16,39 @@ import styles from './ProjectPage.module.scss';
 function ProjectPage() {
   const dispatch = useDispatch();
 
-  const {projectsList, listPage} = useSelector(state => state.projects);
+  const {listPage, selectedProject} = useSelector(state => state.projects);
+  const {statusesList} = useSelector(state => state.equipment);
 
   const [searchValue, setSearchValue] = useState('');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(prevState => !prevState);
-  };
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     dispatch(getAllProjects({}));
+    if (statusesList.length === 0) {
+      dispatch(getAllTypesOfStatuses());
+    }
   }, []);
 
-  const filters = ['Все', 'Разовые', 'Длинный', 'Субаренда', 'Тест'];
+  const filters = [{text:'Все', value: ''}, {text:'Разовые', value: 'oneTime'}, {text:'Длинный', value: 'long'}, {text:'Субаренда', value: 'sublease'}, {text:'Тест', value: 'test'}];
 
 
   return (
     <div className={styles.container}>
-      <Button onClick={toggleMenu} className={styles.menuBtn} style={{ position: 'fixed', top: '10px', left: '10px', zIndex: '2000' }}>
-        Меню
-      </Button>
-      {/* Передаем состояние isMenuOpen и функцию toggleMenu в NavBar */}
-      <div className={`${styles.navBar} ${isMenuOpen ? styles.open : ''}`}>
-        <NavBar isMenuOpen={isMenuOpen} />
-      </div>
       <section className={styles.projectPage}>
         <div className={styles.actionContainer}>
           <div className={styles.buttonContainer}>
-            <Link to='/newProjectPage'>
-              <Button className={styles.create} type='button' onClick={() => setIsModalOpen(true)}>
-                Создать
-              </Button>
-            </Link>
-            <Button className={styles.delete} type='button'>
+            <Button className={styles.create} type='button' onClick={() => {setShowCreateModal(true);}}>
+              Создать
+            </Button>
+            <Button className={styles.delete} 
+              type='button' 
+              onClick={() => {
+                if(confirm(`Вы действительно хотите удалить проект "${selectedProject.name}"?`)) {  
+                  dispatch(deleteProjectById({id: selectedProject.id}));
+                  setShowDeleteModal(false);
+                }
+              }}>
               Удалить
             </Button>
           </div>
@@ -71,7 +69,7 @@ function ProjectPage() {
                 key={index}
                 type='button'
               >
-                {filter}
+                {filter.text}
               </Button>
             ))}
           </div>
@@ -120,11 +118,8 @@ function ProjectPage() {
             )
           }
         </div>
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <h2>Создание проекта</h2>
-          {/* <ProjectInfo addProject={addProject} /> */}
-        </Modal>
       </section>
+      {showCreateModal && <CreateProjectModal closeCreateProjectModal={() => setShowCreateModal(false)} />}
     </div>
   );
 }

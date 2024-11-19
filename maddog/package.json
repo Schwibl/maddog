@@ -50,7 +50,8 @@
       "css-import-order/css-import-order": "off",
       "semi": "off",
       "indent": "off",
-      "no-multi-spaces": "off"
+      "no-multi-spaces": "off",
+      "no-restricted-globals": "off"
     }
   },
   "browserslist": {

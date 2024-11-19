@@ -1,6 +1,9 @@
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Link
 } from 'react-router-dom';
+
+import { setSelectedProject } from '../../redux/features/projectsSlice';
 
 import styles from './ProjectPage.module.scss';
 
@@ -17,11 +20,14 @@ export function turnIntoDate(date) {
 
 
 function ProjectRow(props) {
+  const dispatch = useDispatch();
+  const {selectedProject} = useSelector(state => state.projects);
+
   const {
     projectHref,
     name,
     status,
-    contact,
+    client,
     phoneNumber,
     start,
     end,
@@ -37,12 +43,56 @@ function ProjectRow(props) {
   const createdDate = turnIntoDate(created);
 
   return (
-    <div className={styles.gridRow}>
+    <div className={styles.gridRow + (selectedProject?.id === props.id ? ' ' + styles.gridRow_selected : '')} 
+      onClick={(e) => {
+        e.stopPropagation();
+        dispatch(setSelectedProject(props));
+      }}
+    >
       <div className={styles.gridCell}>
         <Link to={projectHref}>{name}</Link>
       </div>
       <div className={styles.gridCell}>{status}</div>
-      <div className={styles.gridCell}>{contact}</div>
+      <div className={styles.gridCell}>
+        {client.name}
+        <div className={styles.moreInfoPopUp}>
+          <div className={styles.moreInfoPopUp__row}>
+            <div className={styles.moreInfoPopUp__heading}>
+              Роль:
+            </div>
+            <div className={styles.moreInfoPopUp__value}>
+              {client.roleContact}
+            </div>
+          </div>
+          <div className={styles.moreInfoPopUp__row}>
+            <div className={styles.moreInfoPopUp__heading}>
+              Полное имя:
+            </div>
+            <div className={styles.moreInfoPopUp__value}>
+              {client.fullName}
+            </div>
+          </div>
+          <div className={styles.moreInfoPopUp__row}>
+            <div className={styles.moreInfoPopUp__heading}>
+              Телефон:
+            </div>
+            <div className={styles.moreInfoPopUp__value}>
+              {client.phoneNumber}
+            </div>
+          </div>
+
+          {client.company && (
+            <div className={styles.moreInfoPopUp__row}>
+              <div className={styles.moreInfoPopUp__heading}>
+                Компания:
+              </div>
+              <div className={styles.moreInfoPopUp__value}>
+                {client.company}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
       <div className={styles.gridCell}>{phoneNumber}</div>
       <div className={styles.gridCell}>{startDate}</div>
       <div className={styles.gridCell}>{endDate}</div>
