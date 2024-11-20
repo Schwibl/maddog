@@ -3,6 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   projectsList: [],
   selectedProject: null,
+  projectsTypesList: [],
+  projectsStatusesList: [],
   listPage: {
     page: 0,
     size: 20,
@@ -20,6 +22,12 @@ const ProjectsSlice = createSlice({
     setSelectedProject: (state, action) => {
       state.selectedProject = action.payload;
     },
+    setProjectsTypesList: (state, action) => {
+      state.projectsTypesList = action.payload;
+    },
+    setProjectsStatusesList: (state, action) => {
+      state.projectsStatusesList = action.payload;
+    },
     setListPage: (state, action) => {
       state.listPage = action.payload;
     },
@@ -33,7 +41,9 @@ export const {
   setProjectsList,
   setSelectedProject,
   setListPage,
-  setTotalPages
+  setTotalPages,
+  setProjectsTypesList,
+  setProjectsStatusesList
 } = ProjectsSlice.actions;
 
 export const ProjectsReducer = ProjectsSlice.reducer;

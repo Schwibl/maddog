@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { getAllTypesOfStatuses } from '../../actions/equipmentApi';
-import { deleteProjectById, getAllProjects } from '../../actions/projectsApi';
+import { deleteProjectById, getAllProjects, getProjectsStatuses, getProjectsTypes } from '../../actions/projectsApi';
 import Button from '../../components/button/Button';
 import Icon from '../../components/Icon/Icon';
 import { setListPage } from '../../redux/features/projectsSlice';
@@ -16,22 +16,27 @@ import styles from './ProjectPage.module.scss';
 function ProjectPage() {
   const dispatch = useDispatch();
 
-  const {listPage, selectedProject} = useSelector(state => state.projects);
-  const {statusesList} = useSelector(state => state.equipment);
+  const {listPage, selectedProject, projectsTypesList, projectsStatusesList} = useSelector(state => state.projects);
 
   const [searchValue, setSearchValue] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [filterState, setFilterState] = useState({
+  });
 
   useEffect(() => {
-    dispatch(getAllProjects({}));
-    if (statusesList.length === 0) {
-      dispatch(getAllTypesOfStatuses());
+    dispatch(getAllProjects(filterState));
+    if (projectsTypesList.length === 0) {
+      dispatch(getProjectsTypes());
+    }
+    if (projectsStatusesList.length === 0) {
+      dispatch(getProjectsStatuses());
     }
   }, []);
 
-  const filters = [{text:'Все', value: ''}, {text:'Разовые', value: 'oneTime'}, {text:'Длинный', value: 'long'}, {text:'Субаренда', value: 'sublease'}, {text:'Тест', value: 'test'}];
-
+  useEffect(() => {
+    dispatch(getAllProjects({...filterState}));
+  }, [filterState]);
 
   return (
     <div className={styles.container}>
@@ -63,13 +68,22 @@ function ProjectPage() {
         </div>
         <div className={styles.headerBtnContainer}>
           <div className={styles.filterContainer}>
-            {filters.map((filter, index) => (
+            <Button className={styles.filter + ' ' + (!filterState.classification ? styles.filterActive : '')} type='button' 
+              onClick={() => {
+                let newFilterState = {...filterState};
+                delete newFilterState.classification;
+                setFilterState(newFilterState);
+              }}>
+              Все
+            </Button>
+            {projectsTypesList.map((typeObj, index) => (
               <Button
-                className={styles.filter}
+                className={styles.filter + ' ' + (filterState.classification === typeObj.value ? styles.filterActive : '')}
                 key={index}
                 type='button'
+                onClick={() => setFilterState({...filterState, classification: typeObj.value})}
               >
-                {filter.text}
+                {typeObj.text}
               </Button>
             ))}
           </div>

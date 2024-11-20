@@ -3,6 +3,8 @@ import fetchWithAuth from '../middleware/restMiddleware';
 import { checkRequest } from './utils';
 import { 
   setProjectsList,
+  setProjectsStatusesList,
+  setProjectsTypesList,
   setSelectedProject,
   setTotalPages
 } from '../redux/features/projectsSlice';
@@ -88,6 +90,38 @@ export const deleteProjectById = createAsyncThunk(
       // await checkRequest(response);
       const { page, size } = thunkAPI.getState().projects.listPage;
       thunkAPI.dispatch(getAllProjects({ page, size }));
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getProjectsTypes = createAsyncThunk(
+  'projects/getProjectsTypes',
+  async (_, thunkAPI) => {
+    try {
+      const response = await fetchWithAuth(`${BASE_URL}projects/types`, {
+        method: 'GET',
+      });
+      const data = await checkRequest(response);
+      thunkAPI.dispatch(setProjectsTypesList(data));
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getProjectsStatuses = createAsyncThunk(
+  'projects/getProjectsStatuses',
+  async (_, thunkAPI) => {
+    try {
+      const response = await fetchWithAuth(`${BASE_URL}projects/statuses`, {
+        method: 'GET',
+      });
+      const data = await checkRequest(response);
+      thunkAPI.dispatch(setProjectsStatusesList(data));
+      return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
