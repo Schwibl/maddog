@@ -12,11 +12,13 @@ import CreateProjectModal from './CreateProjectModal';
 import ProjectTable from './ProjectTable';
 
 import styles from './ProjectPage.module.scss';
+import { getAllContacts } from '../../actions/contactsApi';
 
 function ProjectPage() {
   const dispatch = useDispatch();
 
   const {listPage, selectedProject, projectsTypesList, projectsStatusesList} = useSelector(state => state.projects);
+  const {contacts} = useSelector(state => state.contacts);
 
   const [searchValue, setSearchValue] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -31,6 +33,9 @@ function ProjectPage() {
     }
     if (projectsStatusesList.length === 0) {
       dispatch(getProjectsStatuses());
+    }
+    if (contacts.length === 0) {
+      dispatch(getAllContacts());
     }
   }, []);
 

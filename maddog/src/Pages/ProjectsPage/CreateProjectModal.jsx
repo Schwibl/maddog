@@ -1,21 +1,94 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 import styles from './ProjectPage.module.scss';
+import Datepicker from '../../components/datepicker/Datepicker';
+import SwitchShifts from '../../components/SwitchShifts/SwitchShifts';
+// {
+//   "number": 0,
+//   "classification": "ONE_TIME",
+//   "status": "CREATE",
+//   "name": "string",
+//   "typeLease": "STRAIGHT",
+//   "quantity": 0,
+//   "employeeId": 0,
+//   "start": "2024-11-25T15:38:42.818Z",
+//   "end": "2024-11-25T15:38:42.818Z",
+//   "contactId": 0,
+//   "phoneNumber": "string",
+//   "photos": [
+//     "string"
+//   ],
+//   "discount": 0,
+//   "note": "string",
+//   "sum": 0,
+//   "finalSumUsn": 0,
+//   "priceTools": 0,
+//   "priceWork": 0,
+//   "discountByProject": 0,
+//   "sumWithDiscount": 0,
+//   "received": 0,
+//   "remainder": 0,
+//   "tools": [
+//     0
+//   ],
+//   "workingShifts": [
+//     {
+//       "dateShift": "2024-11-25",
+//       "typeShift": "DAY"
+//     }
+//   ]
+// }
+const generateDateRange = (start, end) => {
+  const dates = [];
+  const currentDate = new Date(start);
+  const endDate = new Date(end);
 
+  while (currentDate <= endDate) {
+    dates.push(new Date(currentDate));
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+  return dates;
+};
+const changeValueTypeToIntIfRequired = (name, value) => {
+  if (
+    name === 'number' || 
+    name === 'quantity' || 
+    name === 'employeeId' || 
+    name === 'contactId' || 
+    name === 'discount' || 
+    name === 'sum' || 
+    name === 'finalSumUsn' || 
+    name === 'priceTools' || 
+    name === 'priceWork' || 
+    name === 'discountByProject' || 
+    name === 'sumWithDiscount' || 
+    name === 'received' || 
+    name === 'remainder'
+  ) {
+    return parseInt(value);
+  }
+  return value;
+};
 
 function CreateProjectModal({closeCreateProjectModal}) {
   const dispatch = useDispatch();
+
+  const {projectsTypesList, projectStatusesList} = useSelector(state => state.projects);
+  const {contacts} = useSelector(state => state.contacts);
+
   const [formData, setFormData] = useState({
     number: 0,
-    classification: '',
+    classification: projectsTypesList[0].value,
     status: '',
     name: '',
     typeLease: '',
     quantity: 0,
-    employeeId: 0,
+    // employeeId: 0,
     contactId: 0,
+    start: new Date().toISOString().split('T')[0],
+    end: new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0],
     phoneNumber: '',
     discount: 0,
     note: '',
@@ -26,17 +99,32 @@ function CreateProjectModal({closeCreateProjectModal}) {
     discountByProject: 0,
     sumWithDiscount: 0,
     received: 0,
-    remainder: 0
+    remainder: 0,
+    photos: [],
+    tools: [],
+    workingShifts: []
   });
+  const [showShifts, setShowShifts] = useState(false);
+  const [workingDays, setWorkingDays] = useState(generateDateRange(formData.start, formData.end));
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
+    value = changeValueTypeToIntIfRequired(name, value);
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
   };
 
+  useEffect(() => {
+    setWorkingDays(generateDateRange(formData.start, formData.end));
+  }, [formData.start, formData.end]);
+
+  useEffect(() => {
+    
+    console.log(formData);
+      
+  }, [formData]);
   return (
     <div className={styles.overlay} 
       onClick={(e) => {
@@ -75,26 +163,28 @@ function CreateProjectModal({closeCreateProjectModal}) {
 
             <div className={styles.inputWrapper}>
               <span className={styles.inputLabel}>Классификация *</span>
-              <input
-                type="text"
+              <select
                 name="classification"
                 value={formData.classification}
                 onChange={handleInputChange}
                 required
                 className={styles.input}
-              />
+              >
+                {projectsTypesList.map(type => <option value={type.value}>{type.text}</option>)}
+              </select>
             </div>
 
             <div className={styles.inputWrapper}>
               <span className={styles.inputLabel}>Контакт *</span>
-              <input
-                type="number"
+              <select
                 name="contactId"
                 value={formData.contactId}
                 onChange={handleInputChange}
                 required
                 className={styles.input}
-              />
+              >
+                {contacts.map(contact => <option value={contact.id}>{contact.name}</option>)}
+              </select>
             </div>
 
             <div className={styles.inputWrapper}>
@@ -132,6 +222,32 @@ function CreateProjectModal({closeCreateProjectModal}) {
             </div>
 
             <div className={styles.inputWrapper}>
+              <span className={styles.inputLabel}>Дата начала</span>
+              <input 
+                type="date" 
+                name="start" 
+                id="start" 
+                value={formData.start} 
+                onChange={handleInputChange} 
+                className={styles.input} 
+                max={new Date(new Date(formData.end).getTime() - 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
+              />
+            </div>
+
+            <div className={styles.inputWrapper}> 
+              <span className={styles.inputLabel}>Дата окончания</span>
+              <input 
+                type="date" 
+                name="end" 
+                id="end" 
+                value={formData.end} 
+                onChange={handleInputChange} 
+                className={styles.input}
+                min={new Date(new Date(formData.start).getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
+              />
+            </div>
+
+            {/* <div className={styles.inputWrapper}>
               <span className={styles.inputLabel}>Сотрудник</span>
               <input
                 type="number"
@@ -140,7 +256,7 @@ function CreateProjectModal({closeCreateProjectModal}) {
                 onChange={handleInputChange}
                 className={styles.input}
               />
-            </div>
+            </div> */}
 
             <div className={styles.inputWrapper}>
               <span className={styles.inputLabel}>Телефон</span>
@@ -264,6 +380,17 @@ function CreateProjectModal({closeCreateProjectModal}) {
                 className={styles.input}
               />
             </div>
+
+            <div className={styles.inputWrapper}>
+              <span className={styles.inputLabel}>Смены</span>
+                  {workingDays.map((day, index) => (
+                    <SwitchShifts 
+                      day={day}
+                      shifts={formData.workingShifts}
+                      setShifts={(shifts) => setFormData(prev => ({...prev, workingShifts: shifts}))}
+                    />
+                ))}
+            </div>
           </div>
 
           <div className={styles.buttonBlock}>
@@ -284,8 +411,10 @@ function CreateProjectModal({closeCreateProjectModal}) {
               Отмена
             </button>
           </div>
+
         </div>
       </div>
+
     </div>
   );
 }

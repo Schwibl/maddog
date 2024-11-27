@@ -5,16 +5,6 @@ import { checkRequest } from './utils';
 
 const BASE_URL = 'http://62.113.113.183:8963/api/v1/';
 
-const body = {
-  name: 'string',
-  numberPassport: 'string',
-  issuedBy: 'string',
-  dateIssuePassport: '2024-02-10',
-  roleContactId: 0,
-  photos: ['string'],
-  comment: 'string',
-};
-
 export const getAdmins = async () => {
   try {
     const response = await fetch(`${BASE_URL}admin/users?page=1&size=10`, {
@@ -67,9 +57,12 @@ export const getPossibleRoles = createAsyncThunk(
     }
   }
 );
-export const createContactRole = createAsyncThunk('contacts/createContactRole', async ({name}, thunkAPI) => {
-  try {
-    const response = await fetchWithAuth(`${BASE_URL}role_contacts`, {
+
+export const createContactRole = createAsyncThunk(
+  'contacts/createContactRole',
+  async ({name}, thunkAPI) => {
+    try {
+      const response = await fetchWithAuth(`${BASE_URL}role_contacts`, {
       method: 'POST',
       body: JSON.stringify({name, contacts: []}),
     });
@@ -80,9 +73,11 @@ export const createContactRole = createAsyncThunk('contacts/createContactRole', 
   }
 });
 
-export const getAllContacts = createAsyncThunk('contacts/getAllContacts', async (_, thunkAPI) => {
-  try {
-    const { page, size } = thunkAPI.getState().contacts;
+export const getAllContacts = createAsyncThunk(
+  'contacts/getAllContacts',
+  async (_, thunkAPI) => {
+    try {
+      const { page, size } = thunkAPI.getState().contacts;
 
     const response = await fetchWithAuth(`${BASE_URL}contacts?page=${page}&size=${size}`, {
       method: 'GET',
@@ -94,7 +89,10 @@ export const getAllContacts = createAsyncThunk('contacts/getAllContacts', async 
     return thunkAPI.rejectWithValue(error.message);
   }
 });
-export const getContactById = createAsyncThunk('contacts/getContactById', async ({id, setUser}, thunkAPI) => {
+
+export const getContactById = createAsyncThunk(
+  'contacts/getContactById', 
+  async ({id, setUser}, thunkAPI) => {
   try {
     const response = await fetchWithAuth(`${BASE_URL}contacts/${id}`,{
       method: 'GET',
@@ -108,6 +106,7 @@ export const getContactById = createAsyncThunk('contacts/getContactById', async 
     return thunkAPI.rejectWithValue(error.message);
   }
 });
+
 export const createContact = createAsyncThunk(
   'contacts/createContact',
   async ({ name, phoneNumber, company, role, comment, photos }, thunkAPI) => {
@@ -134,7 +133,10 @@ export const createContact = createAsyncThunk(
     }
   }
 );
-export const updateContact = createAsyncThunk('contacts/updateContact', async ({id, name, phoneNumber, company, role, comment, photos}, thunkAPI) => {
+
+export const updateContact = createAsyncThunk(
+  'contacts/updateContact', 
+  async ({id, name, phoneNumber, company, role, comment, photos}, thunkAPI) => {
   try {
     const response = await fetchWithAuth(`${BASE_URL}contacts/${id}`, {
       method: 'PUT',
@@ -154,7 +156,10 @@ export const updateContact = createAsyncThunk('contacts/updateContact', async ({
     return thunkAPI.rejectWithValue(error.message);
   }
 });
-export const deleteContact = createAsyncThunk('contacts/deleteContact', async ({id}, thunkAPI) => {
+
+export const deleteContact = createAsyncThunk(
+  'contacts/deleteContact', 
+  async ({id}, thunkAPI) => {
   try {
     const response = await fetchWithAuth(`${BASE_URL}contacts/${id}`, {
       method: 'DELETE',
