@@ -18,14 +18,9 @@ export function turnIntoDate(date) {
   });
 }
 
-const TYPE_LEASE_MAP = {
-  'STRAIGHT': 'Прямая',
-  'SUBLEASE': 'Даем в субаренду'
-};
-
 function ProjectRow(props) {
   const dispatch = useDispatch();
-  const {selectedProject, projectsStatusesList} = useSelector(state => state.projects);
+  const {selectedProject, projectsStatusesList, leaseTypesList} = useSelector(state => state.projects);
 
   const {
     projectHref,
@@ -47,7 +42,7 @@ function ProjectRow(props) {
   const createdDate = turnIntoDate(created);
 
   const statusText = projectsStatusesList.find(s => s.value === status)?.text || status;
-  const typeLeaseText = TYPE_LEASE_MAP[typeLease] || typeLease;
+  const typeLeaseText = leaseTypesList.find(t => t.value === typeLease)?.text || typeLease;
 
   return (
     <div className={styles.gridRow + (selectedProject?.id === props.id ? ' ' + styles.gridRow_selected : '')} 

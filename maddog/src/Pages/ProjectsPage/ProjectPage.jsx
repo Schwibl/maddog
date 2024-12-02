@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { getAllEquipment, getAllTypesOfStatuses } from '../../actions/equipmentApi';
-import { deleteProjectById, getAllProjects, getProjectsStatuses, getProjectsTypes } from '../../actions/projectsApi';
+import { deleteProjectById, getAllProjects, getProjectsStatuses, getProjectsTypes, getLeaseTypes } from '../../actions/projectsApi';
 import Button from '../../components/button/Button';
 import Icon from '../../components/Icon/Icon';
 import { setListPage } from '../../redux/features/projectsSlice';
@@ -41,6 +41,7 @@ function ProjectPage() {
     if (equipmentList.length === 0) {
       dispatch(getAllEquipment());
     }
+    dispatch(getLeaseTypes());
   }, []);
 
   useEffect(() => {

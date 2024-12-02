@@ -45,16 +45,16 @@ const changeValueTypeToIntIfRequired = (name, value) => {
 function CreateProjectModal({closeCreateProjectModal}) {
   const dispatch = useDispatch();
 
-  const {projectsTypesList, projectsStatusesList} = useSelector(state => state.projects);
+  const {projectsTypesList, projectsStatusesList, leaseTypesList} = useSelector(state => state.projects);
   const {contacts} = useSelector(state => state.contacts);
   const selectedEquipment = useSelector((state) => state.projects.selectedEquipment);
 
   const [formData, setFormData] = useState({
     number: 1,
-    classification: projectsTypesList[0]?.text || "Разовый",
-    status: projectsStatusesList[0]?.text || "Создан",
+    classification: projectsTypesList[0]?.value || "ONE_TIME",
+    status: projectsStatusesList[0]?.value || "CREATE",
     name: '',
-    typeLease: 'STRAIGHT',
+    typeLease: leaseTypesList[0]?.value || 'STRAIGHT',
     quantity: 0,
     employeeId: 0,
     start: new Date().toISOString().split('T')[0],
@@ -295,8 +295,11 @@ function CreateProjectModal({closeCreateProjectModal}) {
                   onChange={handleInputChange}
                   className={styles.input}
                 >
-                  <option value="STRAIGHT">Прямая</option>
-                  <option value="SUBLEASE">Даем в субаренду</option>
+                  {leaseTypesList.map(type => (
+                    <option key={type.value} value={type.value}>
+                      {type.text}
+                    </option>
+                  ))}
                 </select>
               </div>
 

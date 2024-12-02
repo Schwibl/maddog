@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import fetchWithAuth from '../middleware/restMiddleware';
 import { checkRequest } from './utils';
 import { 
+  setLeaseTypesList,
   setProjectsList,
   setProjectsStatusesList,
   setProjectsTypesList,
@@ -121,6 +122,22 @@ export const getProjectsStatuses = createAsyncThunk(
       });
       const data = await checkRequest(response);
       thunkAPI.dispatch(setProjectsStatusesList(data));
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getLeaseTypes = createAsyncThunk(
+  'projects/getLeaseTypes',
+  async (_, thunkAPI) => {
+    try {
+      const response = await fetchWithAuth(`${BASE_URL}projects/type_leases`, {
+        method: 'GET',
+      });
+      const data = await checkRequest(response);
+      thunkAPI.dispatch(setLeaseTypesList(data));
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

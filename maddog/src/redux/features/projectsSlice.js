@@ -5,6 +5,7 @@ const initialState = {
   selectedProject: null,
   projectsTypesList: [],
   projectsStatusesList: [],
+  leaseTypesList: [],
   selectedEquipment: [],
   listPage: {
     page: 0,
@@ -48,7 +49,13 @@ const ProjectsSlice = createSlice({
     },
     clearSelectedEquipment: (state) => {
       state.selectedEquipment = [];
-    }
+    },
+    setLeaseTypesList: (state, action) => {
+      state.leaseTypesList = action.payload;
+    },
+    clearLeaseTypesList: (state) => {
+      state.leaseTypesList = [];
+    },
   }
 });
 
@@ -62,7 +69,9 @@ export const {
   setSelectedEquipment,
   addSelectedEquipment,
   removeSelectedEquipment,
-  clearSelectedEquipment
+  clearSelectedEquipment,
+  setLeaseTypesList,
+  clearLeaseTypesList
 } = ProjectsSlice.actions;
 
 export const ProjectsReducer = ProjectsSlice.reducer;
