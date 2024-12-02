@@ -18,10 +18,14 @@ export function turnIntoDate(date) {
   });
 }
 
+const TYPE_LEASE_MAP = {
+  'STRAIGHT': 'Прямая',
+  'SUBLEASE': 'Даем в субаренду'
+};
 
 function ProjectRow(props) {
   const dispatch = useDispatch();
-  const {selectedProject} = useSelector(state => state.projects);
+  const {selectedProject, projectsStatusesList} = useSelector(state => state.projects);
 
   const {
     projectHref,
@@ -42,6 +46,9 @@ function ProjectRow(props) {
   const endDate = turnIntoDate(end);
   const createdDate = turnIntoDate(created);
 
+  const statusText = projectsStatusesList.find(s => s.value === status)?.text || status;
+  const typeLeaseText = TYPE_LEASE_MAP[typeLease] || typeLease;
+
   return (
     <div className={styles.gridRow + (selectedProject?.id === props.id ? ' ' + styles.gridRow_selected : '')} 
       onClick={(e) => {
@@ -52,7 +59,7 @@ function ProjectRow(props) {
       <div className={styles.gridCell}>
         <Link to={projectHref}>{name}</Link>
       </div>
-      <div className={styles.gridCell}>{status}</div>
+      <div className={styles.gridCell}>{statusText}</div>
       <div className={styles.gridCell}>
         {client.name}
         <div className={styles.moreInfoPopUp}>
@@ -119,7 +126,7 @@ function ProjectRow(props) {
         </div>
       </div>
       <div className={styles.gridCell}>{note}</div>
-      <div className={styles.gridCell}>{typeLease}</div>
+      <div className={styles.gridCell}>{typeLeaseText}</div>
       <div className={styles.gridCell}>
         <Link to={`/estimate/${estimateHref}`}>Смета</Link>
       </div>

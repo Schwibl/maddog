@@ -5,6 +5,7 @@ const initialState = {
   selectedProject: null,
   projectsTypesList: [],
   projectsStatusesList: [],
+  selectedEquipment: [],
   listPage: {
     page: 0,
     size: 20,
@@ -33,6 +34,20 @@ const ProjectsSlice = createSlice({
     },
     setTotalPages: (state, action) => {
       state.listPage.totalPages = action.payload;
+    },
+    setSelectedEquipment: (state, action) => {
+      state.selectedEquipment = action.payload;
+    },
+    addSelectedEquipment: (state, action) => {
+      if (!state.selectedEquipment.some(eq => eq.id === action.payload.id)) {
+        state.selectedEquipment.push(action.payload);
+      }
+    },
+    removeSelectedEquipment: (state, action) => {
+      state.selectedEquipment = state.selectedEquipment.filter(eq => eq.id !== action.payload.id);
+    },
+    clearSelectedEquipment: (state) => {
+      state.selectedEquipment = [];
     }
   }
 });
@@ -43,7 +58,11 @@ export const {
   setListPage,
   setTotalPages,
   setProjectsTypesList,
-  setProjectsStatusesList
+  setProjectsStatusesList,
+  setSelectedEquipment,
+  addSelectedEquipment,
+  removeSelectedEquipment,
+  clearSelectedEquipment
 } = ProjectsSlice.actions;
 
 export const ProjectsReducer = ProjectsSlice.reducer;

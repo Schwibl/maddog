@@ -26,7 +26,6 @@ const SwitchShifts = (props) => {
       setShifts([
         ...shifts,
         {
-          id: 0,
           dateShift: dayjs(day).locale('ru').format('YYYY-MM-DD'),
           typeShift: 'DAY',
         },
@@ -55,7 +54,6 @@ const SwitchShifts = (props) => {
       setShifts([
         ...shifts,
         {
-          id: 0,
           dateShift: dayjs(day).locale('ru').format('YYYY-MM-DD'),
           typeShift: 'NIGHT',
         },

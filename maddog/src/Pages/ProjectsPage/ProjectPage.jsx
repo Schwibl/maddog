@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { getAllTypesOfStatuses } from '../../actions/equipmentApi';
+import { getAllEquipment, getAllTypesOfStatuses } from '../../actions/equipmentApi';
 import { deleteProjectById, getAllProjects, getProjectsStatuses, getProjectsTypes } from '../../actions/projectsApi';
 import Button from '../../components/button/Button';
 import Icon from '../../components/Icon/Icon';
@@ -19,6 +19,7 @@ function ProjectPage() {
 
   const {listPage, selectedProject, projectsTypesList, projectsStatusesList} = useSelector(state => state.projects);
   const {contacts} = useSelector(state => state.contacts);
+  const {equipmentList} = useSelector(state => state.equipment);
 
   const [searchValue, setSearchValue] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -36,6 +37,9 @@ function ProjectPage() {
     }
     if (contacts.length === 0) {
       dispatch(getAllContacts());
+    }
+    if (equipmentList.length === 0) {
+      dispatch(getAllEquipment());
     }
   }, []);
 
