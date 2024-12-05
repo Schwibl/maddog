@@ -27,7 +27,8 @@
 }
 
 .create,
-.delete {
+.delete,
+.edit {
   font-size: $font-size-16;
   font-weight: bold;
   background-color: $btn-color;
