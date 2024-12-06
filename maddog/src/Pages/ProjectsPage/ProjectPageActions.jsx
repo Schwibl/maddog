@@ -1,19 +1,12 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteProjectById } from '../../actions/projectsApi';
 import Button from '../../components/button/Button';
 import Icon from '../../components/Icon/Icon';
 import styles from './ProjectPage.module.scss';
+import { useSelector } from 'react-redux';
 
 const ProjectPageActions = ({ setShowCreateModal, setShowEditModal, searchValue, setSearchValue, filterState, setFilterState }) => {
-  const dispatch = useDispatch();
-  const { selectedProject, projectsTypesList } = useSelector(state => state.projects);
+  const {  projectsTypesList } = useSelector(state => state.projects);
 
-  const handleDelete = () => {
-    if (selectedProject && confirm(`Вы действительно хотите удалить проект "${selectedProject.name}"?`)) {
-      dispatch(deleteProjectById({ id: selectedProject.id }));
-    }
-  };
 
   return (
     <>
@@ -26,7 +19,7 @@ const ProjectPageActions = ({ setShowCreateModal, setShowEditModal, searchValue,
           >
             Создать
           </Button>
-          <Button 
+          {/* <Button 
             className={styles.edit} 
             type='button'
             onClick={() => setShowEditModal(true)}
@@ -41,7 +34,7 @@ const ProjectPageActions = ({ setShowCreateModal, setShowEditModal, searchValue,
             disabled={!selectedProject}
           >
             Удалить
-          </Button>
+          </Button> */}
         </div>
         <div className={styles.search}>
           <input

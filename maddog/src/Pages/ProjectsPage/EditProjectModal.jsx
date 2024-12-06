@@ -39,39 +39,38 @@ const changeValueTypeToIntIfRequired = (name, value) => {
   return value;
 };
 
-function EditProjectModal({ closeEditProjectModal }) {
+function EditProjectModal({ project, closeEditProjectModal }) {
   const dispatch = useDispatch();
-  const { projectsTypesList, projectsStatusesList, leaseTypesList, selectedProject } = useSelector(state => state.projects);
+  const { projectsTypesList, projectsStatusesList, leaseTypesList } = useSelector(state => state.projects);
   const { contacts } = useSelector(state => state.contacts);
 
   const [formData, setFormData] = useState({
-    number: selectedProject?.number || 0,
-    classification: selectedProject?.classification || projectsTypesList[0]?.value || "ONE_TIME",
-    status: selectedProject?.status || projectsStatusesList[0]?.value || "CREATE",
-    name: selectedProject?.name || '',
-    typeLease: selectedProject?.typeLease || leaseTypesList[0]?.value || 'STRAIGHT',
-    quantity: selectedProject?.quantity || 0,
-    employeeId: selectedProject?.employeeId || 0,
-    start: selectedProject?.start?.split('T')[0] || new Date().toISOString().split('T')[0],
-    end: selectedProject?.end?.split('T')[0] || new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-    contactId: selectedProject?.contactId || 0,
-    phoneNumber: selectedProject?.phoneNumber || '',
-    photos: selectedProject?.photos || [],
-    discount: selectedProject?.discount || 0,
-    note: selectedProject?.note || '',
-    sum: selectedProject?.sum || 0,
-    finalSumUsn: selectedProject?.finalSumUsn || 0,
-    priceTools: selectedProject?.priceTools || 0,
-    priceWork: selectedProject?.priceWork || 0,
-    discountByProject: selectedProject?.discountByProject || 0,
-    sumWithDiscount: selectedProject?.sumWithDiscount || 0,
-    received: selectedProject?.received || 0,
-    remainder: selectedProject?.remainder || 0,
-    tools: selectedProject?.tools || [],
-    workingShifts: selectedProject?.workingShifts || []
+    number: project?.number || 0,
+    classification: project?.classification || projectsTypesList[0]?.value || "ONE_TIME",
+    status: project?.status || projectsStatusesList[0]?.value || "CREATE",
+    name: project?.name || '',
+    typeLease: project?.typeLease || leaseTypesList[0]?.value || 'STRAIGHT',
+    quantity: project?.quantity || 0,
+    employeeId: project?.employeeId || 0,
+    start: project?.start?.split('T')[0] || new Date().toISOString().split('T')[0],
+    end: project?.end?.split('T')[0] || new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    contactId: project?.client?.id || 0,
+    phoneNumber: project?.client?.phoneNumber || '',
+    photos: project?.photos || [],
+    discount: project?.discount || 0,
+    note: project?.note || '',
+    sum: project?.sum || 0,
+    finalSumUsn: project?.finalSumUsn || 0,
+    priceTools: project?.priceTools || 0,
+    priceWork: project?.priceWork || 0,
+    discountByProject: project?.discountByProject || 0,
+    sumWithDiscount: project?.sumWithDiscount || 0,
+    received: project?.received || 0,
+    remainder: project?.remainder || 0,
+    tools: project?.tools || [],
+    workingShifts: project?.workingShifts || []
   });
 
-  const [showShifts, setShowShifts] = useState(false);
   const [workingDays, setWorkingDays] = useState(generateDateRange(formData.start, formData.end));
   const [showEquipmentModal, setShowEquipmentModal] = useState(false);
 
@@ -93,7 +92,7 @@ function EditProjectModal({ closeEditProjectModal }) {
     return () => {
       dispatch(clearSelectedEquipment());
     };
-  }, []);
+  }, [dispatch]);
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
@@ -172,7 +171,7 @@ function EditProjectModal({ closeEditProjectModal }) {
         }).filter(Boolean)
       };
 
-      dispatch(updateProjectById({ id: selectedProject.id, ...projectData }))
+      dispatch(updateProjectById({ id: project.id, ...projectData }))
         .unwrap()
         .then(() => {
           closeEditProjectModal();

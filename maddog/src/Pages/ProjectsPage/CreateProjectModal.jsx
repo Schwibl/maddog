@@ -1,14 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Tag } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
 
 import styles from './ProjectPage.module.scss';
-import Datepicker from '../../components/datepicker/Datepicker';
 import SwitchShifts from '../../components/SwitchShifts/SwitchShifts';
 import { createProject } from '../../actions/projectsApi';
 import SelectEquipmentToCreateProjectModal from './SelectEquipmentToCreateProjectModal';
-import { removeSelectedEquipment, clearSelectedEquipment } from '../../redux/features/projectsSlice';
+import {  clearSelectedEquipment } from '../../redux/features/projectsSlice';
 
 const generateDateRange = (start, end) => {
   const dates = [];
@@ -70,12 +67,10 @@ function CreateProjectModal({closeCreateProjectModal}) {
     priceWork: 0,
     discountByProject: 0,
     sumWithDiscount: 0,
-    received: 0,
-    remainder: 0,
     tools: [],
     workingShifts: []
   });
-  const [showShifts, setShowShifts] = useState(false);
+
   const [workingDays, setWorkingDays] = useState(generateDateRange(formData.start, formData.end));
   const [showEquipmentModal, setShowEquipmentModal] = useState(false);
 
@@ -85,8 +80,8 @@ function CreateProjectModal({closeCreateProjectModal}) {
   const quantityRef = useRef(null);
   const startRef = useRef(null);
   const endRef = useRef(null);
-  const receivedRef = useRef(null);
-  const remainderRef = useRef(null);
+  const shiftsRef = useRef(null);
+  const equipmentRef = useRef(null);
 
   useEffect(() => {
     setWorkingDays(generateDateRange(formData.start, formData.end));
@@ -110,13 +105,14 @@ function CreateProjectModal({closeCreateProjectModal}) {
     return () => {
       dispatch(clearSelectedEquipment());
     };
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
-    
-    console.log(formData);
-      
-  }, [formData]);
+    setFormData(prev => ({
+      ...prev,
+      quantity: formData.workingShifts.length
+    }));
+  }, [formData.workingShifts]);
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
@@ -134,9 +130,7 @@ function CreateProjectModal({closeCreateProjectModal}) {
       'contactId': contactRef,
       'quantity': quantityRef,
       'start': startRef,
-      'end': endRef,
-      'received': receivedRef,
-      'remainder': remainderRef
+      'end': endRef
     };
 
     const ref = refMap[name];
@@ -160,21 +154,35 @@ function CreateProjectModal({closeCreateProjectModal}) {
     if (formData.quantity === 0) invalidFields.push({ ref: quantityRef, name: 'quantity' });
     if (!formData.start) invalidFields.push({ ref: startRef, name: 'start date' });
     if (!formData.end) invalidFields.push({ ref: endRef, name: 'end date' });
-    if (formData.received === 0) invalidFields.push({ ref: receivedRef, name: 'received' });
-    if (formData.remainder === 0) invalidFields.push({ ref: remainderRef, name: 'remainder' });
-    if (selectedEquipment.length === 0) invalidFields.push({ name: 'equipment' });
+    if (selectedEquipment.length === 0) invalidFields.push({ ref: equipmentRef, name: 'equipment' });
+    if (formData.workingShifts.length === 0) invalidFields.push({ ref: shiftsRef, name: 'shifts' });
 
-    [numberRef, nameRef, contactRef, quantityRef, startRef, endRef, receivedRef, remainderRef]
-      .forEach(ref => ref.current?.classList.remove(styles.invalid));
+    // Clear all validation styles
+    [numberRef, nameRef, contactRef, quantityRef, startRef, endRef, shiftsRef, equipmentRef]
+      .forEach(ref => {
+        if (ref?.current) {
+          ref.current.classList.remove(styles.invalid);
+          if (ref === shiftsRef) {
+            ref.current.parentElement?.classList.remove(styles.invalid);
+          }
+        }
+      });
 
     if (invalidFields.length > 0) {
-      invalidFields.forEach(field => field.ref?.current?.classList.add(styles.invalid));
+      invalidFields.forEach(field => {
+        if (field.ref?.current) {
+          field.ref.current.classList.add(styles.invalid);
+          if (field.ref === shiftsRef) {
+            field.ref.current.parentElement?.classList.add(styles.invalid);
+          }
+        }
+      });
 
       const firstInvalid = invalidFields[0];
       if (firstInvalid.name === 'equipment') {
         setShowEquipmentModal(true);
-      } else {
-        firstInvalid.ref.current?.focus();
+      } else if (firstInvalid.ref?.current) {
+        firstInvalid.ref.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
 
       return false;
@@ -183,7 +191,10 @@ function CreateProjectModal({closeCreateProjectModal}) {
     return true;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+
     if (checkFormIsValid()) {
       const projectData = {
         ...formData,
@@ -196,14 +207,19 @@ function CreateProjectModal({closeCreateProjectModal}) {
               typeShift: shift.type
             };
           } catch (error) {
-            console.error('Invalid date in working shifts:', shift.date);
             return null;
           }
         }).filter(Boolean)
       };
 
-      dispatch(createProject(projectData));
-      closeCreateProjectModal();
+      dispatch(createProject(projectData))
+        .unwrap()
+        .then(() => {
+          closeCreateProjectModal();
+        })
+        .catch((error) => {
+          console.error('Failed to create project:', error);
+        });
     }
   };
 
@@ -304,21 +320,9 @@ function CreateProjectModal({closeCreateProjectModal}) {
               </div>
 
               <div className={styles.inputWrapper}>
-                <span className={styles.inputLabel}>Количество *</span>
-                <input
-                  ref={quantityRef}
-                  type="number"
-                  name="quantity"
-                  value={formData.quantity}
-                  onChange={handleInputChange}
-                  required
-                  className={styles.input}
-                />
-              </div>
-
-              <div className={styles.inputWrapper}>
                 <span className={styles.inputLabel}>Оборудование *</span>
                 <button 
+                  ref={equipmentRef}
                   type="button" 
                   className={styles.input}
                   data-equipment-select
@@ -355,58 +359,36 @@ function CreateProjectModal({closeCreateProjectModal}) {
               </div>
 
               <div className={styles.inputWrapper}>
-                <span className={styles.inputLabel}>Получено *</span>
-                <input
-                  ref={receivedRef}
-                  type="number"
-                  name="received"
-                  value={formData.received}
-                  onChange={handleInputChange}
-                  required
-                  className={styles.input}
-                />
-              </div>
-
-              <div className={styles.inputWrapper}>
-                <span className={styles.inputLabel}>Остаток *</span>
-                <input
-                  ref={remainderRef}
-                  type="number"
-                  name="remainder"
-                  value={formData.remainder}
-                  onChange={handleInputChange}
-                  required
-                  className={styles.input}
-                />
-              </div>
-
-              <div className={styles.inputWrapper}>
-                <span className={styles.inputLabel}>Смены</span>
-                    {workingDays.map((day, index) => (
-                      <SwitchShifts 
-                        day={day}
-                        shifts={formData.workingShifts}
-                        setShifts={(shifts) => setFormData(prev => ({...prev, workingShifts: shifts}))}
-                      />
+                <span className={styles.inputLabel}>Смены *</span>
+                <div ref={shiftsRef} className={styles.shiftsContainer}>
+                  {workingDays.map((day, index) => (
+                    <SwitchShifts 
+                      key={index}
+                      day={day}
+                      shifts={formData.workingShifts}
+                      setShifts={(shifts) => setFormData(prev => ({...prev, workingShifts: shifts}))}
+                    />
                   ))}
+                </div>
               </div>
             </div>
 
             <div className={styles.buttonBlock}>
               <button 
-                type='button'
+                type="button"
                 className={styles.button}
-                onClick={handleSubmit}>
+                onClick={handleSubmit}
+              >
                 Создать
               </button>
               <button 
-                type='button'
+                type="button"
                 className={styles.button}
-                onClick={closeCreateProjectModal}>
+                onClick={closeCreateProjectModal}
+              >
                 Отмена
               </button>
             </div>
-
           </div>
         </div>
       </div>

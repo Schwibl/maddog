@@ -4,11 +4,12 @@ import ProjectRow from './ProjectRow';
 
 import styles from './ProjectPage.module.scss';
 
-function ProjectTable({ searchValue }) {
+function ProjectTable({ searchValue, onEditProject }) {
 
   const {projectsList} = useSelector(state => state.projects);
 
   const headers = [
+    'Действия',
     'Проект',
     'Статус',
     'Контакт',
@@ -19,7 +20,6 @@ function ProjectTable({ searchValue }) {
     'Сотрудник',
     'Примечание',
     'Тип',
-    'Открыть смету',
   ];
 
   return (
@@ -36,7 +36,11 @@ function ProjectTable({ searchValue }) {
           project.name?.toLowerCase().includes(searchValue.toLowerCase())
         )
         .map((project, index) => (
-          <ProjectRow key={index} {...project} />
+          <ProjectRow 
+            key={index} 
+            {...project} 
+            onEditProject={onEditProject}
+          />
         ))}
     </div>
   );

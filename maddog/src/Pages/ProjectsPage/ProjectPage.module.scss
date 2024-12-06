@@ -137,6 +137,7 @@
 .gridRowHeader {
   background-color: $grey-medium-light;
   font-weight: bold;
+  font-size: 16px;
 }
 
 .gridRow {
@@ -164,7 +165,7 @@
 
 .gridCell {
   word-break: break-all;
-  font-size: 16px;
+  font-size: 14px;
   &:hover {
     background-color: $grey-medium-light;
     .moreInfoPopUp {
@@ -457,6 +458,71 @@
   border-color: #ff0000;
 }
 
+.projectMenuDropdown {
+  position: relative;
+  
+  &__head {
+    cursor: pointer;
+    padding: 8px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+  
+  &__body {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 150px;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    margin-top: 4px;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  &__menuItem {
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    
+    &:hover {
+      background-color: #f5f5f5;
+    }
+    
+    &:not(:last-child) {
+      border-bottom: 1px solid #f0f0f0;
+    }
+  }
+}
+
+.inputWrapper {
+  margin-bottom: 10px;
+  position: relative;
+
+  &.invalid {
+    .inputLabel {
+      color: #ff0000;
+    }
+    .input {
+      border-color: #ff0000;
+    }
+    .shiftsContainer {
+      border: 1px solid #ff0000;
+      border-radius: 4px;
+      padding: 8px;
+    }
+  }
+}
+
 // Ноутбуки и большие экраны
 @media (max-width: 1440px) {
   .buttonContainer {
@@ -657,7 +723,7 @@
 
   .gridContainer {
     width: 100%;
-    //padding: 40%; /* Убедитесь, что нет отступов, которые могут смещать контейнер вправо */
+    //padding: 40%; /* Убедитесь, что нет отступов, которы�� могут смещать контейнер вправо */
   }
 
   .gridContainer {

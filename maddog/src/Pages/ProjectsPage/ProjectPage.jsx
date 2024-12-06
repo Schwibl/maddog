@@ -18,7 +18,18 @@ function ProjectPage() {
   const [searchValue, setSearchValue] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [projectToEdit, setProjectToEdit] = useState(null);
   const [filterState, setFilterState] = useState({});
+
+  const handleEditProject = (project) => {
+    setProjectToEdit(project);
+    setShowEditModal(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+    setProjectToEdit(null);
+  };
 
   useEffect(() => {
     dispatch(getAllProjects(filterState));
@@ -32,24 +43,26 @@ function ProjectPage() {
       dispatch(getAllContacts());
     }
     dispatch(getLeaseTypes());
-  }, []);
+  }, [dispatch, filterState, projectsTypesList.length, projectsStatusesList.length, contacts.length]);
 
   useEffect(() => {
     dispatch(getAllProjects({...filterState}));
-  }, [filterState]);
+  }, [dispatch, filterState]);
 
   return (
     <div className={styles.container}>
       <section className={styles.projectPage}>
         <ProjectPageActions 
           setShowCreateModal={setShowCreateModal}
-          setShowEditModal={setShowEditModal}
           searchValue={searchValue}
           setSearchValue={setSearchValue}
           filterState={filterState}
           setFilterState={setFilterState}
         />
-        <ProjectTable searchValue={searchValue} />
+        <ProjectTable 
+          searchValue={searchValue} 
+          onEditProject={handleEditProject}
+        />
         <div className={styles.paginator}>
           {listPage.page > 0 && (
             <button 
@@ -75,7 +88,12 @@ function ProjectPage() {
         </div>
       </section>
       {showCreateModal && <CreateProjectModal closeCreateProjectModal={() => setShowCreateModal(false)} />}
-      {showEditModal && <EditProjectModal closeEditProjectModal={() => setShowEditModal(false)} />}
+      {showEditModal && projectToEdit && (
+        <EditProjectModal 
+          project={projectToEdit}
+          closeEditProjectModal={handleCloseEditModal} 
+        />
+      )}
     </div>
   );
 }

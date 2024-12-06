@@ -51,11 +51,10 @@ export const updateProjectById = createAsyncThunk(
   'projects/updateProjectById',
   async ({id, ...updateData}, thunkAPI) => {
     try {
-      const response = await fetchWithAuth(`${BASE_URL}projects/${id}`, {
+      await fetchWithAuth(`${BASE_URL}projects/${id}`, {
         method: 'PUT',
         body: JSON.stringify(updateData),
       });
-      await checkRequest(response);
       const { page, size } = thunkAPI.getState().projects.listPage;
       thunkAPI.dispatch(getAllProjects({ page, size }));
     } catch (error) {
@@ -85,7 +84,7 @@ export const deleteProjectById = createAsyncThunk(
   'projects/deleteProjectById',
   async ({id}, thunkAPI) => {
     try {
-      const response = await fetchWithAuth(`${BASE_URL}projects/${id}`, {
+      await fetchWithAuth(`${BASE_URL}projects/${id}`, {
         method: 'DELETE',
       });
       // await checkRequest(response);
