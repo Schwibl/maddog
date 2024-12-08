@@ -73,6 +73,7 @@ function CreateProjectModal({closeCreateProjectModal}) {
 
   const [workingDays, setWorkingDays] = useState(generateDateRange(formData.start, formData.end));
   const [showEquipmentModal, setShowEquipmentModal] = useState(false);
+  const [shouldShakeQuantity, setShouldShakeQuantity] = useState(false);
 
   const numberRef = useRef(null);
   const nameRef = useRef(null);
@@ -82,6 +83,7 @@ function CreateProjectModal({closeCreateProjectModal}) {
   const endRef = useRef(null);
   const shiftsRef = useRef(null);
   const equipmentRef = useRef(null);
+  const quantityInputRef = useRef(null);
 
   useEffect(() => {
     setWorkingDays(generateDateRange(formData.start, formData.end));
@@ -108,10 +110,14 @@ function CreateProjectModal({closeCreateProjectModal}) {
   }, [dispatch]);
 
   useEffect(() => {
-    setFormData(prev => ({
-      ...prev,
-      quantity: formData.workingShifts.length
-    }));
+    if (formData.workingShifts.length !== formData.quantity) {
+      setFormData(prev => ({
+        ...prev,
+        quantity: formData.workingShifts.length
+      }));
+      setShouldShakeQuantity(true);
+      setTimeout(() => setShouldShakeQuantity(false), 400); // Duration of shake animation
+    }
   }, [formData.workingShifts]);
 
   const handleInputChange = (e) => {
@@ -355,6 +361,19 @@ function CreateProjectModal({closeCreateProjectModal}) {
                   onChange={handleInputChange}
                   required
                   className={styles.input}
+                />
+              </div>
+
+              <div className={styles.inputWrapper}>
+                <span className={styles.inputLabel}>Количество *</span>
+                <input
+                  ref={quantityInputRef}
+                  type="number"
+                  name="quantity"
+                  value={formData.quantity}
+                  onChange={handleInputChange}
+                  required
+                  className={`${styles.input} ${shouldShakeQuantity ? styles.shake : ''}`}
                 />
               </div>
 

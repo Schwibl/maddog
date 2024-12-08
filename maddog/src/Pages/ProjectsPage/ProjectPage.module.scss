@@ -305,9 +305,17 @@
 }
 
 .inputBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 1vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+
+  // Full width items
+  .inputWrapper:nth-last-child(1) {
+    grid-column: 1 / -1;
+  }
 }
 
 .input {
@@ -521,6 +529,24 @@
       padding: 8px;
     }
   }
+
+  .input.shake {
+    animation: shake 0.4s ease-in-out;
+  }
+}
+
+.shiftsContainer {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
 }
 
 // Ноутбуки и большие экраны
@@ -723,7 +749,7 @@
 
   .gridContainer {
     width: 100%;
-    //padding: 40%; /* Убедитесь, что нет отступов, которы�� могут смещать контейнер вправо */
+    //padding: 40%; /* Убедитесь, что нет отступов, которы могут смещать контейнер вправо */
   }
 
   .gridContainer {
