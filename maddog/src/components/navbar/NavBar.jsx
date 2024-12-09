@@ -21,30 +21,30 @@ export default function NavBar(props) {
             <img src='/images/project.svg' alt='Проекты' />
           </NavItem>
           <NavItem text={'Календарь'}>
-            <img src='/images/calendar.svg' alt='Проекты' />
+            <img src='/images/calendar.svg' alt='Календарь' />
           </NavItem>
           <NavItem text={'Оборудование'} href={'/equipment'}>
-            <img src='/images/equipment.svg' alt='Проекты' />
+            <img src='/images/equipment.svg' alt='Оборудование' />
           </NavItem>
           <NavItem text={'Контакты'} href={'/contacts'}>
-            <img src='/images/contacts.svg' alt='Проекты' />
+            <img src='/images/contacts.svg' alt='Контакты' />
           </NavItem>
           <NavItem text={'Ремонт'} href={'/repair'}>
-            <img src='/images/repair.svg' alt='Проекты' />
+            <img src='/images/repair.svg' alt='Ремонт' />
           </NavItem>
           <NavItem text={'Расходы'}>
-            <img src='/images/cost.svg' alt='Проекты' />
+            <img src='/images/cost.svg' alt='Расходы' />
           </NavItem>
           <NavItem text={'Продажа'}>
-            <img src='/images/sell.svg' alt='Проекты' />
+            <img src='/images/sell.svg' alt='Продажа' />
           </NavItem>
           <NavItem text={'Панель администратора'} href={'/admin'}>
-            <img src='/images/admin.svg' alt='Проекты' />
+            <img src='/images/admin.svg' alt='Админка' />
           </NavItem>
         </div>
         <Link to='/' className={styles.admExit}>
           <div className={styles.imgWrap}>
-            <img src='/images/logout.svg' alt='Проекты' />
+            <img src='/images/logout.svg' alt='Выход' />
           </div>
         </Link>
       </div>

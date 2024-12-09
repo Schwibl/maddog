@@ -1,97 +1,103 @@
-import { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getManyUsers, getUsersRoles, getUsersColors } from '../../actions/adminApi';
+import { setListPage } from '../../redux/features/adminSlice';
+import '../../styles/admin/admin.scss';
+import AdminTable from '../../components/AdminPage/AdminTable';
+import AdminPopUp from '../../components/AdminPage/AdminPopUp';
 
-import AdminEditor from '../../components/admin/AdminEditor';
-import AdminTable from '../../components/admin/AdminTable';
-import AdminsContext from '../../context/AdminsContext';
-import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
+function AdminPage() {
+  const dispatch = useDispatch();
+  const adminState = useSelector(state => state.admin) || {};
+  const { listPage = { page: 0, size: 20, totalPages: 0 } } = adminState;
+  
+  const [searchValue, setSearchValue] = useState('');
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [userToEdit, setUserToEdit] = useState(null);
 
+  const handleEditUser = (user) => {
+    setUserToEdit(user);
+    setShowEditModal(true);
+  };
 
-import styles from './AdminPage.module.scss';
-
-const initialAdmins = [
-  {
-    id: 0,
-    login: 'skelorc',
-    name: 'Petrov Ivan',
-    role: 'ADMIN',
-    contact: '89889889888',
-  },
-  {
-    id: 1,
-    login: 'philipp',
-    name: 'philipp boss',
-    role: 'ADMIN',
-    contact: '89889889888',
-  },
-  {
-    id: 2,
-    login: 'adm',
-    name: 'best admin',
-    role: 'ADMIN',
-    contact: '89889889888',
-  },
-];
-
-export default function AdminPage() {
-  const [isNewAdmin, setIsNewAdmin] = useState(false);
-  const [adminsList, setAdminsList] = useState(initialAdmins);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const { user, role } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+    setUserToEdit(null);
+  };
 
   useEffect(() => {
-    if (!user) {
-      navigate('/');
-    }
-  }, [user, role, navigate]);
-
-  // Обработчик для обновления администратора
-  const updateAdmin = (id, updatedAdmin) => {
-    setAdminsList(prevList =>
-      prevList.map(admin => admin.id === id ? { ...admin, ...updatedAdmin } : admin)
-    );
-  };
-
-  // Обработчик для удаления администратора
-  const deleteAdmin = (id) => {
-    setAdminsList(prevList => prevList.filter(admin => admin.id !== id));
-  };
-
-  // Обработчик для добавления нового администратора
-  const addNewAdmin = (newAdmin) => {
-    const newAdminWithId = { ...newAdmin, id: adminsList.length }; // Генерация ID
-    setAdminsList(prevList => [...prevList, newAdminWithId]);
-    setIsNewAdmin(false); // Закрываем редактор
-  };
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+    dispatch(getManyUsers());
+    dispatch(getUsersRoles());
+    dispatch(getUsersColors());
+  }, [dispatch, listPage.page, listPage.size]);
 
   return (
-    <AdminsContext.Provider value={{ admins: adminsList, updateAdmin, deleteAdmin }}>
-      <section className={styles.adminPage}>
-        <h1 className={styles.title}>Администраторы</h1>
-        <div className={styles.currentAdmins}>
-          <div className={styles.adminsHeader}>
-            <p>Логин</p>
-            <p>ФИО</p>
-            <p>Роль</p>
-            <div></div>
-            <div></div>
-          </div>
-          <AdminTable />
-          {isNewAdmin && (
-            <AdminEditor onSave={addNewAdmin} handleClick={setIsNewAdmin} />
-          )}
-          <div className={styles.btnWrap}>
-            <button className={styles.btnNew} onClick={() => setIsNewAdmin(true)}>
-              Новый админ
+    <div className="admin-page">
+      <section className="admin-page__content">
+        <div className="admin-page__header">
+          <h1>Управление пользователями</h1>
+          <div className="admin-page__actions">
+            <input
+              type="text"
+              placeholder="Поиск пользователей..."
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              className="admin-page__search"
+            />
+            <button
+              className="admin-page__create-btn"
+              onClick={() => setShowCreateModal(true)}
+            >
+              Создать пользователя
             </button>
           </div>
         </div>
+
+        <AdminTable 
+          searchValue={searchValue}
+          onEditUser={handleEditUser}
+        />
+
+        <div className="admin-page__pagination">
+          {listPage.page > 0 && (
+            <button 
+              onClick={() => {
+                dispatch(setListPage({ ...listPage, page: listPage.page - 1 }));
+              }}
+            >
+              Предыдущая
+            </button>
+          )}
+          <span>Страница {listPage.page + 1} из {listPage.totalPages}</span>
+          {listPage.page < listPage.totalPages - 1 && (
+            <button 
+              onClick={() => {
+                dispatch(setListPage({ ...listPage, page: listPage.page + 1 }));
+              }}
+            >
+              Следующая
+            </button>
+          )}
+        </div>
       </section>
-    </AdminsContext.Provider>
+
+      {showCreateModal && (
+        <AdminPopUp 
+          mode="create"
+          onClose={() => setShowCreateModal(false)}
+        />
+      )}
+
+      {showEditModal && userToEdit && (
+        <AdminPopUp 
+          mode="edit"
+          user={userToEdit}
+          onClose={handleCloseEditModal}
+        />
+      )}
+    </div>
   );
 }
+
+export default AdminPage;

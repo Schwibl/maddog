@@ -1,0 +1,248 @@
+// Admin Page
+.admin-page {
+  padding: 20px;
+  font-size: 14px;
+
+  &__content {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__search {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 300px;
+  }
+
+  &__create-btn {
+    padding: 8px 16px;
+    background: #1890ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background: #40a9ff;
+    }
+  }
+
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+
+    button {
+      padding: 8px 16px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background: #f5f5f5;
+      }
+    }
+  }
+}
+
+// Admin Table
+.admin-table {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+
+  &__header {
+    display: grid;
+    grid-template-columns: 200px repeat(5, 1fr);
+    background: #fafafa;
+    border-bottom: 1px solid #ddd;
+  }
+
+  &__header-cell {
+    padding: 12px 16px;
+    font-weight: 600;
+    border-right: 1px solid #ddd;
+    &:last-child {
+      border-right: none;
+    }
+  }
+}
+
+// Admin Row
+.admin-row {
+  display: grid;
+  grid-template-columns: 200px repeat(5, 1fr);
+  border-bottom: 1px solid #ddd;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &__cell {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #ddd;
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__edit-btn,
+  &__delete-btn {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  &__edit-btn {
+    background: #1890ff;
+    color: white;
+
+    &:hover {
+      background: #40a9ff;
+    }
+  }
+
+  &__delete-btn {
+    background: #ff4d4f;
+    color: white;
+
+    &:hover {
+      background: #ff7875;
+    }
+  }
+
+  &__status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+
+    &.active {
+      background: #f6ffed;
+      color: #52c41a;
+      border: 1px solid #b7eb8f;
+    }
+
+    &.inactive {
+      background: #fff1f0;
+      color: #ff4d4f;
+      border: 1px solid #ffa39e;
+    }
+  }
+}
+
+// Admin Modal
+.admin-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  &__content {
+    background: white;
+    padding: 24px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  &__title {
+    margin: 0 0 24px;
+    font-size: 20px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+      font-weight: 500;
+    }
+
+    input[type='text'],
+    select {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    input[type='checkbox'] {
+      margin-right: 8px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  &__submit,
+  &__cancel {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  &__submit {
+    background: #1890ff;
+    color: white;
+
+    &:hover {
+      background: #40a9ff;
+    }
+  }
+
+  &__cancel {
+    background: white;
+    border: 1px solid #ddd;
+
+    &:hover {
+      background: #f5f5f5;
+    }
+  }
+}
