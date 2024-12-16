@@ -69,20 +69,21 @@
 // Admin Table
 .admin-table {
   width: 100%;
-  border: 1px solid #ddd;
+  border: 1px solid #d9d9d9;
   border-radius: 4px;
-  overflow: hidden;
+  overflow: visible;
 
   &__header {
     display: grid;
-    grid-template-columns: 200px repeat(5, 1fr);
-    background: #fafafa;
-    border-bottom: 1px solid #ddd;
+    grid-template-columns: 100px 1fr 1fr 1fr 1fr 1fr 100px;
+    background-color: #fafafa;
+    border-bottom: 1px solid #d9d9d9;
   }
 
   &__header-cell {
-    padding: 12px 16px;
-    font-weight: 600;
+    padding: 16px;
+    font-weight: 500;
+    text-align: left;
     border-right: 1px solid #ddd;
     &:last-child {
       border-right: none;
@@ -93,15 +94,16 @@
 // Admin Row
 .admin-row {
   display: grid;
-  grid-template-columns: 200px repeat(5, 1fr);
-  border-bottom: 1px solid #ddd;
+  grid-template-columns: 100px 1fr 1fr 1fr 1fr 1fr 100px;
+  border-bottom: 1px solid #d9d9d9;
 
   &:last-child {
     border-bottom: none;
   }
 
   &__cell {
-    padding: 12px 16px;
+    padding: 16px;
+    position: relative;
     display: flex;
     align-items: center;
     border-right: 1px solid #ddd;
@@ -158,10 +160,17 @@
       border: 1px solid #ffa39e;
     }
   }
+
+  &__color-indicator {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+  }
 }
 
 // Admin Modal
-.admin-modal {
+.admin-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -169,10 +178,24 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.admin-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #2a2a2a;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-
+  color: #fff;
+  padding: 20px;
   &__content {
     background: white;
     padding: 24px;
@@ -192,7 +215,7 @@
     gap: 16px;
   }
 
-  &__field {
+  &__form-field {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -206,6 +229,7 @@
       padding: 8px 12px;
       border: 1px solid #ddd;
       border-radius: 4px;
+      color: #000;
     }
 
     input[type='checkbox'] {
@@ -220,15 +244,15 @@
     margin-top: 24px;
   }
 
-  &__submit,
-  &__cancel {
+  &__submit-button,
+  &__cancel-button {
     padding: 8px 16px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
   }
 
-  &__submit {
+  &__submit-button {
     background: #1890ff;
     color: white;
 
@@ -237,12 +261,68 @@
     }
   }
 
-  &__cancel {
+  &__cancel-button {
     background: white;
     border: 1px solid #ddd;
 
     &:hover {
       background: #f5f5f5;
+    }
+  }
+  &__form-field-select,
+  &__submit-button,
+  &__cancel-button {
+    font-size: 14px;
+    color: #000;
+  }
+
+  &__form-field-select {
+    width: 100%;
+  }
+}
+
+.admin-menu-dropdown {
+  position: relative;
+
+  &__head {
+    cursor: pointer;
+    padding: 8px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+
+  &__body {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 150px;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    margin-top: 4px;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  &__menu-item {
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #f0f0f0;
     }
   }
 }

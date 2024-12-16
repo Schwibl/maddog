@@ -81,12 +81,10 @@ const EditContactModal = () => {
 
   useEffect(() => {
     if (user) {
-      console.log('user', user);
       setName(user.name);
       setPhoneNumber(user.phoneNumber);
       setCompany(user.company);
       const role = possibleRoles.find((role) => role.role === user.roleContact);
-      console.log('role', role);
       setRole(role.id);
       setComment(user.comment.text);
       setPhotos(user.photos);

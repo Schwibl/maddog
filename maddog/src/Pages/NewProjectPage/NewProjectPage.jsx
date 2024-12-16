@@ -36,7 +36,6 @@ const NewProjectPage = () => {
     }
   }, [user]);
 
-  console.log(mock.sections);
 
   useEffect(() => {
     authorization();

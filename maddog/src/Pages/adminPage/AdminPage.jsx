@@ -38,13 +38,13 @@ function AdminPage() {
         <div className="admin-page__header">
           <h1>Управление пользователями</h1>
           <div className="admin-page__actions">
-            <input
+            {/* <input
               type="text"
               placeholder="Поиск пользователей..."
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               className="admin-page__search"
-            />
+            /> */}
             <button
               className="admin-page__create-btn"
               onClick={() => setShowCreateModal(true)}

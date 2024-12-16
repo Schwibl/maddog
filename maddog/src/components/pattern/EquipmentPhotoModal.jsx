@@ -9,7 +9,6 @@ function EquipmentPhotoModal({ photoUrl }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('photoUrl', photoUrl);
   }, []);
   return (
     <div className={styles.equipmentModalOverlay} >

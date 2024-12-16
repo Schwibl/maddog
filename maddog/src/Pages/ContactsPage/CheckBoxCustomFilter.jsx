@@ -7,11 +7,9 @@ import React, { useState, useEffect } from 'react';
  * @returns {JSX.Element}
  */
 const CheckboxFilter = (props) => {
-  console.log(props);
   const [checkedItems, setCheckedItems] = useState({});
 
   const onCheckboxChange = (event) => {
-    console.log(event);
     const newCheckedItems = {
       ...checkedItems,
       [event.target.value]: event.target.checked,
@@ -34,7 +32,6 @@ const CheckboxFilter = (props) => {
   }, [props.typesValues]);
 
   const doesFilterPass = (params) => {
-    console.log(params);
     return true;
   };
 

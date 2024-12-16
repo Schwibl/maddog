@@ -10,7 +10,6 @@ const DeleteContactModal = () => {
   const dispatch = useDispatch();
   const contact = useSelector((state) => state.contacts.selectedContact);
 
-  console.log('contact', contact);
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>

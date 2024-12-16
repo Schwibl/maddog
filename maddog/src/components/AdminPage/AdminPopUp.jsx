@@ -5,14 +5,15 @@ import '../../styles/admin/admin.scss';
 
 function AdminPopUp({ mode = 'create', user = null, onClose }) {
   const dispatch = useDispatch();
-  const { roles } = useSelector(state => state.admin);
+  const { roles, colors } = useSelector(state => state.admin);
 
   const [formData, setFormData] = useState({
     username: '',
     fullName: '',
     phoneNumber: '',
-    roles: 'USER',
-    active: true
+    password: '',
+    roles: roles[0],
+    userColor: colors[0] || '#000000', // Default to first color or black
   });
 
   useEffect(() => {
@@ -21,11 +22,12 @@ function AdminPopUp({ mode = 'create', user = null, onClose }) {
         username: user.username,
         fullName: user.fullName,
         phoneNumber: user.phoneNumber,
+        password: user.password,
         roles: user.roles,
-        active: user.active
+        userColor: user.userColor || colors[0] || '#000000',
       });
     }
-  }, [mode, user]);
+  }, [mode, user, colors]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -41,10 +43,9 @@ function AdminPopUp({ mode = 'create', user = null, onClose }) {
       if (mode === 'create') {
         await dispatch(createUser(formData));
       } else {
-        await dispatch(updateUser(user.id, formData));
+        await dispatch(updateUser({id: user.id, userData:{...formData}}));
       }
       onClose();
-      window.location.reload();
     } catch (error) {
       console.error('Error saving user:', error);
     }
@@ -63,6 +64,16 @@ function AdminPopUp({ mode = 'create', user = null, onClose }) {
               type="text"
               name="username"
               value={formData.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="admin-modal__form-field">
+            <label>Пароль:</label>
+            <input
+              type="text"
+              name="password"
+              value={formData.password}
               onChange={handleChange}
               required
             />
@@ -94,6 +105,7 @@ function AdminPopUp({ mode = 'create', user = null, onClose }) {
               value={formData.roles}
               onChange={handleChange}
               required
+              className="admin-modal__form-field-select"
             >
               {roles.map((role, index) => (
                 <option key={index} value={role}>
@@ -103,15 +115,20 @@ function AdminPopUp({ mode = 'create', user = null, onClose }) {
             </select>
           </div>
           <div className="admin-modal__form-field">
-            <label>
-              <input
-                type="checkbox"
-                name="active"
-                checked={formData.active}
-                onChange={handleChange}
-              />
-              Активен
-            </label>
+            <label>Цвет пользователя:</label>
+            <select
+              name="userColor"
+              value={formData.userColor}
+              onChange={handleChange}
+              required
+              className="admin-modal__form-field-select"
+            >
+              {colors.map((color, index) => (
+                <option key={index} value={color} style={{ backgroundColor: color }}>
+                  {color}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="admin-modal__actions">
             <button type="submit" className="admin-modal__submit-button">

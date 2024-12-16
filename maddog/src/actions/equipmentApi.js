@@ -153,7 +153,6 @@ export const getAllEquipmentTypes = createAsyncThunk(
         method: 'GET',
       });
       const data = await checkRequest(response);
-      console.log(data);
       thunkAPI.dispatch(setEquipmentTypes(data));
       return data;
     } catch (error) {

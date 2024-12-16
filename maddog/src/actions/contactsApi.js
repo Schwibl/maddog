@@ -17,8 +17,6 @@ export const getAdmins = async () => {
       },
     });
 
-    console.log('Response status:', response.status); // статус ответа
-    console.log('Response headers:', [...response.headers.entries()]); // заголовки ответа
 
     if (!response.ok) {
       const errorData = await response.text(); // меняем на text() для вывода тела ошибки
@@ -98,8 +96,6 @@ export const getContactById = createAsyncThunk(
       method: 'GET',
     });
     const data = await checkRequest(response);
-    console.log('data from getContactById', data);
-    console.log('setUser', data);
     setUser(data);
     return data;
   } catch (error) {

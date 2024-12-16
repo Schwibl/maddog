@@ -38,7 +38,7 @@ export default function EstimatePage() {
 
   // Обработчик сохранения сметы.
   const handleSaveEstimate = () => {
-    console.log('Сохранение сметы');
+    // console.log('Сохранение сметы');
   };
 
   // Функция для предпросмотра и сохранения сметы в формате пдф

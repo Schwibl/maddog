@@ -8,11 +8,14 @@ function AdminTable({ searchValue, onEditUser }) {
   const headers = [
     'Действия',
     'Логин',
+    'Пароль',
     'ФИО',
     'Телефон',
     'Роль',
-    'Статус'
+    'Цвет',
   ];
+
+
 
   return (
     <div className="admin-table">

@@ -15,9 +15,9 @@ function SectionPattern({
   const { id, name, barcode, model, amount, state, photos, tools = [], sections, setSections, description } = section;
 
 
-  useEffect(() => {
-    console.log('section', section);
-  }, [section]);
+  // useEffect(() => {
+  //   console.log('section', section);
+  // }, [section]);
 
   // Если нет инструментов и фотографий, не отображаем секцию
   if (!tools.length && !photos.length) {
