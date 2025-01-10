@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
 import { ContactsReducer } from './features/contactsSlice';
-import estimateReducer from './features/estimateSlice';
+import { estimateReducer } from './features/estimateSlice';
 import { ModalReducer } from './features/modalsSlice';
 import sessionReducer from './features/sessionSlice';
 import companiesReducer from './features/companiesSlice';

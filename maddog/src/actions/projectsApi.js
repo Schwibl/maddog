@@ -65,13 +65,14 @@ export const updateProjectById = createAsyncThunk(
 
 export const createProject = createAsyncThunk(
   'projects/createProject',
-  async (projectData, thunkAPI) => {
+  async ({projectData, setCreatedProject}, thunkAPI) => {
     try {
       const response = await fetchWithAuth(`${BASE_URL}projects`, {
         method: 'POST',
         body: JSON.stringify(projectData),
       });
-      await checkRequest(response);
+      const data = await checkRequest(response);
+      setCreatedProject(data);
       const { page, size } = thunkAPI.getState().projects.listPage;
       thunkAPI.dispatch(getAllProjects({ page, size }));
     } catch (error) {

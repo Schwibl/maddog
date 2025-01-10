@@ -24,6 +24,9 @@ const ProjectsSlice = createSlice({
     setSelectedProject: (state, action) => {
       state.selectedProject = action.payload;
     },
+    getProjectById: (state, action) => {
+      state.selectedProject = action.payload;
+    },
     setProjectsTypesList: (state, action) => {
       state.projectsTypesList = action.payload;
     },

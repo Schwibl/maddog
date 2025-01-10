@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './ProjectPage.module.scss';
 import SwitchShifts from '../../components/SwitchShifts/SwitchShifts';
 import { updateProjectById } from '../../actions/projectsApi';
-import SelectEquipmentToCreateProjectModal from './SelectEquipmentToCreateProjectModal';
+import SelectEquipmentModal from './SelectEquipmentModal';
 import { clearSelectedEquipment } from '../../redux/features/projectsSlice';
 
 const generateDateRange = (start, end) => {
@@ -303,7 +303,7 @@ function EditProjectModal({ project, closeEditProjectModal }) {
                   data-equipment-select
                   onClick={() => setShowEquipmentModal(true)}
                 >
-                  Выбрать оборудование ({formData.tools.length})
+                  В��брать оборудование ({formData.tools.length})
                 </button>
               </div>
 
@@ -361,14 +361,16 @@ function EditProjectModal({ project, closeEditProjectModal }) {
 
               <div className={styles.inputWrapper}>
                 <span className={styles.inputLabel}>Смены</span>
-                {workingDays.map((day, index) => (
-                  <SwitchShifts 
-                    key={index}
-                    day={day}
-                    shifts={formData.workingShifts}
-                    setShifts={(shifts) => setFormData(prev => ({...prev, workingShifts: shifts}))}
-                  />
-                ))}
+                <div className={styles.shiftsWrap}>
+                  {workingDays.map((day, index) => (
+                    <SwitchShifts 
+                      key={index}
+                      day={day}
+                      shifts={formData.workingShifts}
+                      setShifts={(shifts) => setFormData(prev => ({...prev, workingShifts: shifts}))}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -393,7 +395,7 @@ function EditProjectModal({ project, closeEditProjectModal }) {
       </div>
 
       {showEquipmentModal && (
-        <SelectEquipmentToCreateProjectModal
+        <SelectEquipmentModal
           isOpen={showEquipmentModal}
           onClose={() => setShowEquipmentModal(false)}
         />

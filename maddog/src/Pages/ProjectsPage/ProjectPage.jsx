@@ -8,6 +8,7 @@ import ProjectTable from './ProjectTable';
 import ProjectPageActions from './ProjectPageActions';
 import styles from './ProjectPage.module.scss';
 import { getAllContacts } from '../../actions/contactsApi';
+import { getPattern } from '../../actions/patternApi';
 
 function ProjectPage() {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ function ProjectPage() {
 
   useEffect(() => {
     dispatch(getAllProjects(filterState));
+    dispatch(getPattern());
     if (projectsTypesList.length === 0) {
       dispatch(getProjectsTypes());
     }

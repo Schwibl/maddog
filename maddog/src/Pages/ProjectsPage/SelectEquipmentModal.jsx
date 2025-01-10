@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal, Table, Pagination } from 'antd';
+import { Modal, Table, Pagination, Button } from 'antd';
 import { getAllEquipment } from '../../actions/equipmentApi';
 import { setListPage } from '../../redux/features/equipmentSlice';
 import { addSelectedEquipment, removeSelectedEquipment } from '../../redux/features/projectsSlice';
-import './SelectEquipmentToCreateProjectModal.scss';
+import { updateProjectById } from '../../actions/projectsApi';
+import './SelectEquipmentModal.scss';
 
-const SelectEquipmentToCreateProjectModal = ({ isOpen, onClose }) => {
+function SelectEquipmentModal({ isOpen, onClose, projectId }) {
   const dispatch = useDispatch();
   const equipmentList = useSelector((state) => state.equipment.equipmentList);
   const { page, size, totalPages } = useSelector((state) => state.equipment.listPage);
@@ -20,6 +21,22 @@ const SelectEquipmentToCreateProjectModal = ({ isOpen, onClose }) => {
 
   const handlePageChange = (newPage) => {
     dispatch(setListPage({ page: newPage - 1, size }));
+  };
+
+  const handleAttachEquipment = () => {
+    if (projectId) {
+      dispatch(updateProjectById({ 
+        id: projectId, 
+        tools: selectedEquipment.map(eq => eq.id)
+      }))
+        .unwrap()
+        .then(() => {
+          onClose();
+        })
+        .catch((error) => {
+          console.error('Failed to attach equipment:', error);
+        });
+    }
   };
 
   const columns = [
@@ -67,14 +84,26 @@ const SelectEquipmentToCreateProjectModal = ({ isOpen, onClose }) => {
         </div>
       )}
       footer={[
-        <div key="pagination" className="equipment-modal__pagination">
-          <Pagination
-            current={page + 1}
-            total={totalPages * size}
-            pageSize={size}
-            onChange={handlePageChange}
-            showSizeChanger={false}
-          />
+        <div key="footer" className="equipment-modal__footer">
+          <div className="equipment-modal__pagination">
+            <Pagination
+              current={page + 1}
+              total={totalPages * size}
+              pageSize={size}
+              onChange={handlePageChange}
+              showSizeChanger={false}
+            />
+          </div>
+          {projectId && (
+            <Button 
+              key="attach"
+              type="primary"
+              onClick={handleAttachEquipment}
+              className="equipment-modal__attach-btn"
+            >
+              Прикрепить
+            </Button>
+          )}
         </div>
       ]}
     >
@@ -92,6 +121,6 @@ const SelectEquipmentToCreateProjectModal = ({ isOpen, onClose }) => {
       </div>
     </Modal>
   );
-};
+}
 
-export default SelectEquipmentToCreateProjectModal; 
+export default SelectEquipmentModal; 
