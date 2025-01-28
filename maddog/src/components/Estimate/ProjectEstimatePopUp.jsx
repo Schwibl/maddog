@@ -1,12 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEstimateById } from '../../actions/estimateApi';
+import EstimateSummary from './EstimateSummary';
 import './estimate.scss';
 
 
 const ProjectEstimatePopUp = ({ project, pattern, onClose }) => {
   const dispatch = useDispatch();
   const [toolValues, setToolValues] = useState({});
+  const [estimateData, setEstimateData] = useState({
+    period: {
+      start: project.start,
+      end: project.end
+    },
+    manager: {
+      name: project.employee.fullName,
+      phone: project.employee.phoneNumber
+    },
+    shiftsCount: project.workingShifts.length,
+    project: project.name,
+    operator: project.employee.fullName,
+    customer: project.client.name,
+    sections: pattern.sections
+  });
   
   const updateToolValue = (toolId, field, value) => {
     setToolValues(prev => ({
@@ -1374,27 +1390,6 @@ const ProjectEstimatePopUp = ({ project, pattern, onClose }) => {
       //   ]
     // }
   console.log("pattern in estimate pop up", pattern);
-  const estimateData = {
-    period: {
-      start: project.start,
-      end: project.end
-    },
-    manager: {
-      name: project.employee.fullName,
-      phone: project.employee.phoneNumber
-    },
-    shiftsCount: project.workingShifts.length,
-    project: project.name,
-    operator: project.employee.fullName,
-    customer: project.client.name,
-    sections: pattern.sections
-  }
-
-  // useEffect(() => {
-  //   if (projectId) {
-  //     dispatch(getEstimateById({ id: projectId }));
-  //   }
-  // }, [dispatch, projectId]);
 
   useEffect(() => {
     if (pattern && estimateData) {
@@ -1404,7 +1399,7 @@ const ProjectEstimatePopUp = ({ project, pattern, onClose }) => {
   }, [pattern, estimateData]);
 
   const handleSave = () => {
-    console.log('Saving estimate for project:', projectId);
+    console.log('Saving estimate for project:', project.id);
     // TODO: Implement save functionality
     onClose();
   };
@@ -1483,121 +1478,111 @@ const ProjectEstimatePopUp = ({ project, pattern, onClose }) => {
                   const total = tool.amount * tool.quantity * days;
                   const totalWithDiscount = Number((total * (1 - discount / 100)).toFixed(2));
                   
-                  return <tr key={`accessory-${tool.id}`}>
-                    <td>{tool.name}</td>
-                    <td>{tool.amount}</td>
-                    <td>{tool.quantity}</td>
-                    <td>
-                      <input 
-                        type="number" 
-                        min="0"
-                        className="estimate-popup__input"
-                        value={days}
-                        onChange={(e) => updateToolValue(tool.id, 'days', Number(e.target.value))}
-                      />
-                    </td>
-                    <td>
-                      <input 
-                        type="number" 
-                        min="0"
-                        max="100"
-                        className="estimate-popup__input"
-                        value={discount}
-                        onChange={(e) => updateToolValue(tool.id, 'discount', Number(e.target.value))}
-                      />
-                    </td>
-                    <td>{total}</td>
-                    <td>{totalWithDiscount}</td>
-                  </tr>  
+                  return <>
+                    <tr key={`tool-${tool.id}`}>
+                      <td className={tool.services?.length ? "estimate-popup__tool-with-services" : ""}>{tool.name}</td>
+                      <td>{tool.amount}</td>
+                      <td>
+                        <input 
+                          type="number" 
+                          min="1"
+                          className="estimate-popup__input"
+                          value={tool.quantity}
+                          onChange={(e) => {
+                            const newTool = {...tool, quantity: Number(e.target.value)};
+                            const newSection = {...section};
+                            const toolIndex = newSection.tools.findIndex(t => t.id === tool.id);
+                            newSection.tools[toolIndex] = newTool;
+                            const newSections = [...estimateData.sections];
+                            const sectionIndex = newSections.findIndex(s => s.name === section.name);
+                            newSections[sectionIndex] = newSection;
+                            setEstimateData({...estimateData, sections: newSections});
+                          }}
+                        />
+                      </td>
+                      <td>
+                        <input 
+                          type="number" 
+                          min="0"
+                          className="estimate-popup__input"
+                          value={days}
+                          onChange={(e) => updateToolValue(tool.id, 'days', Number(e.target.value))}
+                        />
+                      </td>
+                      <td>
+                        <input 
+                          type="number" 
+                          min="0"
+                          max="100"
+                          className="estimate-popup__input"
+                          value={discount}
+                          onChange={(e) => updateToolValue(tool.id, 'discount', Number(e.target.value))}
+                        />
+                      </td>
+                      <td>{total}</td>
+                      <td>{totalWithDiscount}</td>
+                    </tr>
+                    {tool.services?.length > 0 && tool.services.map((service) => {
+                      const serviceDays = getToolValue(`${tool.id}-${service.id}`, 'days', 1);
+                      const serviceDiscount = getToolValue(`${tool.id}-${service.id}`, 'discount', 0);
+                      const serviceTotal = service.amount * service.quantity * serviceDays;
+                      const serviceTotalWithDiscount = Number((serviceTotal * (1 - serviceDiscount / 100)).toFixed(2));
+                      
+                      return <tr key={`service-${tool.id}-${service.id}`}>
+                        <td style={{ paddingLeft: '20px' }}>{service.name}</td>
+                        <td>{service.amount}</td>
+                        <td>
+                          <input 
+                            type="number" 
+                            min="1"
+                            className="estimate-popup__input"
+                            value={service.quantity}
+                            onChange={(e) => {
+                              const newService = {...service, quantity: Number(e.target.value)};
+                              const newTool = {...tool};
+                              const serviceIndex = newTool.services.findIndex(s => s.id === service.id);
+                              newTool.services[serviceIndex] = newService;
+                              const newSection = {...section};
+                              const toolIndex = newSection.tools.findIndex(t => t.id === tool.id);
+                              newSection.tools[toolIndex] = newTool;
+                              const newSections = [...estimateData.sections];
+                              const sectionIndex = newSections.findIndex(s => s.name === section.name);
+                              newSections[sectionIndex] = newSection;
+                              setEstimateData({...estimateData, sections: newSections});
+                            }}
+                          />
+                        </td>
+                        <td>
+                          <input 
+                            type="number" 
+                            min="0"
+                            className="estimate-popup__input"
+                            value={serviceDays}
+                            onChange={(e) => updateToolValue(`${tool.id}-${service.id}`, 'days', Number(e.target.value))}
+                          />
+                        </td>
+                        <td>
+                          <input 
+                            type="number" 
+                            min="0"
+                            max="100"
+                            className="estimate-popup__input"
+                            value={serviceDiscount}
+                            onChange={(e) => updateToolValue(`${tool.id}-${service.id}`, 'discount', Number(e.target.value))}
+                          />
+                        </td>
+                        <td>{serviceTotal}</td>
+                        <td>{serviceTotalWithDiscount}</td>
+                      </tr>
+                    })}
+                  </>
                 })}
               </> 
-            })
-
-            }
-            
+            })}
           </tbody>
         </table>
 
-        <div className="estimate-popup__summary">
-          <div className="estimate-popup__summary-row">
-            <span>Итоговая стоимость оборудования</span>
-            <div className="estimate-popup__summary-values">
-              <div className="estimate-popup__summary-value-row">
-                <span className="estimate-popup__summary-label">В смену:</span>
-                <span className="estimate-popup__summary-number"></span>
-              </div>
-              <div className="estimate-popup__summary-value-row">
-                <span className="estimate-popup__summary-label">Скидка %:</span>
-                <input 
-                  type="number" 
-                  className="estimate-popup__summary-discount" 
-                  min="0" 
-                  max="100" 
-                  defaultValue="0"
-                />
-              </div>
-              <div className="estimate-popup__summary-value-row">
-                <span className="estimate-popup__summary-label">В смену со скидкой:</span>
-                <span className="estimate-popup__summary-number"></span>
-              </div>
-              <div className="estimate-popup__summary-value-row">
-                <span className="estimate-popup__summary-label">Всего за проект:</span>
-                <span className="estimate-popup__summary-number"></span>
-              </div>
-            </div>
-          </div>
-          <div className="estimate-popup__summary-row">
-            <span>Итоговая стоимость обслуживания</span>
-            <div className="estimate-popup__summary-values">
-              <div className="estimate-popup__summary-value-row">
-                <span className="estimate-popup__summary-label">В смену:</span>
-                <span className="estimate-popup__summary-number"></span>
-              </div>
-              <div className="estimate-popup__summary-value-row">
-                <span className="estimate-popup__summary-label">Скидка %:</span>
-                <input 
-                  type="number" 
-                  className="estimate-popup__summary-discount" 
-                  min="0" 
-                  max="100" 
-                  defaultValue="0"
-                />
-              </div>
-              <div className="estimate-popup__summary-value-row">
-                <span className="estimate-popup__summary-label">В смену со скидкой:</span>
-                <span className="estimate-popup__summary-number"></span>
-              </div>
-              <div className="estimate-popup__summary-value-row">
-                <span className="estimate-popup__summary-label">Всего за проект:</span>
-                <span className="estimate-popup__summary-number"></span>
-              </div>
-            </div>
-          </div>
-          <div className="estimate-popup__summary-row">
-            <span>Общая стоимость</span>
-            <div className="estimate-popup__summary-values">
-              <div className="estimate-popup__summary-value-row">
-                <span className="estimate-popup__summary-label">За проект:</span>
-                <span className="estimate-popup__summary-number">
-                </span>
-              </div>
-              <div className="estimate-popup__summary-value-row">
-                <span className="estimate-popup__summary-label">УСН %:</span>
-                <input 
-                  type="number" 
-                  className="estimate-popup__summary-discount" 
-                  min="0" 
-                  max="100" 
-                  defaultValue="6"
-                />
-              </div>
-              <div className="estimate-popup__summary-value-row">
-                <span className="estimate-popup__summary-label">При оплате по УСН:</span>
-                <span className="estimate-popup__summary-number"></span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <EstimateSummary sections={estimateData.sections} />
 
         <div className="estimate-popup__controls">
           <button 
