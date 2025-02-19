@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-const EstimateSummary = ({ sections }) => {
+const EstimateSummary = ({ sections, shiftsCount }) => {
   const [equipmentDiscount, setEquipmentDiscount] = useState(0);
   const [equipmentTotal, setEquipmentTotal] = useState(0);
   const [equipmentTotalWithDiscount, setEquipmentTotalWithDiscount] = useState(0);
   const [serviceTotal, setServiceTotal] = useState(0);
+  const [usnDiscount, setUsnDiscount] = useState(6);
+  const [usnTotal, setUsnTotal] = useState(0);
 
   useEffect(() => {
     let equipmentSum = 0;
@@ -41,7 +43,12 @@ const EstimateSummary = ({ sections }) => {
     setEquipmentTotal(equipmentSum);
     setEquipmentTotalWithDiscount(equipmentSum * (1 - equipmentDiscount / 100));
     setServiceTotal(servicesSum);
-  }, [sections, equipmentDiscount]);
+
+    // Calculate USN total
+    const totalWithDiscount = (equipmentSum * (1 - equipmentDiscount / 100) + servicesSum) * shiftsCount;
+    const usnTotalValue = totalWithDiscount / (1 - usnDiscount / 100);
+    setUsnTotal(usnTotalValue);
+  }, [sections, equipmentDiscount, usnDiscount, shiftsCount]);
 
   return (
     <div className="estimate-popup__summary">
@@ -69,7 +76,7 @@ const EstimateSummary = ({ sections }) => {
           </div>
           <div className="estimate-popup__summary-value-row">
             <span className="estimate-popup__summary-label">Всего за проект:</span>
-            <span className="estimate-popup__summary-number">{(equipmentTotalWithDiscount * sections[0]?.tools[0]?.days || 0).toFixed(2)}</span>
+            <span className="estimate-popup__summary-number">{(equipmentTotalWithDiscount * shiftsCount).toFixed(2)}</span>
           </div>
         </div>
       </div>
@@ -82,7 +89,7 @@ const EstimateSummary = ({ sections }) => {
           </div>
           <div className="estimate-popup__summary-value-row">
             <span className="estimate-popup__summary-label">Всего за проект:</span>
-            <span className="estimate-popup__summary-number">{(serviceTotal * sections[0]?.tools[0]?.days || 0).toFixed(2)}</span>
+            <span className="estimate-popup__summary-number">{(serviceTotal * shiftsCount).toFixed(2)}</span>
           </div>
         </div>
       </div>
@@ -92,22 +99,23 @@ const EstimateSummary = ({ sections }) => {
           <div className="estimate-popup__summary-value-row">
             <span className="estimate-popup__summary-label">За проект:</span>
             <span className="estimate-popup__summary-number">
-              {((equipmentTotalWithDiscount + serviceTotal) * sections[0]?.tools[0]?.days || 0).toFixed(2)}
+              {((equipmentTotalWithDiscount + serviceTotal) * shiftsCount).toFixed(2)}
             </span>
           </div>
           <div className="estimate-popup__summary-value-row">
             <span className="estimate-popup__summary-label">УСН %:</span>
             <input 
               type="number" 
-              className="estimate-popup__summary-discount" 
+              className="estimate-popup__summary-discount estimate-popup__summary-discount--usn"
               min="0" 
               max="100" 
-              defaultValue="6"
+              value={usnDiscount}
+              onChange={(e) => setUsnDiscount(Number(e.target.value))}
             />
           </div>
           <div className="estimate-popup__summary-value-row">
             <span className="estimate-popup__summary-label">При оплате по УСН:</span>
-            <span className="estimate-popup__summary-number"></span>
+            <span className="estimate-popup__summary-number">{usnTotal.toFixed(2)}</span>
           </div>
         </div>
       </div>

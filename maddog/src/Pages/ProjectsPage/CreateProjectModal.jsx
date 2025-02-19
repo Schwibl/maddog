@@ -55,7 +55,7 @@ function CreateProjectModal({closeCreateProjectModal}) {
     status: projectsStatusesList[0]?.value || "CREATE",
     name: '',
     typeLease: leaseTypesList[0]?.value || 'STRAIGHT',
-    quantity: 0,
+    quantity: 1,
     employeeId: 0,
     start: new Date().toISOString().split('T')[0],
     end: new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0],
@@ -151,16 +151,12 @@ function CreateProjectModal({closeCreateProjectModal}) {
     if (formData.quantity === 0) invalidFields.push({ ref: quantityRef, name: 'quantity' });
     if (!formData.start) invalidFields.push({ ref: startRef, name: 'start date' });
     if (!formData.end) invalidFields.push({ ref: endRef, name: 'end date' });
-    if (formData.workingShifts.length === 0) invalidFields.push({ ref: shiftsRef, name: 'shifts' });
 
     // Clear all validation styles
-    [numberRef, nameRef, contactRef, quantityRef, startRef, endRef, shiftsRef]
+    [numberRef, nameRef, contactRef, quantityRef, startRef, endRef]
       .forEach(ref => {
         if (ref?.current) {
           ref.current.classList.remove(styles.invalid);
-          if (ref === shiftsRef) {
-            ref.current.parentElement?.classList.remove(styles.invalid);
-          }
         }
       });
 
@@ -168,9 +164,6 @@ function CreateProjectModal({closeCreateProjectModal}) {
       invalidFields.forEach(field => {
         if (field.ref?.current) {
           field.ref.current.classList.add(styles.invalid);
-          if (field.ref === shiftsRef) {
-            field.ref.current.parentElement?.classList.add(styles.invalid);
-          }
         }
       });
 
