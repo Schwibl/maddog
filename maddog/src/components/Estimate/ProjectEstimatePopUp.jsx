@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getEstimateById } from '../../actions/estimateApi';
+import { useDispatch } from 'react-redux';
+import { postEstimate } from '../../actions/estimateApi';
 import EstimateSummary from './EstimateSummary';
 import './estimate.scss';
 
@@ -9,6 +9,7 @@ const ProjectEstimatePopUp = ({ project, pattern, onClose }) => {
   const dispatch = useDispatch();
   const [toolValues, setToolValues] = useState({});
   const [selectedItems, setSelectedItems] = useState(new Set());
+  const [isSaving, setIsSaving] = useState(false);
   const [estimateData, setEstimateData] = useState({
     period: {
       start: project.start,
@@ -48,10 +49,78 @@ const ProjectEstimatePopUp = ({ project, pattern, onClose }) => {
     }
   }, [pattern, estimateData]);
 
-  const handleSave = () => {
-    console.log('Saving estimate for project:', project.id);
-    // TODO: Implement save functionality
-    onClose();
+  /**
+   * Обработчик сохранения сметы.
+   * Собирает данные из состояния компонента и отправляет их на сервер
+   * с помощью action postEstimate
+   */
+  const handleSave = async () => {
+    try {
+      setIsSaving(true);
+      console.log('Saving estimate for project:', project.id);
+      
+      // Подготавливаем данные для отправки на сервер
+      const dataToSave = {
+        projectId: project.id,
+        name: project.name,
+        quantityShifts: String(project.quantity || project.workingShifts.length),
+        filmingPeriod: `${project.start} - ${project.end}`,
+        operator: project.employee.fullName,
+        customer: project.client.name,
+        manager: project.employee.fullName,
+        phone: project.employee.phoneNumber || "",
+        site: "",
+        
+        // Format sections according to API requirements
+        sections: estimateData.sections
+          .filter(section => section.tools.length > 0) // Only include sections that have tools
+          .map(section => ({
+            name: section.name,
+            tools: section.tools.map(tool => {
+              // Get the tool values from state or use defaults
+              const days = getToolValue(tool.id, 'days', 1);
+              const discount = getToolValue(tool.id, 'discount', 0);
+              
+              return {
+                name: tool.name,
+                price: String(tool.amount || 0),
+                quantity: String(tool.quantity || 1),
+                sectionId: 0,
+                services: (tool.services || []).map(service => {
+                  // Get the service values from state or use defaults
+                  const serviceDays = getToolValue(`${tool.id}-${service.id}`, 'days', 1);
+                  const serviceDiscount = getToolValue(`${tool.id}-${service.id}`, 'discount', 0);
+                  
+                  return {
+                    name: service.name,
+                    price: String(service.amount || 0),
+                    quantity: String(service.quantity || 1),
+                    toolId: 0
+                  };
+                })
+              };
+            })
+          }))
+      };
+      
+      console.log('Sending estimate data:', dataToSave);
+      
+      // Отправляем данные на сервер
+      const result = await dispatch(postEstimate(dataToSave)).unwrap();
+      console.log('Estimate saved successfully:', result);
+      
+      // Показываем уведомление об успешном сохранении
+      alert('Смета успешно сохранена');
+      
+      // Закрываем окно
+      onClose();
+    } catch (error) {
+      // Если произошла ошибка, показываем уведомление с ошибкой
+      alert(`Ошибка при сохранении сметы: ${error.message || 'Неизвестная ошибка'}`);
+      console.error('Error saving estimate:', error);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleSelectItem = (itemId) => {
@@ -358,12 +427,14 @@ const ProjectEstimatePopUp = ({ project, pattern, onClose }) => {
           <button 
             className="estimate-popup__button estimate-popup__button--save"
             onClick={handleSave}
+            disabled={isSaving}
           >
-            Сохранить
+            {isSaving ? 'Сохранение...' : 'Сохранить'}
           </button>
           <button 
             className="estimate-popup__button estimate-popup__button--cancel"
             onClick={onClose}
+            disabled={isSaving}
           >
             Отмена
           </button>

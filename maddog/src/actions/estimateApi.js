@@ -20,3 +20,32 @@ export const getEstimateById = createAsyncThunk(
     }
   }
 );
+
+
+/**
+ * Асинхронный thunk для отправки данных сметы на сервер
+ * @param {Object} data - Данные сметы для сохранения
+ * @returns {Promise} - Промис с результатом запроса
+ */
+export const postEstimate = createAsyncThunk(
+  'estimate/postEstimate',
+  async (data, thunkAPI) => {
+    try {
+      // Use projectId in the URL path
+      const response = await fetchWithAuth(`${BASE_URL}estimate/${data.projectId}`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const checkedResponse = await checkRequest(response);
+      // Обновляем текущую смету в Redux store
+      thunkAPI.dispatch(setCurrentEstimate(checkedResponse));
+      return checkedResponse;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
