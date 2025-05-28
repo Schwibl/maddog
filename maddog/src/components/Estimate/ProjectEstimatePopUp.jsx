@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { postEstimate } from '../../actions/estimateApi';
+import { postEstimate, postNewEstimate } from '../../actions/estimateApi';
 import EstimateSummary from './EstimateSummary';
 import './estimate.scss';
 
@@ -106,7 +106,7 @@ const ProjectEstimatePopUp = ({ project, pattern, onClose }) => {
       console.log('Sending estimate data:', dataToSave);
       
       // Отправляем данные на сервер
-      const result = await dispatch(postEstimate(dataToSave)).unwrap();
+      const result = await dispatch(postNewEstimate(dataToSave)).unwrap();
       console.log('Estimate saved successfully:', result);
       
       // Показываем уведомление об успешном сохранении

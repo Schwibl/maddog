@@ -49,3 +49,21 @@ export const postEstimate = createAsyncThunk(
   }
 );
 
+export const postNewEstimate = createAsyncThunk(
+  'estimate/postNewEstimate',
+  async (data, thunkAPI) => {
+    try {
+      const response = await fetchWithAuth(`${BASE_URL}pattern`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const checkedResponse = await checkRequest(response);
+      return checkedResponse;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
