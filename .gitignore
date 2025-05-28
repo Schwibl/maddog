@@ -1,2 +1,6 @@
 maddog/todo.mdx
 .DS_Store
+
+maddog/node_modules
+maddog/build
+maddog/package-lock.json
