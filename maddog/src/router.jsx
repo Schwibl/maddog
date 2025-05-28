@@ -4,7 +4,7 @@ import App from './App';
 import { Layout } from './layouts/Layout';
 import { LayoutChild } from './layouts/LayoutChild';
 import { NotFound } from './Pages/404/404';
-import AdminPage from './Pages/AdminPage/AdminPage';
+import AdminPage from './Pages/adminPage/AdminPage';
 import ContactsPage from './Pages/ContactsPage/ContactsPage';
 import EstimatePage from './Pages/EstimatePage/EstimatePage';
 import NewProjectPage from './Pages/NewProjectPage/NewProjectPage';
